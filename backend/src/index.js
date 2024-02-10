@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import { sequelize } from "./config/db.js"
 
 const corsOptions = {
     origin: '*',
