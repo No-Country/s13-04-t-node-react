@@ -1,0 +1,62 @@
+import { sequelize } from '../config/db.js';
+import { DataTypes } from 'sequelize';
+import { User } from '../model/user.js';
+
+const Garages = sequelize.define('Garages', {
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        allowNull: false
+    },
+    idUser: {
+        type: DataTypes.UUID,
+        field: 'id_user',
+        allowNull: false,
+        references: {
+            key: 'id',
+            model: User
+        }
+    },
+    name : {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    address: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    capacity: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    amount: {
+        type: DataTypes.DOUBLE,
+        allowNull: false
+    },
+    whitConfirmation : {
+        type: DataTypes.BOOLEAN,
+        field: 'whit_confirmation',
+        defaultValue: false,
+        allowNull: false
+    },
+    available: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+    },
+    coordinates: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    rating: {
+        type:DataTypes.FLOAT,
+        allowNull: false
+    },
+    image: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }
+});
+
+export default Garages;

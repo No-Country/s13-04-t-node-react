@@ -1,0 +1,1 @@
+import Garages from "../model/garage";
