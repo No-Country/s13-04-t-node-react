@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import routerGeneral from "./routes/index.js"
 import { sequelize } from "./config/db.js"
+import './model/index.js'
 import { errorHandler } from './middleware/errors.js'
 
 const corsOptions = {

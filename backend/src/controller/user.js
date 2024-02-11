@@ -5,7 +5,7 @@ import { AlreadyExist, NotFound } from "../middleware/errors.js";
 const getAllUser= async(req,res, next)=>{
     try{
         const users= await User.findAll({attributes: { exclude: ['password'] }})
-        res.status(200).send(users)
+        res.status(200).send({"users":users})
     }catch(err){
         next(err)
     }
@@ -27,7 +27,7 @@ const getUser=async(req,res, next)=>{
 }
 
 const createUser=async(req,res, next)=>{
-    const {id,name,email,password,phone,role,rating,image}=req.body
+    const {name,email,password,phone,role,rating,image}=req.body
 
     try {
         
@@ -42,9 +42,9 @@ const createUser=async(req,res, next)=>{
             
         const passwordHash=bcrypt.hashSync(password,10)
     
-        const user = await User.create({id,name,email,password:passwordHash,phone,role,rating,image });
+        const user = await User.create({name,email,password:passwordHash,phone,role,rating,image });
         
-        return res.status(200).send({message:"user created"})    
+        return res.status(201).send({message:"user created"})    
     } catch (error) {
        next(error)
     }
@@ -66,7 +66,7 @@ const updateUser=async(req,res, next)=>{
     
         const user = await User.update({name,email,phone,role,rating,image },{where:{id:id}});
         
-        return res.status(200).send("user update")    
+        return res.status(200).send({"message" :"user updated", "user": user})    
     } catch (error) {
         next()
     }
@@ -87,7 +87,7 @@ const deleteUser=async(req,res, next)=>{
             where: { id: id }
           });
           
-        return res.status(200).send("user deleted")
+        return res.status(200).send({"message" :"user deleted"})
         } catch (error) {
             next(error)
     }
