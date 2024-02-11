@@ -1,16 +1,14 @@
 import { Router } from "express";
-
+import {getUser,getAllUser,createUser,updateUser,deleteUser} from "../controller/user.js"
 const route=Router()
 
 
 
-route.get("/",(req,res)=>{
-    res.send("vienvenido a get")
-})
-route.get("/:id")
-route.post("/:id")
-route.patch("/:id")
-route.delete("/:id")
+route.get("/",getAllUser)
+route.get("/:id",getUser)
+route.post("/",createUser)
+route.patch("/:id",updateUser)
+route.delete("/:id",deleteUser)
 
 
 export default route;

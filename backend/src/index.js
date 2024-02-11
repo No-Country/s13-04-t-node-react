@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import routerGeneral from "./routes/index.js"
+import { sequelize } from "./config/db.js"
 
 const corsOptions = {
     origin: '*',
@@ -12,13 +13,14 @@ const port = process.env.PORT || 3000
 
 const app = express()
 
+//middleware
 app.use(express.json())
 app.use(cors(corsOptions))
 
 //routes
 app.use("/api",routerGeneral)
 
-
+//listengin
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 })
