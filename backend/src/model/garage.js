@@ -1,6 +1,6 @@
 import { sequelize } from '../config/db.js';
 import { DataTypes } from 'sequelize';
-import  User  from '../model/user.js';
+import  User from './user.js';
 
 const Garages = sequelize.define('Garages', {
     id: {
@@ -51,6 +51,7 @@ const Garages = sequelize.define('Garages', {
     },
     rating: {
         type:DataTypes.FLOAT,
+        defaultValue: 0,
         allowNull: false
     },
     image: {
