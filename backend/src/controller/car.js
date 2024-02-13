@@ -27,6 +27,24 @@ export const getCar = async (req,res, next) => {
     }
 }
 
+export const getCarByUser = async (req,res, next) => {
+    try {
+        const {id} = req.params
+
+        const user = await User.findByPk(id);
+
+        if(!user){
+            throw new NotFound("User not found")
+        }
+
+        const cars = await Car.findAll({where: {"user_id": id}});
+
+        res.status(200).json({"cars": cars});
+    } catch (error) {
+        next(error)
+    }
+}
+
 export const createCar = async (req,res, next) => {
     try {
         const {idUser, brand, model, plate, color} = req.body

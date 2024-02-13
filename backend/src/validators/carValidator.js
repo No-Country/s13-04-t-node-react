@@ -1,6 +1,6 @@
 import { check } from "express-validator";
 
-export const validateGetCar=[
+export const validateID=[
     check('id', 'Invalid ID').isUUID(),
 ]
 
@@ -11,10 +11,6 @@ export const validateCreateCar = [
   check("plate", "Plate is required").isString().exists().trim(),
   check("color", "Color is required").isString().exists().trim(),
 ];
-
-export const validateDeleteCar=[
-  check('id', 'Invalid ID').isUUID(),
-]
 
 export const validateUpdateCar=[
   check('id','Car ID is not valid').isUUID(),
