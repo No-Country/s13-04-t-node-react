@@ -1,3 +1,9 @@
-export default function Landing(): JSX.Element {
-  return <div>Hola bebe</div>;
+import { Header } from '../components/Header';
+
+export default function Landing() {
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }
