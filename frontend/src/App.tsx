@@ -1,7 +1,7 @@
 // import AppProvider from './context/AppContext'
 import Navigation from './routes'
 
-function App (): JSX.Element {
+function App(): JSX.Element {
   return (
     // <AppProvider>
       <Navigation/>
@@ -9,4 +9,4 @@ function App (): JSX.Element {
   )
 }
 
-export default App
+export default App;
