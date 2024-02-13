@@ -7,7 +7,7 @@ const route=Router()
 
 
 route.use("/users",userRoute)
-route.use("/garage", garageRoute)
+route.use("/garages", garageRoute)
 route.use("/cars",carRoute)
 
 export default route;
