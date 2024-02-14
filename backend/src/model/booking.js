@@ -18,8 +18,9 @@ export const Booking = sequelize.define("Booking", {
     allowNull: false,
   },
   status: {
-    type: DataTypes.STRING,
+    type: DataTypes.ENUM("pending", "active", "inactive"),
     allowNull: false,
+    defaultValue: "pending",
   },
 });
 
