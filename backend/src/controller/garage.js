@@ -4,7 +4,7 @@ import { AlreadyExist, NotFound } from "../middleware/errors.js";
 const getAllGarages = async (req, res, next) => {
     try {
         const garages = await Garages.findAll()
-        res.status(200).send({garages})
+        res.status(200).send({"garages": garages})
     } catch (err) {
         next(err)
     }
@@ -26,30 +26,12 @@ const getGarage = async(req, res, next) => {
 
 const createGarage = async(req, res, next) => {
     const {idUser, name, address, capacity, amount, whitConfirmation, available,coordinates,rating, image } = req.body;
-    if(idUser && name && address && capacity && amount && whitConfirmation && available && coordinates && rating) {
         try {
             const garage = await Garages.create({idUser, name, address, capacity, amount, whitConfirmation, available,coordinates,rating, image});
             return res.status(200).send({message: "Garage created"})
         } catch (err) {
             next(err)
         }
-    } else {
-        res.status(400).send({
-            message: 'Missing data',
-            fields: {
-                idUser: 'UUID',
-                name: 'string',
-                address: 'string',
-                capacity: 'integer',
-                amount: 'double',
-                whitConfirmation: 'boolean',
-                available: 'boolean',
-                coordinates: 'string',
-                rating: 'float'
-            }
-        })
-    }
-    
 };
 
 const updateGarage = async(req, res, next) => {
