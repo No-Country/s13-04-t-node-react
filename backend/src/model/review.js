@@ -28,7 +28,7 @@ export const Review = sequelize.define("Review", {
         }
     },
     type: {
-      type: DataTypes.EMUN('User', 'Garage'),
+      type: DataTypes.ENUM('User', 'Garage'),
       allowNull: false,
     },
     rating: {

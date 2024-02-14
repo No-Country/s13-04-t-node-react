@@ -4,6 +4,7 @@ import { AlreadyExist, NotFound } from "../middleware/errors.js";
 const getAllGarages = async (req, res, next) => {
     try {
         const garages = await Garages.findAll()
+        res.status(200).send({garages})
     } catch (err) {
         next(err)
     }
