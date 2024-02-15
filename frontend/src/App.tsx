@@ -1,13 +1,12 @@
-// import React from 'react';
-// import AppProvider from './context/AppContext';
-import Navigation from './routes';
+// import AppProvider from './context/AppContext'
+import Navigation from './routes'
 
 function App(): JSX.Element {
   return (
-    <Navigation />
     // <AppProvider>
+      <Navigation/>
     // </AppProvider>
-  );
+  )
 }
 
 export default App;
