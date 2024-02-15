@@ -1,6 +1,5 @@
 import User from "../model/user.js";
-import bcrypt from "bcrypt"
-import { AlreadyExist, NotFound } from "../middleware/errors.js";
+import { NotFound } from "../middleware/errors.js";
 
 const getAllUser= async(req,res, next)=>{
     try{
@@ -29,19 +28,17 @@ const getUser=async(req,res, next)=>{
 
 const updateUser=async(req,res, next)=>{
     const {id}=req.params
-    const {name,email,phone,role,rating,image}=req.body
 
     try {
         
-        const checkUser=await User.findByPk(id) 
+        const user=await User.findByPk(id) 
 
-            if(!checkUser){
-                throw new NotFound("User not found")
-            }
-            
+        if(!user){
+            throw new NotFound("User not found")
+        }
     
-        const user = await User.update({name,email,phone,role,rating,image },{where:{id:id}});
-        
+        user.set( {...req.body});
+        user.save();
         return res.status(200).send({"message" :"user updated", "user": user})    
     } catch (error) {
         next()

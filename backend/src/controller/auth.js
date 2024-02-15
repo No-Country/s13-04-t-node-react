@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import {config} from "../config/config.js"
 import { Unauthorized, AlreadyExist } from "../middleware/errors.js";
+import { uploadImage } from "../utils/imageService.js";
 
 const login= async(req,res,next)=>{
  
@@ -38,10 +39,14 @@ const register=async(req,res, next)=>{
               email:email, 
             }}) 
 
-            if(checkEmail){
-                throw new AlreadyExist("Email already exist")
-            }
-            
+        if(checkEmail){
+            throw new AlreadyExist("Email already exist")
+        }
+        
+        if(image) {
+            image = await uploadImage(image)
+        }
+
         const passwordHash=bcrypt.hashSync(password,10)
     
         const user = await User.create({name,email,password:passwordHash,phone,role,rating,image });
