@@ -4,15 +4,21 @@ import {
   deleteBooking,
   getAllBookings,
   getBooking,
+  getBookingByCar,
+  getBookingByGarage,
   updateBooking,
 } from "../controller/booking.js";
+import { validateFields } from "../middleware/validatorGeneral.js";
+import { validateCreateBooking } from "../validators/bookingValidator.js";
 
 const route = Router();
 
 route.get("/", getAllBookings);
 route.get("/:id", getBooking);
-route.post("/", createBooking);
-route.put("/:id", updateBooking);
-route.delete("/:id", deleteBooking);
+route.get("/car/:id", getBookingByCar);
+route.get("/garage/:id", getBookingByGarage);
+route.post("/", validateCreateBooking, validateFields, createBooking);
+route.put("/:id", validateFields, updateBooking);
+route.delete("/:id", validateFields, deleteBooking);
 
 export default route;
