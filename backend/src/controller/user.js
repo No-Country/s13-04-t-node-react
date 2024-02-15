@@ -26,30 +26,6 @@ const getUser=async(req,res, next)=>{
     }
 }
 
-const createUser=async(req,res, next)=>{
-    const {name,email,password,phone,role,rating,image}=req.body
-
-    try {
-        
-        const checkEmail=await User.findOne({
-            where: {
-              email:email, 
-            }}) 
-
-            if(checkEmail){
-                throw new AlreadyExist("Email already exist")
-            }
-            
-        const passwordHash=bcrypt.hashSync(password,10)
-    
-        const user = await User.create({name,email,password:passwordHash,phone,role,rating,image });
-        
-        return res.status(201).send({message:"user created"})    
-    } catch (error) {
-       next(error)
-    }
-    
-}
 
 const updateUser=async(req,res, next)=>{
     const {id}=req.params
@@ -95,4 +71,4 @@ const deleteUser=async(req,res, next)=>{
 
 
 
-export{getUser,getAllUser,createUser,updateUser,deleteUser}
+export{getUser,getAllUser,updateUser,deleteUser}
