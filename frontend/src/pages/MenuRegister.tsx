@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Header } from '../components/Header';
 
-export const MenuRegister = () => {
+export default function MenuRegister() {
   return (
     <div>
       <Header />
@@ -24,4 +24,4 @@ export const MenuRegister = () => {
       </div>
     </div>
   );
-};
+}

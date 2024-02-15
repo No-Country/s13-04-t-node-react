@@ -1,6 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
-import { Landing, Login, NotFound, Register } from './LazyRoutes';
-import { MenuRegister } from '../pages/MenuRegister';
+import {
+  Home,
+  Landing,
+  Login,
+  MenuRegister,
+  NotFound,
+  Register,
+} from './LazyRoutes';
 
 export default function NoAuthRouter() {
   return (
@@ -9,6 +15,7 @@ export default function NoAuthRouter() {
       <Route path='/acceso' element={<Login />} />
       <Route path='/registro' element={<Register />} />
       <Route path='/menu/registro' element={<MenuRegister />} />
+      <Route path='/home' element={<Home />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );

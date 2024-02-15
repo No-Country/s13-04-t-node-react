@@ -15,8 +15,11 @@ const Landing: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const Home: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/Home')
 );
+const MenuRegister: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  async () => await import('../pages/MenuRegister')
+);
 const NotFound: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/NotFound')
 );
 
-export { Onboarding, Landing, NotFound, Login, Register, Home };
+export { Onboarding, Landing, NotFound, Login, Register, Home, MenuRegister };
