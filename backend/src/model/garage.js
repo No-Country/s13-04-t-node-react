@@ -26,12 +26,30 @@ const Garages = sequelize.define('Garages', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    country : {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    province: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    zipCode: {
+        type: DataTypes.STRING,
+        field: 'zip_code',
+        allowNull: false
+    },
     capacity: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
     amount: {
-        type: DataTypes.DOUBLE,
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
         allowNull: false
     },
     whitConfirmation : {
