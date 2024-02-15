@@ -7,7 +7,6 @@ interface Inputs {
   postalCode: number
   state: string
   country: string
-
 }
 
 export default function AddNewParking () {
