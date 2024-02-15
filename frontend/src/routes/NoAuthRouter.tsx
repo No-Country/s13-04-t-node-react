@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom';
 import {
   AddNewParking,
   Home,
@@ -7,7 +7,7 @@ import {
   MenuRegister,
   NotFound,
   Register
-} from './LazyRoutes'
+} from './LazyRoutes';
 
 export default function NoAuthRouter () {
   return (
@@ -20,5 +20,5 @@ export default function NoAuthRouter () {
       <Route path='/home' element={<Home />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
-  )
+  );
 }

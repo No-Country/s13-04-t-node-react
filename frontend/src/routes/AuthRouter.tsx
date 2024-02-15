@@ -1,5 +1,5 @@
-import { Route, Routes } from 'react-router-dom'
-import { Home, NotFound } from './LazyRoutes'
+import { Route, Routes } from 'react-router-dom';
+import { Home, NotFound } from './LazyRoutes';
 
 export default function AuthRouter () {
   return (
@@ -7,5 +7,5 @@ export default function AuthRouter () {
       <Route path='/home' element={<Home />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
-  )
+  );
 }

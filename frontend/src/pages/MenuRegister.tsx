@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { Header } from '../components/Header'
+import { Link } from 'react-router-dom';
+import { Header } from '../components/Header';
 
 export default function MenuRegister () {
   return (
@@ -23,5 +23,5 @@ export default function MenuRegister () {
         </Link>
       </div>
     </div>
-  )
+  );
 }

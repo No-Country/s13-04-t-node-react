@@ -1,4 +1,4 @@
-import { type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form';
 interface Inputs {
   typeParking: string
   nameParking: string
@@ -14,8 +14,8 @@ export default function AddNewParking () {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => { console.log(data) }
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = (data) => { console.log(data); };
   return (
     <main className='p-6' >
       <h1 className='font-bold'>AÑADIR ESTACIONAMIENTO</h1>
@@ -62,5 +62,5 @@ export default function AddNewParking () {
       <button className='border rounded-md p-2 font-bold'>Cancelar</button>
     </form>
     </main>
-  )
+  );
 }
