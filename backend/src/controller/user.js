@@ -1,6 +1,5 @@
 import User from "../model/user.js";
-import bcrypt from "bcrypt"
-import { AlreadyExist, NotFound } from "../middleware/errors.js";
+import { NotFound } from "../middleware/errors.js";
 
 const getAllUser= async(req,res, next)=>{
     try{
@@ -26,46 +25,20 @@ const getUser=async(req,res, next)=>{
     }
 }
 
-const createUser=async(req,res, next)=>{
-    const {name,email,password,phone,role,rating,image}=req.body
-
-    try {
-        
-        const checkEmail=await User.findOne({
-            where: {
-              email:email, 
-            }}) 
-
-            if(checkEmail){
-                throw new AlreadyExist("Email already exist")
-            }
-            
-        const passwordHash=bcrypt.hashSync(password,10)
-    
-        const user = await User.create({name,email,password:passwordHash,phone,role,rating,image });
-        
-        return res.status(201).send({message:"user created"})    
-    } catch (error) {
-       next(error)
-    }
-    
-}
 
 const updateUser=async(req,res, next)=>{
     const {id}=req.params
-    const {name,email,phone,role,rating,image}=req.body
 
     try {
         
-        const checkUser=await User.findByPk(id) 
+        const user=await User.findByPk(id) 
 
-            if(!checkUser){
-                throw new NotFound("User not found")
-            }
-            
+        if(!user){
+            throw new NotFound("User not found")
+        }
     
-        const user = await User.update({name,email,phone,role,rating,image },{where:{id:id}});
-        
+        user.set( {...req.body});
+        user.save();
         return res.status(200).send({"message" :"user updated", "user": user})    
     } catch (error) {
         next()
@@ -95,4 +68,4 @@ const deleteUser=async(req,res, next)=>{
 
 
 
-export{getUser,getAllUser,createUser,updateUser,deleteUser}
+export{getUser,getAllUser,updateUser,deleteUser}

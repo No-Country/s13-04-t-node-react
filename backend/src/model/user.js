@@ -29,6 +29,8 @@ const User = sequelize.define('User', {
     },
     rating: {
       type: DataTypes.FLOAT,
+      defaultValue: null,
+      allowNull: true
     },
     image: {
       type: DataTypes.STRING,

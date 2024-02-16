@@ -1,6 +1,7 @@
 import { sequelize } from '../config/db.js';
 import { DataTypes } from 'sequelize';
 import  User from './user.js';
+import { Image } from './image.js';
 
 const Garages = sequelize.define('Garages', {
     id: {
@@ -26,13 +27,35 @@ const Garages = sequelize.define('Garages', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    country : {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    province: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    zipCode: {
+        type: DataTypes.STRING,
+        field: 'zip_code',
+        allowNull: false
+    },
     capacity: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
     amount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    price: {
         type: DataTypes.DOUBLE,
-        allowNull: false
+        allowNull: false,
     },
     whitConfirmation : {
         type: DataTypes.BOOLEAN,
@@ -51,13 +74,11 @@ const Garages = sequelize.define('Garages', {
     },
     rating: {
         type:DataTypes.FLOAT,
-        defaultValue: 0,
-        allowNull: false
-    },
-    image: {
-        type: DataTypes.STRING,
+        defaultValue: null,
         allowNull: true
     }
 });
+
+Garages.hasMany(Image, { foreignKey: 'garage_id', as: 'images' });
 
 export default Garages;
