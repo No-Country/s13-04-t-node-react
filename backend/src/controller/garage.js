@@ -5,7 +5,7 @@ import { Image } from "../model/image.js";
 
 const getAllGarages = async (req, res, next) => {
     try {
-        const garages = await Garages.findAll()
+        const garages = await Garages.findAll({include: [{model: Image, as: "images", attributes: ["id","route"]}]})
         res.status(200).send({"garages": garages})
     } catch (err) {
         next(err)
@@ -27,12 +27,12 @@ const getGarage = async(req, res, next) => {
 };
 
 const createGarage = async(req, res, next) => {
-    const {idUser, name, address, capacity, price, whitConfirmation, available, coordinates} = req.body;
+    const {idUser, name, address, country, province, city, zipCode, capacity, price, whitConfirmation, coordinates} = req.body;
     let images = req.files?.images || null
     try {
-        const garage = await Garages.create({idUser, name, address, capacity, price, whitConfirmation, available,coordinates});
+        const garage = await Garages.create({idUser, name, address, country, province, city, zipCode, capacity, price, whitConfirmation, coordinates});
 
-        if(images.length !== 0){
+        if(images && images.length !== 0){
             images = await uploadImages(images)
             await Image.bulkCreate(images.map(image => ({route: image, garage_id: garage.id})))
         }

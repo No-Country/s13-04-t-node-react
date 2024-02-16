@@ -27,6 +27,23 @@ const Garages = sequelize.define('Garages', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    country : {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    province: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    zipCode: {
+        type: DataTypes.STRING,
+        field: 'zip_code',
+        allowNull: false
+    },
     capacity: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -57,8 +74,8 @@ const Garages = sequelize.define('Garages', {
     },
     rating: {
         type:DataTypes.FLOAT,
-        defaultValue: 0.0,
-        allowNull: false
+        defaultValue: null,
+        allowNull: true
     }
 });
 

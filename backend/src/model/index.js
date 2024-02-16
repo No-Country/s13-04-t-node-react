@@ -7,5 +7,5 @@ import { Image } from "./image.js";
 await User.sync();
 await Car.sync();
 await Image.sync()
-await Garages.sync({alter: true});
+await Garages.sync();
 await Booking.sync();
