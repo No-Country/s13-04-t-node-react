@@ -1,16 +1,17 @@
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom';
 
 export default function Login(): JSX.Element {
-  const { reset, register, handleSubmit, formState: { errors } } = useForm()
+  const { reset, register, handleSubmit } = useForm()
 
   const enviarDatos = handleSubmit(async (data) => {
-    console.log(data); 
+    console.log(data);
     /*
     1- controlar los datos
     2- enviar la peticion a el servidor
     3- si  todo esta bien dirigir al home
     4- si esta mal, mostrar un mensaje de error
-    */  
+    */
     reset();
   });
 
@@ -18,7 +19,9 @@ export default function Login(): JSX.Element {
   return (
     <>
       <section>
+        <Link to='/'>
         <h1 className='w-32 mt-3 text-2xl ml-[16px]'>Bienvenido</h1>
+        </Link>
       </section>
 
       <section className="flex justify-center m-2 min-h-96 ">
@@ -43,9 +46,9 @@ export default function Login(): JSX.Element {
                 }
               })}
             />
-            {
+            {/* {
               errors.correo && <span className='text-red-500'> {errors.correo.message} </span>
-            }
+            } */}
           </article>
 
           <article className="flex flex-col ">
@@ -72,12 +75,12 @@ export default function Login(): JSX.Element {
                 pattern: {
                   value: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i,
                   message: "La contraseña debe tener al menos un número, una minúscula y una mayúscula."
-                }            
+                }
               })}
             />
-            {
+            {/* {
               errors.contraseña ? <span className='text-red-600'>{errors.contraseña.message}</span> : null
-            }
+            } */}
           </article>
 
 
@@ -89,7 +92,12 @@ export default function Login(): JSX.Element {
 
             <hr className='w-full mr-4 border-solid border-black' /> O <hr className='w-full ml-4 border-solid border-black' />
           </article>
-          <button className="my-2 p-1 border-solid border-black border-[1px] rounded-[10px]">Registrate</button>
+
+          <Link
+            to='/registro'
+            className='text-center my-2 p-1 border-solid border-black border-[1px] rounded-[10px]'>
+            Registrarse 
+          </Link>
         </form>
 
       </section>
