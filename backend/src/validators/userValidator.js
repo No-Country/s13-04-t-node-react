@@ -10,9 +10,6 @@ const validateCreateUser = [
   check("role", "Dirección no válida").optional().trim(),
 
   check("phone", "Número no válido").optional().isNumeric().isLength({ min:6 }),
-
-  check("rating").optional().isEmpty(),
-  check("image").optional().isString().trim()
 ];
 
 

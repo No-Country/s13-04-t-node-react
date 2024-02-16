@@ -60,7 +60,6 @@ export const createCar = async (req,res, next) => {
 export const updateCar = async (req, res, next) => {
     try {
         const {id} = req.params
-        const {brand, model, plate, color} = req.body
 
         const car = await Car.findByPk(id);
 
@@ -68,7 +67,7 @@ export const updateCar = async (req, res, next) => {
             throw new NotFound("Car not found")
         }
 
-        car.set( {brand, model, plate, color} );
+        car.set( {...req.body});
         car.save();
         return res.status( 200 ).json({"message" :"car updated", "car": car });
     } catch (error) {
