@@ -6,6 +6,8 @@ import {
   MenuRegister,
   NotFound,
   Register,
+  AddNewVehicule,
+  CreatedAccount,
 } from './LazyRoutes';
 
 export default function NoAuthRouter() {
@@ -16,6 +18,8 @@ export default function NoAuthRouter() {
       <Route path='/registro' element={<Register />} />
       <Route path='/menu/registro' element={<MenuRegister />} />
       <Route path='/home' element={<Home />} />
+      <Route path='/nuevo-vehiculo' element={<AddNewVehicule />} />
+      <Route path='/cuenta-creada' element={<CreatedAccount />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
