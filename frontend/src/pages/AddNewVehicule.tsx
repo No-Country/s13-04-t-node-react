@@ -1,4 +1,6 @@
 import { type SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+
 interface Inputs {
   licensePlate: string
   vehiculeBrand: string
@@ -47,10 +49,13 @@ export default function AddNewVehicule (): JSX.Element {
           </section>
 
         {/* Botones de acción */}
+        <Link to='*'> 
         <button className='bg-gray-300 text-black rounded-md px-16 py-2 font-bold  mt-4 w-full' style={{  height: '40px', borderRadius: '10px', gap: '8px' }}>Guardar</button>
-
-        <button className='bg-white text-black border border-gray-400 rounded-md px-16 py-2 font-bold mt-1 w-full' style={{ height: '40px', borderRadius: '10px', padding: '8px 16px', border: '1px solid #979797', gap: '8px' }}>Cancelar</button>
-
+        </Link>
+        
+        <Link to='*'>
+          <button className='bg-white text-black border border-gray-400 rounded-md px-16 py-2 font-bold mt-1 w-full' style={{ height: '40px', borderRadius: '10px', padding: '8px 16px', border: '1px solid #979797', gap: '8px' }}>Cancelar</button>
+        </Link>
 
         </form>
       </main>
