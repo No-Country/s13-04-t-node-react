@@ -30,15 +30,14 @@ try {
 }
 
 const register=async(req,res, next)=>{
-    const {name,email,password,phone,role,rating,image}=req.body
-
+    const {name,email,password,phone,role}=req.body
+    let image = req.files?.image || null
     try {
-        
         const checkEmail=await User.findOne({
             where: {
               email:email, 
             }}) 
-
+        
         if(checkEmail){
             throw new AlreadyExist("Email already exist")
         }
@@ -49,7 +48,7 @@ const register=async(req,res, next)=>{
 
         const passwordHash=bcrypt.hashSync(password,10)
     
-        const user = await User.create({name,email,password:passwordHash,phone,role,rating,image });
+        const user = await User.create({name,email,password:passwordHash,phone,role,image });
         
         return res.status(201).send({message:"user created"})    
     } catch (error) {

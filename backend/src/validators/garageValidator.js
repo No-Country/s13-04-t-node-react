@@ -13,8 +13,9 @@ export const validateCreateGarage = [
     check("city", "City is required").isString().exists().trim(),
     check("zipCode", "Zip Code is required").isString().exists().trim(),
     check("coordinates", "Coordinates is required").isString().exists().trim(),
-    check("image").optional().isString().trim(),
-    
+    check("capacity", "Capacity is required").isNumeric().exists().trim(),
+    check("price", "Price is required").isNumeric().exists().trim(),
+    check("whitConfirmation" , "With confirmation is required").isBoolean().exists().trim(),
 ];
 
 export const validateUpdateGarage=[
