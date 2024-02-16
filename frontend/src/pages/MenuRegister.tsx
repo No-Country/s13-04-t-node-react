@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Header } from '../components/Header';
 
-export default function MenuRegister() {
+export default function MenuRegister () {
   return (
     <div>
       <Header />
@@ -15,7 +15,7 @@ export default function MenuRegister() {
         </Link>
 
         <Link
-          to='/registro/estacionamineto'
+          to='/menu/registro/estacionamiento'
           className='flex items-center gap-2 font-semibold'
         >
           <img src='/images/geo.svg' alt='icon-car' />

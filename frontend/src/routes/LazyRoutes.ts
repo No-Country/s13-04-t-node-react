@@ -21,5 +21,8 @@ const MenuRegister: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const NotFound: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/NotFound')
 );
+const AddNewParking: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  async () => await import('../pages/AddNewParking')
+);
 
-export { Onboarding, Landing, NotFound, Login, Register, Home, MenuRegister };
+export { Onboarding, Landing, NotFound, Login, Register, Home, MenuRegister, AddNewParking };
