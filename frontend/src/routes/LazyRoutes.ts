@@ -32,3 +32,4 @@ const AddNewParking: React.LazyExoticComponent<() => JSX.Element> = lazy(
 );
 
 export { Onboarding, Landing, NotFound, Login, Register, Home, MenuRegister, AddNewVehicule, CreatedAccount, AddNewParking };
+

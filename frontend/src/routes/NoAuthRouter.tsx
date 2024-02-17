@@ -24,6 +24,8 @@ export default function NoAuthRouter () {
         <Route path='cuenta-creada' element={<CreatedAccount />} />
       </Route>
       <Route path='/home' element={<Home />} />
+      <Route path='/nuevo-vehiculo' element={<AddNewVehicule />} />
+      <Route path='/cuenta-creada' element={<CreatedAccount />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
