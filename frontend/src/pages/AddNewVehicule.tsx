@@ -49,7 +49,7 @@ export default function AddNewVehicule (): JSX.Element {
           </section>
 
         {/* Botones de acción */}
-        <Link to='*'> 
+        <Link to='/registro/cuenta-creada'> 
         <button className='bg-gray-300 text-black rounded-md px-16 py-2 font-bold  mt-4 w-full' style={{  height: '40px', borderRadius: '10px', gap: '8px' }}>Guardar</button>
         </Link>
         
