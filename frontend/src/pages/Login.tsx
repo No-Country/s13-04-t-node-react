@@ -32,7 +32,7 @@ export default function Login(): JSX.Element {
   return (
     <>
       <section>
-        <Link to='/home'>
+        <Link to='/'>
         <h1 className='w-32 mt-3 text-2xl ml-[16px]'>Bienvenido</h1>
         </Link>
       </section>
@@ -59,7 +59,8 @@ export default function Login(): JSX.Element {
                 }
               })}
             />
-            {/* {
+
+            {/* {/* {
               errors.correo && <span className='text-red-500'> {errors.correo.message} </span>
             } */}
           </article>
@@ -104,7 +105,12 @@ export default function Login(): JSX.Element {
 
             <hr className='w-full mr-4 border-solid border-black' /> O <hr className='w-full ml-4 border-solid border-black' />
           </article>
-          <button className="my-2 p-1 border-solid border-black border-[1px] rounded-[10px]">Registrate</button>
+
+          <Link
+            to='/registro'
+            className='text-center my-2 p-1 border-solid border-black border-[1px] rounded-[10px]'>
+            Registrarse 
+          </Link>
         </form>
 
       </section>
