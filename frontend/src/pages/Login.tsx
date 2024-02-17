@@ -59,6 +59,7 @@ export default function Login(): JSX.Element {
                 }
               })}
             />
+
             {/* {/* {
               errors.correo && <span className='text-red-500'> {errors.correo.message} </span>
             } */}
