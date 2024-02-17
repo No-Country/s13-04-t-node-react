@@ -1,24 +1,40 @@
 import { useForm } from 'react-hook-form'
+import axios from 'axios'
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(): JSX.Element {
-  const { reset, register, handleSubmit, formState: { errors } } = useForm()
+  const { reset, register, handleSubmit } = useForm()
+  const navigate = useNavigate();
+  const baseURL = 'https://estacionar.azurewebsites.net/api/'
 
-  const enviarDatos = handleSubmit(async (data) => {
-    console.log(data); 
-    /*
-    1- controlar los datos
-    2- enviar la peticion a el servidor
-    3- si  todo esta bien dirigir al home
-    4- si esta mal, mostrar un mensaje de error
-    */  
-    reset();
+  const enviarDatos = handleSubmit(async (data) => {  
+    try {
+      const response = await axios.post(`${baseURL}auth/login`, {
+        email: data.correo,
+        password: data.contraseña
+      })
+     // Esto hay que mejorar y ver que se hace con los datos, creo que mandarlo al context seria lo correcto.
+      if(response.status === 200){
+        alert(response.data.message)
+        // localStorage.setItem("token", response.data.token)        
+        navigate("/home");
+      }else{        
+        alert('Hay algo mal en tus credenciales')
+        navigate('/acceso')
+      }
+    } catch (error) {
+      alert('Ups, algo salio mal')
+      reset();
+    }
   });
 
 
   return (
     <>
       <section>
+        <Link to='/'>
         <h1 className='w-32 mt-3 text-2xl ml-[16px]'>Bienvenido</h1>
+        </Link>
       </section>
 
       <section className="flex justify-center m-2 min-h-96 ">
@@ -43,9 +59,9 @@ export default function Login(): JSX.Element {
                 }
               })}
             />
-            {
+            {/* {/* {
               errors.correo && <span className='text-red-500'> {errors.correo.message} </span>
-            }
+            } */}
           </article>
 
           <article className="flex flex-col ">
@@ -68,19 +84,18 @@ export default function Login(): JSX.Element {
                 maxLength: {
                   value: 15,
                   message: 'no debe ser mayor a 15 caracteres'
-                },
-                pattern: {
-                  value: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i,
-                  message: "La contraseña debe tener al menos un número, una minúscula y una mayúscula."
-                }            
+                }
+                // ,
+                // pattern: {
+                //   value: /^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/i,
+                //   message: "La contraseña debe tener al menos un número, una minúscula y una mayúscula."
+                // }            
               })}
             />
-            {
+            {/* {
               errors.contraseña ? <span className='text-red-600'>{errors.contraseña.message}</span> : null
-            }
+            } */}
           </article>
-
-
 
           <button className='p-2 text-left'>¿Olvidaste la contraseña?</button>
           <button className="bg-[#D9D9D9] my-2 p-1 border-solid border-black border-[1px] rounded-[10px]">iniciar sesion</button>
@@ -89,7 +104,12 @@ export default function Login(): JSX.Element {
 
             <hr className='w-full mr-4 border-solid border-black' /> O <hr className='w-full ml-4 border-solid border-black' />
           </article>
-          <button className="my-2 p-1 border-solid border-black border-[1px] rounded-[10px]">Registrate</button>
+
+          <Link
+            to='/registro'
+            className='text-center my-2 p-1 border-solid border-black border-[1px] rounded-[10px]'>
+            Registrarse 
+          </Link>
         </form>
 
       </section>
