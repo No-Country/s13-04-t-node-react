@@ -33,7 +33,11 @@ export default function Landing() {
         </div>
 
         <div>
-          <img src='/images/image.png' alt='imagen' />
+          <img
+            src='/images/image.png'
+            alt='imagen'
+            className='w-full object-cover'
+          />
           <div className='flex flex-col py-6'>
             <h1 className='uppercase font-semibold text-xl'>
               ¿NECESITAS UN LUGAR PARA
@@ -55,7 +59,11 @@ export default function Landing() {
         </div>
 
         <div>
-          <img src='/images/image.png' alt='imagen' />
+          <img
+            src='/images/image.png'
+            alt='imagen'
+            className='w-full object-cover'
+          />
           <div className='flex flex-col pt-10'>
             <h1 className='uppercase font-semibold text-xl'>
               ¿QUERES GENERAR GANANCIAS

@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import {
-  Home,
   Landing,
   Login,
   MenuRegister,
@@ -15,7 +14,6 @@ export default function NoAuthRouter() {
       <Route path='/acceso' element={<Login />} />
       <Route path='/registro' element={<Register />} />
       <Route path='/menu/registro' element={<MenuRegister />} />
-      <Route path='/home' element={<Home />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
