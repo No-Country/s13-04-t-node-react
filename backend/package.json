@@ -21,6 +21,7 @@
     "express-validator": "^7.0.1",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.1",
+    "send-http-axios-doc": "^1.28.0",
     "sequelize": "^6.36.0"
   },
   "devDependencies": {
