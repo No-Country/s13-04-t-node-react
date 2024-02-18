@@ -1,12 +1,32 @@
+import { useState } from 'react';
 import { CardGaraje } from '../components/CardGaraje';
 import { Header } from '../components/Header';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { useCurrentUser } from '../hooks/auth';
+import { authService } from '../services/auth';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+  const navigate = useNavigate();
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
+  const user = useCurrentUser();
+
+  const logout = () => {
+    authService.logout();
+    navigate('/');
+  };
+
   return (
     <>
       <Header />
       <div className='px-4 py-8'>
-        <h1 className='uppercase text-2xl pb-8'>¡HOLA, USUARIO!</h1>
+        <h1 className='uppercase text-2xl pb-8'>¡HOLA, {user.name}!</h1>
+        <button type='button' onClick={logout}>
+          Logout
+        </button>
         <form className='flex flex-col gap-3'>
           <div className='relative'>
             <img
@@ -21,35 +41,45 @@ export default function Home() {
             />
           </div>
 
-          <div className='relative'>
+          <div className='relative flex flex-col w-full'>
             <img
               src='/images/calendario.svg'
               alt='calendario'
-              className='absolute left-2'
+              className='absolute left-2 z-10'
             />
-            <input
-              type='text'
+
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              showTimeSelect
+              dateFormat='d MMMM, yyyy h:mm aa'
+              minDate={new Date()}
               className='px-10 py-1 border border-black rounded-lg w-full outline-none placeholder:text-black font-semibold'
-              placeholder='¿Cuándo querés estacionar?'
+              placeholderText='¿Cuándo querés estacionar?'
             />
           </div>
 
-          <div className='relative'>
+          <div className='relative flex flex-col w-full'>
             <img
               src='/images/calendarioV2.svg'
               alt='calendario'
-              className='absolute left-2'
+              className='absolute left-2 z-10'
             />
-            <input
-              type='text'
+
+            <DatePicker
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              showTimeSelect
+              dateFormat='d MMMM, yyyy h:mm aa'
+              minDate={new Date()}
               className='px-10 py-1 border border-black rounded-lg w-full outline-none placeholder:text-black font-semibold'
-              placeholder='¿Hasta cuándo querés estacionar?'
+              placeholderText='¿Hasta cuándo querés estacionar?'
             />
           </div>
 
           <input
             type='submit'
-            className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center'
+            className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center mt-2'
             value='Buscar'
           />
         </form>
@@ -77,7 +107,7 @@ export default function Home() {
         </ul>
       </div>
 
-      <div className='px-4 pt-8'>
+      <div className='px-4 py-8'>
         <div className='flex justify-between gap-10 bg-[#D9D9D9] px-8 py-2 rounded-md'>
           <img src='/images/location.svg' alt='localizacion' />
           <div>
