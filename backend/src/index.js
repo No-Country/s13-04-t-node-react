@@ -5,6 +5,7 @@ import { sequelize } from "./config/db.js"
 import './model/index.js'
 import { errorHandler } from './middleware/errors.js'
 import fileUpload from 'express-fileupload'
+import { swaggerDocs } from './config/swagger.js'
 
 const corsOptions = {
     origin: '*',
@@ -33,4 +34,5 @@ app.use(errorHandler)
 //listengin
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
+    swaggerDocs(app, port)
 })
