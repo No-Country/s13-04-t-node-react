@@ -1,9 +1,10 @@
-import { HeaderClosedDriver } from '../components/HeaderClosedDriver';
+import { Link } from 'react-router-dom';
+import { HeaderLogo } from '../components/HeaderLogo';
 
 export const MyVehicles = () => {
   return (
     <>
-      <HeaderClosedDriver />
+      <HeaderLogo />
       <div className='px-4 py-10'>
         <div className='pb-8'>
           <h1 className='font-semibold text-2xl'>MIS VEHICULOS</h1>
@@ -31,14 +32,17 @@ export const MyVehicles = () => {
             </div>
           </div>
 
-          <div className='flex flex-col fixed bottom-10 inset-x-0 px-4'>
+          <Link
+            to='/agregar-vehiculo'
+            className='flex flex-col fixed bottom-10 inset-x-0 px-4'
+          >
             <button
               type='button'
               className='py-2 text-center bg-[#D58418] rounded-lg font-semibold'
             >
               Añadir vehículo
             </button>
-          </div>
+          </Link>
         </div>
       </div>
     </>

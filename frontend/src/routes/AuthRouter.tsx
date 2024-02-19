@@ -5,6 +5,7 @@ import { DriverEmail } from '../pages/DriverEmail';
 import { DriverPhone } from '../pages/DriverPhone';
 import { DriverPassword } from '../pages/DriverPassword';
 import { MyVehicles } from '../pages/MyVehicles';
+import { FormDriver } from '../pages/FormDriver';
 
 export default function AuthRouter() {
   return (
@@ -15,6 +16,7 @@ export default function AuthRouter() {
       <Route path='/editar-celular' element={<DriverPhone />} />
       <Route path='/editar-password' element={<DriverPassword />} />
       <Route path='/mis-vehiculos' element={<MyVehicles />} />
+      <Route path='/agregar-vehiculo' element={<FormDriver />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );

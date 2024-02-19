@@ -1,9 +1,9 @@
-import { HeaderClosedDriver } from '../components/HeaderClosedDriver';
+import { HeaderLogo } from '../components/HeaderLogo';
 
 export const DriverPhone = () => {
   return (
     <>
-      <HeaderClosedDriver />
+      <HeaderLogo />
       <div className='px-4 py-10'>
         <h1 className='font-semibold text-2xl uppercase pb-8'>Celular</h1>
 
@@ -12,7 +12,7 @@ export const DriverPhone = () => {
             <label className='pb-2'>Celular</label>
             <input
               type='text'
-              className='px-4 py-2 border border-[#D58418] rounded'
+              className='px-4 py-2 border border-[#D58418] rounded outline-none'
               placeholder='Ingresa tu nuevo número de celular'
             />
           </div>
