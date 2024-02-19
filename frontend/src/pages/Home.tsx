@@ -3,7 +3,6 @@ import { CardGaraje } from '../components/CardGaraje';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useCurrentUser } from '../hooks/auth';
-
 import { HeaderDriver } from '../components/HeaderDriver';
 import useSWR from 'swr';
 import { garageService } from '../services/garage';
