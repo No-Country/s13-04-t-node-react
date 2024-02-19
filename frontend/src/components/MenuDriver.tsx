@@ -1,19 +1,26 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { authService } from '../services/auth';
 import { mobileMenuAtom } from '../atoms/sidebar';
 import { useSetAtom } from 'jotai';
 import { useCurrentUser } from '../hooks/auth';
+import { useEffect } from 'react';
 
 export const MenuDriver = () => {
   const user = useCurrentUser();
   const navigate = useNavigate();
+  const location = useLocation();
   const setShowMobileMenu = useSetAtom(mobileMenuAtom);
 
   const logout = () => {
     authService.logout();
     navigate('/');
-    setShowMobileMenu(false);
   };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+  useEffect(() => {
+    setShowMobileMenu(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   return (
     <div className='sticky px-4 py-10'>
@@ -26,7 +33,7 @@ export const MenuDriver = () => {
       </div>
 
       <div className='flex flex-col gap-4 py-6 font-semibold'>
-        <Link to='/datos' className='flex items-center gap-2'>
+        <Link to='/mis-datos' className='flex items-center gap-2'>
           <img src='/images/user-icon.svg' alt='usuario-icon' />
           <h5>Mis datos</h5>
         </Link>
