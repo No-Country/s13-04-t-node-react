@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { HeaderClosedDriver } from '../components/HeaderClosedDriver';
+import { HeaderDriver } from '../components/HeaderDriver';
 
 export const MyDataDriver = () => {
   return (
     <>
-      <HeaderClosedDriver />
+      <HeaderDriver />
 
       <div className='px-4 py-10'>
         <h1 className='text-2xl font-semibold'>Mis Datos</h1>

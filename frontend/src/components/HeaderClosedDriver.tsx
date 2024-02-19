@@ -6,12 +6,6 @@ export const HeaderClosedDriver = () => {
       <Link to='/'>
         <img src='/images/logo.png' alt='logo' />
       </Link>
-
-      <Link to='/'>
-        <button type='button'>
-          <img src='/images/close.svg' alt='icon-close' />
-        </button>
-      </Link>
     </div>
   );
 };

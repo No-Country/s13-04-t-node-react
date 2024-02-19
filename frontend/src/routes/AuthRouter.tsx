@@ -4,6 +4,7 @@ import { MyDataDriver } from '../pages/MyDataDriver';
 import { DriverEmail } from '../pages/DriverEmail';
 import { DriverPhone } from '../pages/DriverPhone';
 import { DriverPassword } from '../pages/DriverPassword';
+import { MyVehicles } from '../pages/MyVehicles';
 
 export default function AuthRouter() {
   return (
@@ -13,6 +14,7 @@ export default function AuthRouter() {
       <Route path='/editar-email' element={<DriverEmail />} />
       <Route path='/editar-celular' element={<DriverPhone />} />
       <Route path='/editar-password' element={<DriverPassword />} />
+      <Route path='/mis-vehiculos' element={<MyVehicles />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );

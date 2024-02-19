@@ -37,7 +37,7 @@ export const MenuDriver = () => {
           <img src='/images/user-icon.svg' alt='usuario-icon' />
           <h5>Mis datos</h5>
         </Link>
-        <Link to='/vehiculos' className='flex items-center gap-2'>
+        <Link to='/mis-vehiculos' className='flex items-center gap-2'>
           <img src='/images/car-icon.svg' alt='car-icon' />
           <h5>Mis vehículos</h5>
         </Link>
