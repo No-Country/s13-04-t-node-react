@@ -21,7 +21,7 @@ const app = express()
 app.use(express.json())
 app.use(cors(corsOptions))
 app.use(fileUpload())
-app.use("/api/doc",express.static('send'));
+app.use("/api/test",express.static('send'));
 //routes
 app.get("/api/health-check", async (req, res) => {
     res.status(200).send("Stable");
