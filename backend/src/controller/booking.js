@@ -18,6 +18,19 @@ export const getBooking = async (req, res, next) => {
       where: {
         id,
       },
+      attributes: ['id','date_start', 'date_end', 'status'],
+      include: [
+        {
+          model: Car,
+          as: 'car',
+          attributes: {exclude: ['createdAt', 'updatedAt']},
+        },
+        {
+          model: Garages,
+          as: 'garage',
+          attributes: {exclude: ['createdAt', 'updatedAt']},
+        }
+      ]
     });
     if (!booking) throw new NotFound("Booking not found");
     res.status(200).json({ booking: booking });
@@ -32,7 +45,7 @@ export const getBookingByCar = async (req, res, next) => {
     const car = await Car.findByPk(id);
     if (!car) throw new NotFound("Car not found");
 
-    const booking = await Booking.findAll({ where: { id_car: id } });
+    const booking = await Booking.findAll({ where: { id_car: id }, include: [{ model: Car, as: 'car', attributes: {exclude: ['createdAt', 'updatedAt']} }]});
 
     res.status(200).json({ booking: booking });
   } catch (error) {
@@ -46,7 +59,11 @@ export const getBookingByGarage = async (req, res, next) => {
     const garage = await Garages.findByPk(id);
     if (!garage) throw new NotFound("Garage not found");
 
-    const booking = await Booking.findAll({ where: { id_garage: id } });
+    const booking = await Booking.findAll({ where: { id_garage: id }, include: [{
+      model: Garages,
+      as: 'garage',
+      attributes: {exclude: ['createdAt', 'updatedAt']},
+    }]});
 
     res.status(200).json({ booking: booking });
   } catch (error) {
@@ -68,6 +85,7 @@ export const createBooking = async (req, res, next) => {
     next(error);
   }
 };
+
 export const updateBooking = async (req, res, next) => {
   try {
     const { id } = req.params;

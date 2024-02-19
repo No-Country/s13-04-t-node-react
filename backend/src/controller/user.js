@@ -3,6 +3,7 @@ import { NotFound } from "../middleware/errors.js";
 
 const getAllUser= async(req,res, next)=>{
     try{
+        
         const users= await User.findAll({attributes: { exclude: ['password'] }})
         res.status(200).send({"users":users})
     }catch(err){
@@ -12,10 +13,11 @@ const getAllUser= async(req,res, next)=>{
 }
 
 const getUser=async(req,res, next)=>{
+    
     const {id}=req.params
     
     try{
-        const user= await User.findByPk(id)
+        const user= await User.findByPk(id,{attributes: { exclude: ['password'] }})
         if (!user) {
             throw new NotFound("User not found")
         }
@@ -27,7 +29,7 @@ const getUser=async(req,res, next)=>{
 
 
 const updateUser=async(req,res, next)=>{
-    const {id}=req.params
+    const id=req.userId
 
     try {
         
@@ -39,6 +41,7 @@ const updateUser=async(req,res, next)=>{
     
         user.set( {...req.body});
         user.save();
+        user.password=undefined
         return res.status(200).send({"message" :"user updated", "user": user})    
     } catch (error) {
         next()
@@ -49,7 +52,8 @@ const updateUser=async(req,res, next)=>{
 
 const deleteUser=async(req,res, next)=>{
 
-    const {id}=req.params
+    const id=req.userId
+    
     try {
         const user= await User.findByPk(id)
         
