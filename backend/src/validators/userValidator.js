@@ -13,14 +13,9 @@ const validateCreateUser = [
 ];
 
 
-const validateDeleteUser=[
-
-  check('id', 'ID de usuario no válido').isUUID(),
-
-]
 
 const validateUpdateUser=[
-  check('id','ID de usuario no valido').isUUID(),
+ 
   check("name", "El nombre es obligatorio").optional().isString().exists().not().isEmpty().trim(),
 
   check("email", "El correo no es válido").optional().isString().isEmpty().isEmail().trim(),
@@ -32,4 +27,4 @@ const validateUpdateUser=[
   check("rating").optional().isEmpty(),
   check("image").optional().isString().trim()
 ]
-export { validateCreateUser , validateDeleteUser, validateUpdateUser };
+export { validateCreateUser , validateUpdateUser };
