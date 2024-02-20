@@ -4,7 +4,7 @@ import { mobileMenuAtom } from '../atoms/sidebar';
 import { MenuDriver } from './MenuDriver';
 import clsx from 'clsx';
 
-export const HeaderDriver = () => {
+export const HeaderUser = () => {
   const [showMobileMenu, setShowMobileMenu] = useAtom(mobileMenuAtom);
 
   const toggleMenu = () => {
@@ -19,7 +19,7 @@ export const HeaderDriver = () => {
 
       <nav
         className={clsx(
-          'fixed flex flex-col bg-white w-full h-full top-16 transition-all duration-500 z-30',
+          'fixed flex flex-col bg-white w-full h-full top-[72px] transition-all duration-500 z-30',
           showMobileMenu ? 'left-0' : '-left-full'
         )}
       >

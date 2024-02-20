@@ -31,5 +31,15 @@ const AddNewParking: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/AddNewParking')
 );
 
-export { Onboarding, Landing, NotFound, Login, Register, Home, MenuRegister, AddNewVehicule, CreatedAccount, AddNewParking };
-
+export {
+  Onboarding,
+  Landing,
+  NotFound,
+  Login,
+  Register,
+  Home,
+  MenuRegister,
+  AddNewVehicule,
+  CreatedAccount,
+  AddNewParking,
+};
