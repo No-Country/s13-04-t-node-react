@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { authService } from "../services/auth";
 interface Inputs {
 	[key: string]: string | File;
 	name: string;
@@ -8,12 +9,12 @@ interface Inputs {
 	email: string;
 	phone: string;
 	password: string;
+	confirmPassword: string;
 	image: File;
 	role: string;
 }
 export default function UserRegisterForm() {
-	const { form } = useParams();
-	console.log(form);
+	const { type } = useParams();
 	const navigation = useNavigate();
 	const [imgUser, setImgUser] = useState<string | ArrayBuffer>(
 		"/images/addPhotoUser.svg",
@@ -21,16 +22,25 @@ export default function UserRegisterForm() {
 	const {
 		register,
 		handleSubmit,
+		setValue,
+		getValues,
 		formState: { errors },
 	} = useForm<Inputs>();
 	const onSubmit: SubmitHandler<Inputs> = async (data) => {
+		console.log(data);
+
 		const formData = new FormData();
 		for (const name in data) {
 			formData.append(name, data[name]);
 		}
 		formData.append("role", "user");
-
-		navigation(`/registro/${UserType}`);
+		formData.delete("confirmPassword");
+		const res = await authService.signup(formData);
+		if (res === 201) {
+			navigation(`/registro/${type}`);
+		} else {
+			console.log(res);
+		}
 	};
 	const loadNewImage = (newImage: File) => {
 		const reader = new FileReader();
@@ -42,8 +52,11 @@ export default function UserRegisterForm() {
 		};
 	};
 	return (
-		<form className="flex-col flex gap-3" onSubmit={handleSubmit(onSubmit)}>
-			<label className="flex relative m-auto  ">
+		<form
+			className="flex-col flex gap-3 text-sm"
+			onSubmit={handleSubmit(onSubmit)}
+		>
+			<label className="flex relative m-auto mb-6">
 				<img
 					src={imgUser as string}
 					className="w-[200px] aspect-square object-contain "
@@ -61,10 +74,10 @@ export default function UserRegisterForm() {
 					className="absolute border-4 opacity-0 w-[200px] h-[200px] z-10"
 				/>
 			</label>
-			<label className="flex-col flex ">
+			<label className="flex-col flex mb-6">
 				Nombre y apellido
 				<input
-					className="border rounded-md py-2 px-3 placeholder:text-black"
+					className="border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1"
 					placeholder="Ingresa tu nombre y apellido"
 					type="text"
 					{...register("name", { required: true })}
@@ -75,10 +88,10 @@ export default function UserRegisterForm() {
 					</span>
 				)}
 			</label>
-			<label className="flex-col flex ">
+			<label className="flex-col flex mb-6 ">
 				DNI
 				<input
-					className="border rounded-md py-2 px-3 placeholder:text-black"
+					className="border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1"
 					placeholder="Ingresa tu numero de DNI"
 					type="number"
 					{...register("dni", { required: true })}
@@ -87,10 +100,10 @@ export default function UserRegisterForm() {
 					<span className="text-red-500">El DNI es obligatorio</span>
 				)}
 			</label>
-			<label className="flex-col flex ">
+			<label className="flex-col flex mb-6 ">
 				E-mail
 				<input
-					className="border rounded-md py-2 px-3 placeholder:text-black"
+					className="border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1"
 					placeholder="Ingresa tu de E-mail"
 					type="email"
 					{...register("email", { required: true, pattern: /^\S+@\S+$/i })}
@@ -99,10 +112,10 @@ export default function UserRegisterForm() {
 					<span className="text-red-500">El E-mail es obligatorio</span>
 				)}
 			</label>
-			<label className="flex-col flex ">
+			<label className="flex-col flex mb-6 ">
 				Celular
 				<input
-					className="border rounded-md py-2 px-3 placeholder:text-black"
+					className="border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1"
 					placeholder="Ingresa numero de celular"
 					type="number"
 					{...register("phone", { required: true })}
@@ -113,39 +126,54 @@ export default function UserRegisterForm() {
 					</span>
 				)}
 			</label>
-			<label className="flex-col flex ">
+			<label className="flex-col flex mb-6 ">
 				Contraseña
 				<input
-					className="border rounded-md py-2 px-3 placeholder:text-black"
+					className="border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1"
 					placeholder="Ingresa una contraseña"
 					type="password"
-					{...register("password", { required: true, min: 6 })}
+					{...register("password", {
+						required: true,
+						min: 6,
+					})}
 				/>
 				{errors.password != null && (
 					<span className="text-red-500">La contraseña es obligatoria</span>
 				)}
 			</label>
-			<label className="flex-col flex ">
+			<label className="flex-col flex mb-6 ">
 				Repetir la contraseña
 				<input
-					className="border rounded-md py-2 px-3 placeholder:text-black"
+					className="border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1"
 					placeholder="Repetí la contraseña"
 					type="password"
-					{...register("password", { required: true })}
+					{...register("confirmPassword", {
+						validate: (value) => value === getValues("password"),
+					})}
 				/>
-				{errors.password != null && (
-					<span className="text-red-500">La contraseña es obligatoria</span>
+				{errors.confirmPassword != null && (
+					<span className="text-red-500">Las contraseñas no coinciden</span>
 				)}
 			</label>
 			<button
-				className="border rounded-md p-2 font-bold bg-gray-200 text-center"
+				className="border rounded-3xl p-2 font-bold bg-[#D58418] text-center"
 				type="submit"
 			>
 				Siguiente
 			</button>
-			<Link to={"/"} className="border rounded-md p-2 font-bold text-center">
+			<button
+				className="border rounded-3xl p-2 font-bold text-center"
+				type="button"
+				onClick={(e) => {
+					e.preventDefault();
+					navigation("/registro");
+				}}
+			>
+				Siguiente
+			</button>
+			{/* <Link to={"/"} className="border rounded-md p-2 font-bold text-center">
 				Cancelar
-			</Link>
+			</Link> */}
 		</form>
 	);
 }

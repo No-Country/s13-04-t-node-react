@@ -1,30 +1,22 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import UserRegisterForm from "../components/UserRegisterForm";
-interface Inputs {
-	[key: string]: string | File;
-	name: string;
-	dni: string;
-	email: string;
-	phone: string;
-	password: string;
-	image: File;
-	role: string;
-}
+import { Header } from "../components/Header";
+
 export default function Register(): JSX.Element {
-	const { state } = useLocation();
-	const { UserType } = state;
+	const { type } = useParams();
 
 	return (
-		<main className="p-4">
-			<h1>
-				{UserType === "conductor"
-					? "REGÍSTRATE COMO CONDUCTOR"
-					: "REGÍSTRATE COMO ESTACIONAMIENTO"}
-			</h1>
-			<p>Completa tus datos personales</p>
-			<UserRegisterForm />
-		</main>
+		<>
+			<Header />
+			<main className="p-4 pb-10">
+				<h1 className="text-2xl">
+					{type === "conductor"
+						? "REGÍSTRATE COMO CONDUCTOR"
+						: "REGÍSTRATE COMO ESTACIONAMIENTO"}
+				</h1>
+				<p className="text-base mb-10">Completa tus datos personales</p>
+				<UserRegisterForm />
+			</main>
+		</>
 	);
 }

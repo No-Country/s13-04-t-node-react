@@ -9,7 +9,7 @@ export default function Login(): JSX.Element {
   const enviarDatos = handleSubmit(async (data) => {
     try {
       await authService.login(data.correo, data.contraseña);
-      navigate('/home');
+      navigate('/');
     } catch (error) {
       alert('Hay algo mal en tus credenciales');
     }

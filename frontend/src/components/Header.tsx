@@ -9,13 +9,13 @@ export const Header = () => {
       <div className='flex items-center gap-2'>
         <Link
           to='/acceso'
-          className='px-3 py-1 font-semibold rounded-lg bg-white'
+          className='px-2 py-1 font-semibold rounded-lg bg-white text-sm'
         >
           Inicia sesión
         </Link>
         <Link
-          to='/menu/registro'
-          className='px-3 py-1 font-semibold rounded-lg bg-white'
+          to='/registro'
+          className='px-2 py-1 font-semibold rounded-lg bg-white text-sm'
         >
           Registrate
         </Link>
