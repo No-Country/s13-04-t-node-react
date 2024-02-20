@@ -17,7 +17,7 @@ export default function NoAuthRouter() {
       <Route path='/acceso' element={<Login />} />
       <Route path='/registro'>
         <Route index element={<MenuRegister />} />
-        <Route path='usuario' element={<Register />} />
+        <Route path='usuario/:type' element={<Register />} />
         <Route path='conductor' element={<AddNewVehicule />} />
         <Route path='estacionamiento' element={<AddNewParking />} />
         <Route path='cuenta-creada' element={<CreatedAccount />} />
