@@ -104,6 +104,7 @@ export const updateBooking = async (req, res, next) => {
     next(error);
   }
 };
+
 export const deleteBooking = async (req, res, next) => {
   const { id } = req.params;
   try {
