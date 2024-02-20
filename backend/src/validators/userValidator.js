@@ -18,7 +18,7 @@ const validateUpdateUser=[
  
   check("name", "El nombre es obligatorio").optional().isString().exists().not().isEmpty().trim(),
 
-  check("email", "El correo no es válido").optional().isString().isEmpty().isEmail().trim(),
+  check("email", "El correo no es válido").optional().isString().isEmail().trim(),
 
   check("role", "Dirección no válida").optional().isEmpty().trim(),
 
