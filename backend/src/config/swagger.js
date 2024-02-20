@@ -101,6 +101,90 @@ const options = {
                 },
                 required: ["brand", "model", "plate", "color"]
             },
+            Garages: {
+              type: "object",
+              properties: {
+                  id: {
+                      type: "string",
+                      format: "uuid",
+                      example: "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                      description: "ID único del garaje (UUID)"
+                  },
+                  idUser: {
+                      type: "string",
+                      format: "uuid",
+                      description: "ID del usuario propietario del garaje"
+                  },
+                  name: {
+                      type: "string",
+                      example: "Garaje Central",
+                      description: "Nombre del garaje"
+                  },
+                  address: {
+                      type: "string",
+                      example: "Calle Falsa 123",
+                      description: "Dirección del garaje"
+                  },
+                  country: {
+                      type: "string",
+                      example: "España",
+                      description: "País donde se encuentra el garaje"
+                  },
+                  province: {
+                      type: "string",
+                      example: "Barcelona",
+                      description: "Provincia donde se encuentra el garaje"
+                  },
+                  city: {
+                      type: "string",
+                      example: "Barcelona",
+                      description: "Ciudad donde se encuentra el garaje"
+                  },
+                  zipCode: {
+                      type: "string",
+                      example: "08001",
+                      description: "Código postal del garaje"
+                  },
+                  capacity: {
+                      type: "integer",
+                      example: 5,
+                      description: "Capacidad máxima de vehículos del garaje"
+                  },
+                  amount: {
+                      type: "integer",
+                      example: 0,
+                      description: "Cantidad actual de vehículos en el garaje"
+                  },
+                  price: {
+                      type: "number",
+                      format: "double",
+                      example: 15.5,
+                      description: "Precio por hora de estacionamiento"
+                  },
+                  whitConfirmation: {
+                      type: "boolean",
+                      example: false,
+                      description: "Indica si el garaje requiere confirmación para reservar"
+                  },
+                  available: {
+                      type: "boolean",
+                      example: true,
+                      description: "Disponibilidad actual del garaje"
+                  },
+                  coordinates: {
+                      type: "string",
+                      example: "41.40338, 2.17403",
+                      description: "Coordenadas geográficas del garaje"
+                  },
+                  rating: {
+                      type: "number",
+                      format: "float",
+                      example: 4.5,
+                      description: "Calificación promedio del garaje"
+                  }
+              },
+              required: ["idUser", "name", "address", "country", "province", "city", "zipCode", "capacity", "price", "whitConfirmation", "available", "coordinates"]
+            },
             Booking: {
                 type: "object",
                 properties: {

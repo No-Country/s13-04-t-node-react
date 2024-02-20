@@ -2,6 +2,7 @@ import Garages from "../model/garage.js";
 import { NotFound } from "../middleware/errors.js";
 import { uploadImages } from "../utils/imageService.js";
 import { Image } from "../model/image.js";
+import User from "../model/user.js";
 
 const getAllGarages = async (req, res, next) => {
     try {
@@ -16,7 +17,12 @@ const getGarage = async(req, res, next) => {
     const {id} = req.params;
 
     try {
-        const garage = await Garages.findByPk(id, {include: [{model: Image, as: "images", attributes: ["id","route"]}]});
+        const garage = await Garages.findByPk(id, {include: 
+            [
+                {model: Image, as: "images", attributes: ["id","route"]},
+                {model: User , as: 'user' , attributes: {exclude: ['password','createdAt','updatedAt']}},
+
+            ]});
         if(!garage) {
             throw new NotFound("Garage not found")
         }
