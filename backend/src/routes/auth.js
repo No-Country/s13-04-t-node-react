@@ -90,6 +90,9 @@ route.post("/login",validateLogin,validateFields ,login)
  *               password:
  *                 type: string
  *                 description: Contraseña del usuario
+ *               identity:
+ *                 type: string
+ *                 description: Documento de identidad del usuario
  *               phone:
  *                 type: string
  *                 description: Número de teléfono del usuario (opcional)
