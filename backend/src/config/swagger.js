@@ -39,6 +39,48 @@ const options = {
                 },
                 required: ["brand", "model", "plate", "color"]
             },
+            Booking: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                    format: "uuid",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                    description: "ID de la reserva (UUID)"
+                  },
+                  date_start: {
+                    type: "string",
+                    format: "date-time",
+                    example: "2024-02-19T08:00:00Z",
+                    description: "Fecha de inicio de la reserva"
+                  },
+                  date_end: {
+                    type: "string",
+                    format: "date-time",
+                    example: "2024-02-20T08:00:00Z",
+                    description: "Fecha de fin de la reserva"
+                  },
+                  status: {
+                    type: "string",
+                    enum: ["pending", "active", "inactive"],
+                    example: "pending",
+                    description: "Estado de la reserva"
+                  },
+                  id_car: {
+                    type: "string",
+                    format: "uuid",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                    description: "ID del coche asociado a la reserva (UUID)"
+                  },
+                  id_garage: {
+                    type: "string",
+                    format: "uuid",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                    description: "ID del garaje asociado a la reserva (UUID)"
+                  }
+                },
+                required: ["date_start", "date_end", "status", "id_car", "id_garage"]
+            },
             ErrorSchemas:{
                 Error: {
                     type : "object",
