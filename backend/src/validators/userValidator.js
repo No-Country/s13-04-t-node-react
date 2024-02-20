@@ -7,6 +7,8 @@ const validateCreateUser = [
 
   check("password", "El password debe de ser más de 6 letras").isString().exists().isLength({ min:6 }).trim(),
 
+  check("identity", "La identidad no es válida").isString().exists().trim(),
+
   check("role", "Dirección no válida").optional().trim(),
 
   check("phone", "Número no válido").optional().isLength({ min:6 }),
