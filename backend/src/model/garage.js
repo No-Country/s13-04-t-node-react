@@ -80,5 +80,6 @@ const Garages = sequelize.define('Garages', {
 });
 
 Garages.hasMany(Image, { foreignKey: 'garage_id', as: 'images' });
+Garages.belongsTo(User, {foreignKey: 'id_user', as: 'user',});
 
 export default Garages;
