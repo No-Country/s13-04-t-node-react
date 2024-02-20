@@ -9,22 +9,21 @@ const validateCreateUser = [
 
   check("role", "Dirección no válida").optional().trim(),
 
-  check("phone", "Número no válido").optional().isNumeric().isLength({ min:6 }),
+  check("phone", "Número no válido").optional().isLength({ min:6 }),
 ];
 
 
 
 const validateUpdateUser=[
  
-  check("name", "El nombre es obligatorio").optional().isString().exists().not().isEmpty().trim(),
+  check("name", "El nombre es obligatorio").optional().isString().exists().trim(),
 
   check("email", "El correo no es válido").optional().isString().isEmail().trim(),
 
-  check("role", "Dirección no válida").optional().isEmpty().trim(),
+  check("role", "Dirección no válida").optional().trim(),
 
-  check("phone", "Número no válido").optional().isEmpty().isNumeric().isLength({ min:6 }),
-
-  check("rating").optional().isEmpty(),
+  check("phone", "Número no válido").optional().isLength({ min:6 }),
+  check("rating").optional().isNumeric(),
   check("image").optional().isString().trim()
 ]
 export { validateCreateUser , validateUpdateUser };
