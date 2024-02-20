@@ -21,7 +21,7 @@ try {
         throw new Unauthorized("Password incorrect")
     }
 
-    const token = jwt.sign({ userId: user.id }, config.API_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id }, config.API_SECRET);
 
     user.password=undefined
         

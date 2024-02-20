@@ -5,8 +5,70 @@ const options = {
     definition: {
       openapi: "3.0.0",
       info: { title: "EstacionAPP API", version: "1.0.0" },
+      
       components: {
+        securitySchemes: {
+          BearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+          },
+        },
         schemas: {
+            User: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                    format: "uuid",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                    description: "ID del usuario (UUID)"
+                  },
+                  name: {
+                    type: "string",
+                    example: "John Doe",
+                    description: "Nombre del usuario"
+                  },
+                  identity: {
+                    type: "string",
+                    example: "12345678",
+                    description: "Identificación del usuario"
+                  },
+                  email: {
+                    type: "string",
+                    example: "johndoe@example.com",
+                    description: "Correo electrónico del usuario"
+                  },
+                  password: {
+                    type: "string",
+                    example: "password123",
+                    description: "Contraseña del usuario"
+                  },
+                  phone: {
+                    type: "string",
+                    example: "1234567890",
+                    description: "Número de teléfono del usuario"
+                  },
+                  role: {
+                    type: "string",
+                    enum: ["parking", "user"],
+                    example: "user",
+                    description: "Rol del usuario ('parking' o 'user')"
+                  },
+                  rating: {
+                    type: "number",
+                    format: "float",
+                    example: 4.5,
+                    description: "Calificación del usuario (puede ser null)"
+                  },
+                  image: {
+                    type: "string",
+                    example: "https://example.com/profile.jpg",
+                    description: "URL de la imagen de perfil del usuario"
+                  }
+                },
+                required: ["name", "identity", "email", "password", "role"]
+            },
             Car: {
                 type: "object",
                 properties: {
@@ -184,7 +246,12 @@ const options = {
                 },
             },
         }
-    }
+    },
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     },
     apis: ['./src/routes/*.js' , './src/models/*.js'],
     };

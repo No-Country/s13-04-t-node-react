@@ -1,5 +1,5 @@
 import User from "../model/user.js";
-import { NotFound } from "../middleware/errors.js";
+import { AlreadyExist, NotFound } from "../middleware/errors.js";
 
 const getAllUser= async(req,res, next)=>{
     try{
@@ -30,24 +30,26 @@ const getUser=async(req,res, next)=>{
 
 const updateUser=async(req,res, next)=>{
     const id=req.userId
-
     try {
-        
         const user=await User.findByPk(id) 
 
         if(!user){
             throw new NotFound("User not found")
         }
-    
+
+        if(req.body.email){
+            const userExist = await User.findOne({where: {email: req.body.email}})
+            if(userExist){
+                throw new AlreadyExist("Email already exist")
+            }
+        }
         user.set( {...req.body});
         user.save();
         user.password=undefined
         return res.status(200).send({"message" :"user updated", "user": user})    
     } catch (error) {
-        next()
+        next(error)
     }
-    
-
 }
 
 const deleteUser=async(req,res, next)=>{
@@ -60,9 +62,10 @@ const deleteUser=async(req,res, next)=>{
         if(!user){
             throw new NotFound("User not found")
         }
-        const deletedUser = await User.destroy({
+
+        await User.destroy({
             where: { id: id }
-          });
+        });
           
         return res.status(200).send({"message" :"user deleted"})
         } catch (error) {
