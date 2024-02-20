@@ -30,9 +30,7 @@ const getUser=async(req,res, next)=>{
 
 const updateUser=async(req,res, next)=>{
     const id=req.userId
-
     try {
-        
         const user=await User.findByPk(id) 
 
         if(!user){
@@ -52,8 +50,6 @@ const updateUser=async(req,res, next)=>{
     } catch (error) {
         next(error)
     }
-    
-
 }
 
 const deleteUser=async(req,res, next)=>{
@@ -66,9 +62,10 @@ const deleteUser=async(req,res, next)=>{
         if(!user){
             throw new NotFound("User not found")
         }
-        const deletedUser = await User.destroy({
+
+        await User.destroy({
             where: { id: id }
-          });
+        });
           
         return res.status(200).send({"message" :"user deleted"})
         } catch (error) {

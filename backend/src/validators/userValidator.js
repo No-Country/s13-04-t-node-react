@@ -15,13 +15,9 @@ const validateCreateUser = [
 
 
 const validateUpdateUser=[
- 
   check("name", "El nombre es obligatorio").optional().isString().exists().trim(),
-
   check("email", "El correo no es válido").optional().isString().isEmail().trim(),
-
   check("role", "Dirección no válida").optional().trim(),
-
   check("phone", "Número no válido").optional().isLength({ min:6 }),
   check("rating").optional().isNumeric(),
   check("image").optional().isString().trim()
