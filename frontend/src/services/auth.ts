@@ -29,8 +29,15 @@ export const authService = {
     return appStorage.getItemJSON('user') as IUser;
   },
 
-  async signup(payload: IRegisterUser) {
-    await client.post('/auth/register', payload);
-    return this.login(payload.email, payload.password);
+  async signup(payload: FormData) {
+    const res = await client.post('/auth/register', payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },);
+    // if (res.status === 201) {
+    // this.login(payload.get('email') as string, payload.get('password') as string);
+    // }
+    return { data: res.data, status: res.status };
   },
 };
