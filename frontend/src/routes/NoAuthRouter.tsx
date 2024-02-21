@@ -3,7 +3,6 @@ import {
   AddNewParking,
   Landing,
   Login,
-  MenuRegister,
   NotFound,
   Register,
   AddNewVehicule,
@@ -18,7 +17,6 @@ export default function NoAuthRouter() {
       <Route path='/' element={<Landing />} />
       <Route path='/acceso' element={<Login />} />
       <Route path='/registro'>
-        <Route index element={<MenuRegister />} />
         <Route path='usuario/:type' element={<Register />} />
         <Route path='conductor' element={<AddNewVehicule />} />
         <Route path='estacionamiento' element={<AddNewParking />} />
