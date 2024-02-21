@@ -31,7 +31,7 @@ app.use("/api",routerGeneral)
 app.use("/saveQuery",saveQueryBack)
 app.use(errorHandler)
 // documentacion
-//createJsonApi(app, port);
+createJsonApi(app, port);
 
 
 //listengin
