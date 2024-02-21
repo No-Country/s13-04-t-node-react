@@ -52,13 +52,13 @@ export const FormDriver = () => {
           <div className='flex flex-col gap-3 fixed bottom-10 inset-x-0 px-4'>
             <button
               type='button'
-              className='py-2 text-center bg-[#D58418] rounded-lg font-semibold'
+              className='py-2 text-center bg-[#D58418] rounded-3xl font-semibold'
             >
               Guardar
             </button>
             <button
               type='button'
-              className='py-2 text-center bg-white border border-[#D58418] rounded-lg font-semibold'
+              className='py-2 text-center bg-white border border-[#D58418] rounded-3xl font-semibold'
             >
               Cancelar
             </button>

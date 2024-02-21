@@ -38,7 +38,7 @@ export const MyVehicles = () => {
           >
             <button
               type='button'
-              className='py-2 text-center bg-[#D58418] rounded-lg font-semibold'
+              className='py-2 text-center bg-[#D58418] rounded-3xl font-semibold'
             >
               Añadir vehículo
             </button>

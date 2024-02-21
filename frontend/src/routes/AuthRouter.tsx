@@ -16,7 +16,7 @@ export default function AuthRouter() {
       <Route path='/editar-celular' element={<DriverPhone />} />
       <Route path='/editar-password' element={<DriverPassword />} />
       <Route path='/mis-vehiculos' element={<MyVehicles />} />
-      <Route path='/agregar-vehiculos' element={<FormDriver />} />
+      <Route path='/agregar-vehiculo' element={<FormDriver />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );

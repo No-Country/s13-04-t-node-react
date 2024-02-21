@@ -9,6 +9,7 @@ import {
   AddNewVehicule,
   CreatedAccount,
 } from './LazyRoutes';
+import { ParkingSchedule } from '../pages/ParkingSchedule';
 
 export default function NoAuthRouter() {
   return (
@@ -24,6 +25,7 @@ export default function NoAuthRouter() {
       </Route>
       <Route path='/nuevo-vehiculo' element={<AddNewVehicule />} />
       <Route path='/cuenta-creada' element={<CreatedAccount />} />
+      <Route path='/horario-estacionamiento' element={<ParkingSchedule />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );

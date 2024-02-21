@@ -24,7 +24,7 @@ export const MyDataDriver = () => {
 
         <div className='mb-5'>
           <span>Documento de identidad</span>
-          <p className='font-semibold text-xl py-1'>{user.phone}</p>
+          <p className='font-semibold text-xl py-1'>{user.identity}</p>
           <div className='border border-[#5B5751]/60' />
         </div>
 
