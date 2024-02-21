@@ -6,13 +6,15 @@ import { DriverPhone } from '../pages/data-driver/DriverPhone';
 import { DriverPassword } from '../pages/data-driver/DriverPassword';
 import { MyVehicles } from '../pages/menu-my-vehicles/MyVehicles';
 import { FormDriver } from '../pages/menu-my-vehicles/FormDriver';
-import GarageResults from '../pages/home-driver/GarageResults';
+import Booking from '../pages/Booking';
+import { GarageResults } from '../pages/home-driver/GarageResults';
 
 export default function AuthRouter() {
   return (
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/mis-datos' element={<MyDataDriver />} />
+      <Route path='/reservar' element={<Booking />} />
       <Route path='/editar-email' element={<DriverEmail />} />
       <Route path='/editar-celular' element={<DriverPhone />} />
       <Route path='/editar-password' element={<DriverPassword />} />
