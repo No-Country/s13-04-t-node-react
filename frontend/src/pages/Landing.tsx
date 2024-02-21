@@ -25,7 +25,7 @@ export default function Landing() {
             Más información
           </Link>
           <Link
-            to='/menu/registro'
+            to='/registro'
             className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center'
           >
             Registrate
@@ -33,7 +33,11 @@ export default function Landing() {
         </div>
 
         <div>
-          <img src='/images/image.png' alt='imagen' />
+          <img
+            src='/images/image.png'
+            alt='imagen'
+            className='w-full object-cover'
+          />
           <div className='flex flex-col py-6'>
             <h1 className='uppercase font-semibold text-xl'>
               ¿NECESITAS UN LUGAR PARA
@@ -46,7 +50,7 @@ export default function Landing() {
               Aliquam enim augue quam posuere sed.
             </p>
             <Link
-              to='/menu/registro'
+              to='/registro'
               className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center'
             >
               Registrate como conductor
@@ -55,7 +59,11 @@ export default function Landing() {
         </div>
 
         <div>
-          <img src='/images/image.png' alt='imagen' />
+          <img
+            src='/images/image.png'
+            alt='imagen'
+            className='w-full object-cover'
+          />
           <div className='flex flex-col pt-10'>
             <h1 className='uppercase font-semibold text-xl'>
               ¿QUERES GENERAR GANANCIAS
@@ -68,7 +76,7 @@ export default function Landing() {
               Aliquam enim augue quam posuere sed.
             </p>
             <Link
-              to='/menu/registro'
+              to='/registro'
               className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center'
             >
               Registrate como estacionamiento
