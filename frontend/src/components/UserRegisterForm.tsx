@@ -5,7 +5,7 @@ import { authService } from "../services/auth";
 interface Inputs {
 	[key: string]: string | File;
 	name: string;
-	dni: string;
+	identity: string;
 	email: string;
 	phone: string;
 	password: string;
@@ -59,7 +59,7 @@ export default function UserRegisterForm() {
 			<label className="flex relative m-auto mb-6">
 				<img
 					src={imgUser as string}
-					className="w-[200px] aspect-square object-contain "
+					className="w-[200px] aspect-square object-cover rounded-full"
 					alt="user profile"
 				/>
 				<input
@@ -89,15 +89,17 @@ export default function UserRegisterForm() {
 				)}
 			</label>
 			<label className="flex-col flex mb-6 ">
-				DNI
+				Documento de identidad
 				<input
 					className="border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1"
 					placeholder="Ingresa tu numero de DNI"
 					type="number"
-					{...register("dni", { required: true })}
+					{...register("identity", { required: true })}
 				/>
-				{errors.dni != null && (
-					<span className="text-red-500">El DNI es obligatorio</span>
+				{errors.identity != null && (
+					<span className="text-red-500">
+						El documento de identidad es obligatorio
+					</span>
 				)}
 			</label>
 			<label className="flex-col flex mb-6 ">
