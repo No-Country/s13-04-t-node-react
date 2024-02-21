@@ -1,4 +1,4 @@
-import { IGarage } from '../types/garage';
+import { IGarage } from '../../types/garage';
 
 export const CardGaraje = ({ garage }: { garage: IGarage }) => {
   return (

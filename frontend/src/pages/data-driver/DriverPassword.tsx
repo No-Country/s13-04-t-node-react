@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { HeaderLogo } from '../components/HeaderLogo';
-import { authService } from '../services/auth';
+import { HeaderLogo } from '../../components/data-driver/HeaderLogo';
+import { userService } from '../../services/user';
 
 export const DriverPassword = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export const DriverPassword = () => {
     const password = data.get('newPassword') as string;
 
     try {
-      await authService.patchUser({ password });
+      await userService.patchUser({ password });
       navigate('/mis-datos');
     } catch (error) {
       console.log('Error', error);

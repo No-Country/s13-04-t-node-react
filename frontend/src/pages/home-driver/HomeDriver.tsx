@@ -1,10 +1,19 @@
 import { useState } from 'react';
-import { useCurrentUser } from '../hooks/auth';
-import { garageService } from '../services/garage';
-import { CardGaraje } from './CardGaraje';
+import { useCurrentUser } from '../../hooks/auth';
+import { garageService } from '../../services/garage';
+import { CardGaraje } from '../../components/home-driver/CardGaraje';
+import { Combobox } from '@headlessui/react';
 import useSWR from 'swr';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+
+const people = [
+  'Durward Reynolds',
+  'Kenton Towne',
+  'Therese Wunsch',
+  'Benedict Kessler',
+  'Katelyn Rohan',
+];
 
 export const HomeDriver = () => {
   const user = useCurrentUser();
@@ -12,6 +21,16 @@ export const HomeDriver = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const { data: garages } = useSWR(['garage'], () => garageService.list());
   const filteredGarages = garages;
+
+  const [selectedPerson, setSelectedPerson] = useState(people[0]);
+  const [query, setQuery] = useState('');
+
+  const filteredPeople =
+    query === ''
+      ? people
+      : people.filter((person) => {
+          return person.toLowerCase().includes(query.toLowerCase());
+        });
 
   return (
     <>
@@ -30,6 +49,19 @@ export const HomeDriver = () => {
               className='px-10 py-1 border border-black rounded-lg w-full outline-none placeholder:text-black font-semibold'
               placeholder='¿Dónde querés estacionar?'
             />
+
+            <Combobox value={selectedPerson} onChange={setSelectedPerson}>
+              <Combobox.Input
+                onChange={(event) => setQuery(event.target.value)}
+              />
+              <Combobox.Options>
+                {filteredPeople.map((person) => (
+                  <Combobox.Option key={person} value={person}>
+                    {person}
+                  </Combobox.Option>
+                ))}
+              </Combobox.Options>
+            </Combobox>
           </div>
 
           <div className='relative flex flex-col w-full'>

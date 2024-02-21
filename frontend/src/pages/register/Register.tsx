@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import UserRegisterForm from '../components/UserRegisterForm';
-import { HeaderLogo } from '../components/HeaderLogo';
+import UserRegisterForm from '../../components/register/UserRegisterForm';
+import { HeaderLogo } from '../../components/data-driver/HeaderLogo';
 
 export default function Register(): JSX.Element {
   const { type } = useParams();

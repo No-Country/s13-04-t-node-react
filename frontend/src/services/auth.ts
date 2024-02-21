@@ -6,14 +6,14 @@ export const authService = {
   async signup(payload: FormData) {
     const res = await client.post('/auth/register', payload, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
-    },);
+    });
     return res.status;
   },
 
   async login(email: string, password: string) {
-    const res = await client.post<{ token: string; user: IUser; }>(
+    const res = await client.post<{ token: string; user: IUser }>(
       '/auth/login',
       { email, password }
     );

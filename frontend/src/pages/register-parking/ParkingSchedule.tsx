@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { HeaderLogo } from '../components/HeaderLogo';
+import { HeaderLogo } from '../../components/data-driver/HeaderLogo';
 import { Switch } from '@headlessui/react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { schedules } from '../data/schedules';
+import { schedules } from '../../data/schedules';
 
-export const ParkingSchedule = () => {
+export default function ParkingSchedule() {
   const [enabled, setEnabled] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -133,4 +133,4 @@ export const ParkingSchedule = () => {
       </div>
     </>
   );
-};
+}
