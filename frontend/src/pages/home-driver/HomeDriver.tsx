@@ -6,6 +6,7 @@ import { Combobox } from '@headlessui/react';
 import useSWR from 'swr';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Link } from 'react-router-dom';
 
 const people = [
   'Durward Reynolds',
@@ -102,11 +103,13 @@ export const HomeDriver = () => {
             />
           </div>
 
-          <input
-            type='submit'
-            className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center mt-2'
-            value='Buscar'
-          />
+          <Link to='/resultados-garages'>
+            <input
+              type='submit'
+              className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center mt-2'
+              value='Buscar'
+            />
+          </Link>
         </div>
       </div>
 

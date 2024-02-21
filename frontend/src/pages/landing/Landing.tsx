@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { Header } from '../../components/landing/Header';
+import { HeaderLanding } from '../../components/landing/HeaderLanding';
 
 export default function Landing() {
   return (
     <>
-      <Header />
+      <HeaderLanding />
       <div className='px-4 py-16'>
         <div className='flex flex-col gap-y-6 font-semibold text-xl'>
           <h1>
