@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom';
 import { Home, NotFound } from './LazyRoutes';
-import { MyDataDriver } from '../pages/MyDataDriver';
-import { DriverEmail } from '../pages/DriverEmail';
-import { DriverPhone } from '../pages/DriverPhone';
-import { DriverPassword } from '../pages/DriverPassword';
-import { MyVehicles } from '../pages/MyVehicles';
-import { FormDriver } from '../pages/FormDriver';
+import { MyDataDriver } from '../pages/data-driver/MyDataDriver';
+import { DriverEmail } from '../pages/data-driver/DriverEmail';
+import { DriverPhone } from '../pages/data-driver/DriverPhone';
+import { DriverPassword } from '../pages/data-driver/DriverPassword';
+import { MyVehicles } from '../pages/menu-my-vehicles/MyVehicles';
+import { FormDriver } from '../pages/menu-my-vehicles/FormDriver';
 import Booking from '../pages/Booking';
 
 export default function AuthRouter() {
@@ -18,7 +18,7 @@ export default function AuthRouter() {
       <Route path='/editar-celular' element={<DriverPhone />} />
       <Route path='/editar-password' element={<DriverPassword />} />
       <Route path='/mis-vehiculos' element={<MyVehicles />} />
-      <Route path='/agregar-vehiculos' element={<FormDriver />} />
+      <Route path='/agregar-vehiculo' element={<FormDriver />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
