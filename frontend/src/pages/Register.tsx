@@ -1,22 +1,30 @@
-import { useParams } from "react-router-dom";
-import UserRegisterForm from "../components/UserRegisterForm";
-import { Header } from "../components/Header";
+import { useParams } from 'react-router-dom';
+import UserRegisterForm from '../components/UserRegisterForm';
+import { HeaderLogo } from '../components/HeaderLogo';
 
 export default function Register(): JSX.Element {
-	const { type } = useParams();
+  const { type } = useParams();
 
-	return (
-		<>
-			<Header />
-			<main className="p-4 pb-10">
-				<h1 className="text-2xl">
-					{type === "conductor"
-						? "REGÍSTRATE COMO CONDUCTOR"
-						: "REGÍSTRATE COMO ESTACIONAMIENTO"}
-				</h1>
-				<p className="text-base mb-10">Completa tus datos personales</p>
-				<UserRegisterForm />
-			</main>
-		</>
-	);
+  return (
+    <>
+      <HeaderLogo />
+
+      <main className='p-4'>
+        {type === 'conductor' ? (
+          <>
+            <h1 className='font-semibold uppercase text-xl'>
+              REGÍSTRATE COMO CONDUCTOR
+            </h1>
+            <p>Completa tus datos personales</p>
+          </>
+        ) : (
+          <>
+            <h1>REGÍSTRATE COMO ESTACIONAMIENTO</h1>
+            <p>Completa tus datos personales</p>
+          </>
+        )}
+        <UserRegisterForm />
+      </main>
+    </>
+  );
 }
