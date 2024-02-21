@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { HeaderLogo } from '../components/HeaderLogo';
-import { authService } from '../services/auth';
+import { HeaderLogo } from '../../components/data-driver/HeaderLogo';
+import { userService } from '../../services/user';
 
 export const DriverEmail = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export const DriverEmail = () => {
     const email = data.get('newEmail') as string;
 
     try {
-      await authService.patchUser({ email });
+      await userService.patchUser({ email });
       navigate('/mis-datos');
     } catch (error) {
       console.log('Error', error);

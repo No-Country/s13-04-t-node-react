@@ -1,8 +1,8 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { authService } from '../services/auth';
-import { mobileMenuAtom } from '../atoms/sidebar';
+import { authService } from '../../services/auth';
+import { mobileMenuAtom } from '../../atoms/sidebar';
 import { useSetAtom } from 'jotai';
-import { useCurrentUser } from '../hooks/auth';
+import { useCurrentUser } from '../../hooks/auth';
 import { useEffect } from 'react';
 
 export const MenuDriver = () => {

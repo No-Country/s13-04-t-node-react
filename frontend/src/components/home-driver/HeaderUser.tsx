@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai';
 import { Link } from 'react-router-dom';
-import { mobileMenuAtom } from '../atoms/sidebar';
+import { mobileMenuAtom } from '../../atoms/sidebar';
 import { MenuDriver } from './MenuDriver';
 import clsx from 'clsx';
 

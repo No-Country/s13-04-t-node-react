@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { HeaderUser } from '../components/HeaderUser';
-import { useCurrentUser } from '../hooks/auth';
+import { HeaderUser } from '../../components/home-driver/HeaderUser';
+import { useCurrentUser } from '../../hooks/auth';
 
 export const MyDataDriver = () => {
   const user = useCurrentUser();
