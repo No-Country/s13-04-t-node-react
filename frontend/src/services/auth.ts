@@ -1,15 +1,19 @@
 import { client } from '../config/client';
 import { appStorage } from '../config/storage';
-import { IRegisterUser, IUser } from '../types/user';
+import { IUser } from '../types/user';
 
 export const authService = {
-  async signup(payload: IRegisterUser) {
-    await client.post('/auth/register', payload);
-    return this.login(payload.email, payload.password);
+  async signup(payload: FormData) {
+    const res = await client.post('/auth/register', payload, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },);
+    return res.status;
   },
 
   async login(email: string, password: string) {
-    const res = await client.post<{ token: string; user: IUser }>(
+    const res = await client.post<{ token: string; user: IUser; }>(
       '/auth/login',
       { email, password }
     );
@@ -35,10 +39,5 @@ export const authService = {
       return null;
     }
     return appStorage.getItemJSON('user') as IUser;
-  },
-
-  async patchUser(partialUser: Partial<IUser>) {
-    const res = await client.patch<{ user: IUser }>('/users', partialUser);
-    appStorage.setItemJSON('user', res.data.user);
   },
 };
