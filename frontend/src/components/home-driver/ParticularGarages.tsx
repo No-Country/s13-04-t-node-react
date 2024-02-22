@@ -9,7 +9,7 @@ export const ParticularGarages = () => {
   const filteredGarages = garages;
 
   return (
-    <div className='px-4'>
+    <div>
       <h2 className='font-semibold pb-2 text-xl'>Particulares recomendados</h2>
       <ul className='flex overflow-x-auto items-center w-auto scrollbar-hidden gap-x-4'>
         {filteredGarages?.map((garage) => (

@@ -1,11 +1,13 @@
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { HeaderUser } from '../../components/home-driver/HeaderUser';
 
 import { garageService } from '../../services/garage';
 import useSWR from 'swr';
 import { CardGarageResult } from '../../components/home-driver/CardGarageResult';
+import { FormSearch } from '../../components/home-driver/FormSearch';
 
 export default function GarageResults() {
+  const location = useLocation();
   const [searchParams] = useSearchParams();
 
   const place = searchParams.get('place') ?? '';
@@ -25,10 +27,15 @@ export default function GarageResults() {
   return (
     <>
       <HeaderUser />
-      <div className='px-4 py-10'>
-        <p>place: {place}</p>
-        <p>startDate: {startDate}</p>
-        <p>endDate: {endDate}</p>
+      <div className='p-4'>
+        <FormSearch
+          key={location.search}
+          initialValues={{
+            place: place,
+            startDate: new Date(startDate),
+            endDate: new Date(endDate),
+          }}
+        />
 
         {garages?.map((garage) => (
           <CardGarageResult key={garage.id} garage={garage} />
