@@ -103,7 +103,6 @@ const createGarage = async(req, res, next) => {
 
 const updateGarage = async(req, res, next) => {
     const {id} = req.params;
-    const {idUser, name, address, capacity, amount, whitConfirmation, available,coordinates,rating, image} = req.body;
 
     try {
         const garage = await Garages.findByPk(id)
