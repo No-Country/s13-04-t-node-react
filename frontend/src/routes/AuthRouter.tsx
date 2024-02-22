@@ -9,6 +9,7 @@ import { FormDriver } from '../pages/menu-my-vehicles/FormDriver';
 import Booking from '../pages/booking-driver/Booking';
 import GarageResults from '../pages/home-driver/GarageResults';
 import AddNewVehicule from '../pages/register-driver/AddNewVehicule';
+import ParkingAvailability from '../pages/register-parking/ParkingAvailability';
 
 export default function AuthRouter() {
   return (
@@ -27,6 +28,7 @@ export default function AuthRouter() {
         <Route path='conductor' element={<AddNewVehicule />} />
         <Route path='estacionamiento' element={<AddNewParking />} />
         <Route path='cuenta-creada' element={<CreatedAccount />} />
+        <Route path='disponibilidad-estacionamiento' element={<ParkingAvailability />} />
       </Route>     
       <Route path='/cuenta-creada' element={<CreatedAccount />} />
       <Route path='/horario-estacionamiento' element={<ParkingSchedule />} />
