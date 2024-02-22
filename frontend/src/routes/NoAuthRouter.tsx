@@ -21,8 +21,7 @@ export default function NoAuthRouter() {
         <Route path='conductor' element={<AddNewVehicule />} />
         <Route path='estacionamiento' element={<AddNewParking />} />
         <Route path='cuenta-creada' element={<CreatedAccount />} />
-      </Route>
-      <Route path='/nuevo-vehiculo' element={<AddNewVehicule />} />
+      </Route>     
       <Route path='/cuenta-creada' element={<CreatedAccount />} />
       <Route path='/horario-estacionamiento' element={<ParkingSchedule />} />
       <Route path='/fotos-estacionamiento' element={<ParkingLotPhotos />} />
