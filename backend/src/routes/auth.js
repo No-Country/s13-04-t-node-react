@@ -68,7 +68,7 @@ route.post("/login",validateLogin,validateFields ,login)
 
 /**
  * @openapi
- * /api/register:
+ * /api/auth/register:
  *   post:
  *     summary: Registrar un nuevo usuario
  *     description: Registra un nuevo usuario en el sistema
@@ -98,7 +98,7 @@ route.post("/login",validateLogin,validateFields ,login)
  *                 description: Número de teléfono del usuario (opcional)
  *               role:
  *                 type: string
- *                 description: Rol del usuario (opcional)
+ *                 description: Rol del usuario
  *               image:
  *                 type: string
  *                 format: binary
