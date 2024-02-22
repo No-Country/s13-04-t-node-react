@@ -6,7 +6,7 @@ import { Image } from "./image.js";
 import {Review} from "./review.js"
 
 
-await Garages.sync();
+await Garages.sync({alter: true});
 await User.sync();
 await Car.sync();
 await Image.sync()
