@@ -2,10 +2,23 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHeart } from 'react-icons/fa';
+import { garageService } from "../services/garage";
+import { IGarage } from "../types/garage";
+// import { useCurrentUser } from "../hooks/auth";
 
 export const FormBooking = () => {
+  //traer datos del usuario
+  // const user = useCurrentUser();
+  //traer los datos del garaje
+  const [garaje, setGaraje] = useState<IGarage | undefined>()
+
+  useEffect(() => {
+    garageService.getById("b7b7d344-fca3-4fae-a049-a914cf37fd67")
+      .then(res => { setGaraje(res) })
+  }, [])
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [favorites, setFavorites] = useState<number[]>([]);
 
@@ -59,8 +72,8 @@ export const FormBooking = () => {
       {/* encabezado */}
       <div className="grid grid-cols-4 gap-1 items-center">
         <section className="col-span-3 w-full gap-1">
-          <p className="text-xl uppercase">Garaje de Juan</p>
-          <p className="text-lg">Av. Directorio 3452, CABA, Argentina</p>
+          <p className="text-xl uppercase">{garaje?.name} </p>
+          <p className="text-lg">{garaje?.address}</p>
         </section>
         <section className="bg-[#5D2B2C] col-span-1 h-[52px] rounded-lg text-center flex items-center justify-center text-2xl text-white">
           4,5
@@ -68,7 +81,7 @@ export const FormBooking = () => {
       </div>
       {/* precio */}
       <div className="text-center p-4 text-2xl font-medium rounded-lg text-black bg-[#D58418]">
-        <span className="">$2000 x Hora </span>
+        <span className="">${garaje?.price} x Hora </span>
       </div>
       {/* horairos */}
       <section className="w-full">
