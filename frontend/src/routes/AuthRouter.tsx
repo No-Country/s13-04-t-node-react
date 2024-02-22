@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { Home, NotFound } from './LazyRoutes';
+import { AddNewParking, CreatedAccount, Home, NotFound, ParkingLotPhotos, ParkingSchedule } from './LazyRoutes';
 import { MyDataDriver } from '../pages/data-driver/MyDataDriver';
 import { DriverEmail } from '../pages/data-driver/DriverEmail';
 import { DriverPhone } from '../pages/data-driver/DriverPhone';
@@ -23,6 +23,14 @@ export default function AuthRouter() {
       <Route path='/agregar-vehiculo' element={<FormDriver />} />
       <Route path='/resultados-garages' element={<GarageResults />} />
       <Route path='/nuevo-vehiculo' element={<AddNewVehicule />} />
+      <Route path='/registro'>
+        <Route path='conductor' element={<AddNewVehicule />} />
+        <Route path='estacionamiento' element={<AddNewParking />} />
+        <Route path='cuenta-creada' element={<CreatedAccount />} />
+      </Route>     
+      <Route path='/cuenta-creada' element={<CreatedAccount />} />
+      <Route path='/horario-estacionamiento' element={<ParkingSchedule />} />
+      <Route path='/fotos-estacionamiento' element={<ParkingLotPhotos />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
