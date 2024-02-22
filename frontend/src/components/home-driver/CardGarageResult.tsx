@@ -9,8 +9,8 @@ interface Props {
 
 export const CardGarageResult = ({ garage }: Props) => {
   return (
-    <Link key={garage.id} to='/reservar'>
-      <div className='flex flex-row items-center justify-between'>
+    <Link key={garage.id} to={`/reservar/${garage.id}`}>
+      <div className='flex flex-row items-center justify-between py-2'>
         <div className='flex items-center gap-4'>
           <div className='relative'>
             <FaHeart className='absolute right-1 top-1 text-xl text-red-500' />

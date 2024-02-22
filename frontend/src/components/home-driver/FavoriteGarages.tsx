@@ -9,7 +9,7 @@ export const FavoriteGarages = () => {
   const filteredGarages = garages;
 
   return (
-    <div className='px-4 pb-6'>
+    <div className='pb-6'>
       <h2 className='font-semibold pb-2 text-xl'>Estacionamientos favoritos</h2>
       <ul className='flex overflow-x-auto items-center w-auto scrollbar-hidden gap-x-4'>
         {filteredGarages?.map((garage) => (
