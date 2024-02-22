@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -6,18 +6,26 @@ import { useEffect, useState } from "react";
 import { FaHeart } from 'react-icons/fa';
 import { garageService } from "../../services/garage";
 import { IGarage } from "../../types/garage";
-// import { useCurrentUser } from "../hooks/auth";
+
+// id1 ='8b0cec74-6355-4949-ac20-70b06df8313e'
+// id2 ='b7b7d344-fca3-4fae-a049-a914cf37fd67'
 
 export const FormBooking = () => {
+  const url = useParams()
   //traer datos del usuario
   // const user = useCurrentUser();
+
+
   //traer los datos del garaje
   const [garaje, setGaraje] = useState<IGarage | undefined>()
 
   useEffect(() => {
-    garageService.getById("b7b7d344-fca3-4fae-a049-a914cf37fd67")
-      .then(res => { setGaraje(res) })
-  }, [])
+    if (url.idGaraje) {
+      garageService.getById(url.idGaraje)
+        .then(res => { setGaraje(res) })
+    }
+    // console.log(url.idGaraje)
+  }, [url])
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [favorites, setFavorites] = useState<number[]>([]);
