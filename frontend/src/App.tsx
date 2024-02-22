@@ -1,12 +1,12 @@
-// import AppProvider from './context/AppContext'
-import Navigation from './routes'
+import { UserProvider } from './context/UserContext';
+import Navigation from './routes';
 
 function App(): JSX.Element {
   return (
-    // <AppProvider>
-      <Navigation/>
-    // </AppProvider>
-  )
+    <UserProvider>
+      <Navigation />
+    </UserProvider>
+  );
 }
 
 export default App;

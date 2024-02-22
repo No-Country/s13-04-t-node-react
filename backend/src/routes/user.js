@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getUser,getAllUser,updateUser,deleteUser} from "../controller/user.js"
+import {getUser,getAllUser,updateUser,deleteUser, passwordChange} from "../controller/user.js"
 import {validateFields} from "../middleware/validatorGeneral.js"
 import {validateUpdateUser} from "../validators/userValidator.js"
 import {sessionAuth} from "../middleware/sessionAuth.js"
@@ -163,6 +163,7 @@ route.get("/:id",getUser)
 */
 route.patch("/", sessionAuth,validateUpdateUser,validateFields,updateUser)
 
+route.patch("/password",sessionAuth,passwordChange)
 /**
  * @openapi
  * /api/users:
