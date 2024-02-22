@@ -4,12 +4,12 @@ import { authService } from '../../services/auth';
 
 export default function Login(): JSX.Element {
   const { register, handleSubmit } = useForm();
-  const navigate = useNavigate();
+  const navigation = useNavigate();
 
   const enviarDatos = handleSubmit(async (data) => {
     try {
       await authService.login(data.correo, data.contraseña);
-      navigate('/');
+      navigation('/');
     } catch (error) {
       alert('Hay algo mal en tus credenciales');
     }
@@ -85,10 +85,10 @@ export default function Login(): JSX.Element {
             ¿Olvidaste la contraseña?
           </button>
           <button
+            className='border rounded-3xl p-2 font-bold bg-[#D58418] text-center'
             type='submit'
-            className='bg-[#D9D9D9] my-2 p-1 border-solid border-black border-[1px] rounded-[10px]'
           >
-            iniciar sesion
+            Iniciar sesión
           </button>
 
           <article className='flex justify-center items-center'>
@@ -96,12 +96,27 @@ export default function Login(): JSX.Element {
             <hr className='w-full ml-4 border-solid border-black' />
           </article>
 
-          <Link
-            to='/registro'
-            className='text-center my-2 p-1 border-solid border-black border-[1px] rounded-[10px]'
+
+          <button
+            className='border-[2px] border-[#D58418] rounded-3xl p-2 font-bold text-center'
+            type='button'
+            onClick={(e) => {
+              e.preventDefault();
+              navigation('/registro/usuario/conductor');
+            }}
           >
-            Registrarse
-          </Link>
+            Registrate como conductor
+          </button>
+          <button
+            className='border-[2px] border-[#D58418] rounded-3xl p-2 font-bold text-center'
+            type='button'
+            onClick={(e) => {
+              e.preventDefault();
+              navigation('registro/usuario/estacionamiento');
+            }}
+          >
+            Registrate como estacionamiento
+          </button>
         </form>
       </section>
     </>
