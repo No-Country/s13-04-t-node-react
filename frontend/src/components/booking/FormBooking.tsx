@@ -4,8 +4,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useEffect, useState } from "react";
 import { FaHeart } from 'react-icons/fa';
-import { garageService } from "../services/garage";
-import { IGarage } from "../types/garage";
+import { garageService } from "../../services/garage";
+import { IGarage } from "../../types/garage";
 // import { useCurrentUser } from "../hooks/auth";
 
 export const FormBooking = () => {
