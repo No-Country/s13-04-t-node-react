@@ -13,7 +13,7 @@ try {
 
     const user= await User.findOne({where:{email:email}})
     if(!user){
-        throw new NotFound("Password incorrect")
+        throw new NotFound("User not found")
     }
     const passwordMatch =  bcrypt.compareSync(password, user.password);
     
@@ -50,6 +50,8 @@ const register=async(req,res, next)=>{
         }
 
         const passwordHash=bcrypt.hashSync(password,10)
+
+        req.body.password=passwordHash
     
         await User.create({name,email,password:passwordHash, identity,phone,role,image });
         

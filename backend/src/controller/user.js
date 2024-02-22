@@ -1,6 +1,6 @@
 import User from "../model/user.js";
-import { AlreadyExist, NotFound } from "../middleware/errors.js";
-
+import { AlreadyExist, NotFound,Unauthorized } from "../middleware/errors.js";
+import bcrypt from "bcrypt"
 const getAllUser= async(req,res, next)=>{
     try{
         
@@ -73,6 +73,35 @@ const deleteUser=async(req,res, next)=>{
     }
 }
 
+const passwordChange=async(req,res)=>{
+    const {password}=req.body
+    const {newPassword}=req.body
+    const id=req.userId
+    try {
+        const user=await User.findByPk(id)
+  
+    if (!user) {
+        throw new NotFound("User not found")
+    }
+    const passwordCheker=bcrypt.compareSync(password,user.password)
+
+    if (!passwordCheker) {
+        throw new Unauthorized("User unauthorized")
+    }
+
+    
+        user.password=bcrypt.hashSync(newPassword,10)
+        user.save()
+        return res.status(200).send("Password changed")
+
+    } catch (err) {
+        next(err)
+    }
+    
+    }
 
 
-export{getUser,getAllUser,updateUser,deleteUser}
+
+
+
+export{getUser,getAllUser,updateUser,deleteUser,passwordChange}
