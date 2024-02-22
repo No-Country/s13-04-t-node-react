@@ -12,9 +12,6 @@ const Landing: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const Home: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/home/Home')
 );
-const MenuRegister: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  async () => await import('../pages/register/MenuRegister')
-);
 const AddNewVehicule: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/register-driver/AddNewVehicule')
 );
@@ -33,6 +30,9 @@ const ParkingSchedule: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const ParkingLotPhotos: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/register-parking/ParkingLotPhotos')
 );
+const GarageResults: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  async () => await import('../pages/home-driver/GarageResults')
+);
 
 export {
   Landing,
@@ -40,10 +40,10 @@ export {
   Login,
   Register,
   Home,
-  MenuRegister,
   AddNewVehicule,
   CreatedAccount,
   AddNewParking,
   ParkingSchedule,
   ParkingLotPhotos,
+  GarageResults,
 };

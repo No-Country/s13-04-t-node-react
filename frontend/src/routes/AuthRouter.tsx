@@ -7,6 +7,8 @@ import { DriverPassword } from '../pages/data-driver/DriverPassword';
 import { MyVehicles } from '../pages/menu-my-vehicles/MyVehicles';
 import { FormDriver } from '../pages/menu-my-vehicles/FormDriver';
 import Booking from '../pages/Booking';
+import GarageResults from '../pages/home-driver/GarageResults';
+import AddNewVehicule from '../pages/register-driver/AddNewVehicule';
 
 export default function AuthRouter() {
   return (
@@ -19,6 +21,8 @@ export default function AuthRouter() {
       <Route path='/editar-password' element={<DriverPassword />} />
       <Route path='/mis-vehiculos' element={<MyVehicles />} />
       <Route path='/agregar-vehiculo' element={<FormDriver />} />
+      <Route path='/resultados-garages' element={<GarageResults />} />
+      <Route path='/nuevo-vehiculo' element={<AddNewVehicule />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
