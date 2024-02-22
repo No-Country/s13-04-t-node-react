@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { HeaderLanding } from '../../components/landing/HeaderLanding';
+import CustomButton from '../../components/utilities/CustomButton';
 
 export default function Landing() {
   return (
@@ -18,18 +18,9 @@ export default function Landing() {
         </div>
 
         <div className='flex flex-col items-center gap-4 py-10'>
-          <Link
-            to='/information'
-            className='px-3 py-1 font-semibold rounded-lg w-full border border-black bg-white text-center'
-          >
-            Más información
-          </Link>
-          <Link
-            to='/registro'
-            className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center'
-          >
-            Registrate
-          </Link>
+          <CustomButton to='/informacion' text='Mas informacion' type='secondary' extraProps={{}} />
+          <CustomButton to='/registro' text='Comenzar' type='primary' extraProps={{}} />
+
         </div>
 
         <div>
@@ -49,12 +40,8 @@ export default function Landing() {
               euismod hendrerit eget. Non morbi vel fames amet at et cursus.
               Aliquam enim augue quam posuere sed.
             </p>
-            <Link
-              to='/registro'
-              className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center'
-            >
-              Registrate como conductor
-            </Link>
+
+            <CustomButton to='registro' type='primary' text='Registrate como conductor' />
           </div>
         </div>
 
@@ -75,12 +62,7 @@ export default function Landing() {
               euismod hendrerit eget. Non morbi vel fames amet at et cursus.
               Aliquam enim augue quam posuere sed.
             </p>
-            <Link
-              to='/registro'
-              className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center'
-            >
-              Registrate como estacionamiento
-            </Link>
+            <CustomButton to='registro' type='primary' text='Registrate como estacionamiento' />
           </div>
         </div>
       </div>
