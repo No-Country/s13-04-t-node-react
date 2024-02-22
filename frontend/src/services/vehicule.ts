@@ -6,7 +6,7 @@ export const vehiculeService = {
   async addVehicule(payload: IVehicule) {
        
     const res = await client.post<{ car: IVehicule }>("/cars", payload);
-    return res.data;
+    return res;
   },
 };
 

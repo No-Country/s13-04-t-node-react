@@ -6,7 +6,14 @@ export const garageService = {
     const res = await client.get<{ garages: IGarage[] }>('/garages', {
       params: {},
     });
+    // console.log(res.data.garages);
     return res.data.garages;
+  },
+  async getById(idGarage: string) {
+    const res = await client.get<{ garage: IGarage }>(`/garages/${idGarage}`, {
+      params: {},
+    });
+    return res.data.garage;
   },
 
   async search(params: IGarageSearchParams) {

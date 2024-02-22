@@ -1,6 +1,6 @@
-import { useCurrentUser } from '../hooks/auth';
-import { FormBooking } from '../components/Booking';
-import { HeaderUser } from '../components/home-driver/HeaderUser';
+import { useCurrentUser } from '../../hooks/auth';
+import { FormBooking } from '../../components/booking/FormBooking';
+import { HeaderUser } from '../../components/home-driver/HeaderUser';
 
 
 export default function Booking() {
