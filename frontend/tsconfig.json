@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/components/Booking.tsx/.tsx"],
+  "include": ["src", "src/components/booking/FormBooking.tsx/.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
