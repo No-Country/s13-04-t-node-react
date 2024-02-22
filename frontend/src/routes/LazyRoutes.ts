@@ -30,6 +30,11 @@ const ParkingSchedule: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const ParkingLotPhotos: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/register-parking/ParkingLotPhotos')
 );
+
+const ParkingAvailability: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  async () => await import('../pages/register-parking/ParkingAvailability')
+);
+
 const GarageResults: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/home-driver/GarageResults')
 );
@@ -46,4 +51,5 @@ export {
   ParkingSchedule,
   ParkingLotPhotos,
   GarageResults,
+  ParkingAvailability,
 };
