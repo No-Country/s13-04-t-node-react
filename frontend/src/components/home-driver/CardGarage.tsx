@@ -1,6 +1,6 @@
 import { IGarage } from '../../types/garage';
 
-export const CardGaraje = ({ garage }: { garage: IGarage }) => {
+export const CardGarage = ({ garage }: { garage: IGarage }) => {
   return (
     <div>
       <div className='w-36'>
