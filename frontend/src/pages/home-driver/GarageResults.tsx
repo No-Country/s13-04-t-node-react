@@ -6,7 +6,7 @@ import useSWR from 'swr';
 import { CardGarageResult } from '../../components/home-driver/CardGarageResult';
 import { FormSearch } from '../../components/home-driver/FormSearch';
 
-export default function GarageResults() {
+export const GarageResults = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
@@ -53,4 +53,4 @@ export default function GarageResults() {
       </div>
     </>
   );
-}
+};

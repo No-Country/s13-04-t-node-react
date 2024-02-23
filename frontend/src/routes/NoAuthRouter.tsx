@@ -1,11 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import {
-  // AccountCreated,
-  Landing,
-  Login,
-  NotFound,
-  Register,
-} from './LazyRoutes';
+import { Landing } from '../pages/landing/Landing';
+import { Login } from '../pages/auth/Login';
+import { Register } from '../pages/register/Register';
+import { NotFound } from '../pages/not-found/NotFound';
 
 export default function NoAuthRouter() {
   return (
