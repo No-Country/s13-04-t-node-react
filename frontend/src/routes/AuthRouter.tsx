@@ -16,6 +16,7 @@ import Booking from '../pages/booking-driver/Booking';
 import GarageResults from '../pages/home-driver/GarageResults';
 import AddNewVehicule from '../pages/register-driver/AddNewVehicule';
 import ParkingAvailability from '../pages/register-parking/ParkingAvailability';
+import AccountCreated from '../pages/register/AccountCreated';
 
 export default function AuthRouter() {
   return (
@@ -40,6 +41,8 @@ export default function AuthRouter() {
       </Route>
       <Route path='/horario-estacionamiento' element={<ParkingSchedule />} />
       <Route path='/fotos-estacionamiento' element={<ParkingLotPhotos />} />
+      <Route path='/cuenta-creada' element={<AccountCreated />} />
+
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
