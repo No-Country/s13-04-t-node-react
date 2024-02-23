@@ -5,7 +5,7 @@ import { SelectReservationDay } from '../../components/book-page/SelectReservati
 import { SelectStartTime } from '../../components/book-page/SelectStartTime';
 import { SelectEndTime } from '../../components/book-page/SelectEndTime';
 
-export const BookPage = () => {
+export const CarDateReservation = () => {
   return (
     <>
       <HeaderUser />

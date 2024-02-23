@@ -1,6 +1,6 @@
 import { HeaderLogo } from '../../components/data-driver/HeaderLogo';
 
-export default function ParkingLotPhotos() {
+export const ParkingLotPhotos = () => {
   return (
     <>
       <HeaderLogo />
@@ -43,4 +43,4 @@ export default function ParkingLotPhotos() {
       </div>
     </>
   );
-}
+};
