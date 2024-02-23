@@ -15,9 +15,6 @@ const Home: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const AddNewVehicule: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/register-driver/AddNewVehicule')
 );
-const CreatedAccount: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  async () => await import('../pages/register/CreatedAccount')
-);
 const NotFound: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/not-found/NotFound')
 );
@@ -30,13 +27,14 @@ const ParkingSchedule: React.LazyExoticComponent<() => JSX.Element> = lazy(
 const ParkingLotPhotos: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/register-parking/ParkingLotPhotos')
 );
-
 const ParkingAvailability: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/register-parking/ParkingAvailability')
 );
-
 const GarageResults: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/home-driver/GarageResults')
+);
+const AccountCreated: React.LazyExoticComponent<() => JSX.Element> = lazy(
+  async () => await import('../pages/register/AccountCreated')
 );
 
 export {
@@ -46,10 +44,10 @@ export {
   Register,
   Home,
   AddNewVehicule,
-  CreatedAccount,
   AddNewParking,
   ParkingSchedule,
   ParkingLotPhotos,
   GarageResults,
   ParkingAvailability,
+  AccountCreated,
 };

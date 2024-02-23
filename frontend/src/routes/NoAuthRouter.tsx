@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import {
+  AccountCreated,
   Landing,
   Login,
   NotFound,
@@ -13,7 +14,8 @@ export default function NoAuthRouter() {
       <Route path='/acceso' element={<Login />} />
       <Route path='/registro'>
         <Route path='usuario/:type' element={<Register />} />
-      </Route>     
+      </Route>
+      <Route path='/cuenta-creada' element={<AccountCreated />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
