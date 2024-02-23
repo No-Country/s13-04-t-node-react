@@ -1,8 +1,9 @@
 import { Router } from "express";
-import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage } from '../controller/garage.js'
+import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage,addFavoriteGarage, getAllFavoriteGarages,removeFavoriteGarage } from '../controller/garage.js'
 import {validateFields} from "../middleware/validatorGeneral.js"
 import {validateCreateGarage,validateUpdateGarage,validateDeleteUser} from "../validators/garageValidator.js"
 import { validateFiles } from "../validators/fileValidator.js";
+import {sessionAuth} from '../middleware/sessionAuth.js'
 
 /**
  * @openapi
@@ -13,6 +14,83 @@ import { validateFiles } from "../validators/fileValidator.js";
 
 
 const route=Router();
+
+/**
+ * @openapi
+ * /api/garages/my_favorite:
+ *   get:
+ *     summary: Get all favorite garages
+ *     description: Retrieves all the garages marked as favorites by the authenticated user.
+ *     tags: [Favorite Garages]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of favorite garages.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Garage'
+ *       401:
+ *         description: Unauthorized - User not logged in.
+ *       404:
+ *         description: No favorite garages found.
+ */
+route.get("/my_favorite", sessionAuth, getAllFavoriteGarages)
+
+/**
+ * @openapi
+ * /api/garages/my_favorite/{id_garage}:
+ *   post:
+ *     summary: Add a garage to favorites
+ *     description: Marks a garage as a favorite for the authenticated user.
+ *     tags: [Favorite Garages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id_garage
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the garage to mark as favorite.
+ *     responses:
+ *       201:
+ *         description: Garage added to favorites successfully.
+ *       401:
+ *         description: Unauthorized - User not logged in.
+ *       404:
+ *         description: Garage not found.
+ */
+route.post("/my_favorite/:id_garage", sessionAuth, addFavoriteGarage)
+
+/**
+ * @openapi
+ * /api/garages/my_favorite/{id_garage}:
+ *   delete:
+ *     summary: Remove a garage from favorites
+ *     description: Removes a garage from the authenticated user's list of favorite garages.
+ *     tags: [Favorite Garages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id_garage
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the garage to remove from favorites.
+ *     responses:
+ *       200:
+ *         description: Garage removed from favorites successfully.
+ *       401:
+ *         description: Unauthorized - User not logged in.
+ *       404:
+ *         description: Favorite garage not found.
+ */
+route.delete("/my_favorite/:id_garage", sessionAuth, removeFavoriteGarage)
 
 /**
  * @openapi
@@ -307,6 +385,9 @@ route.patch("/:id",validateUpdateGarage,validateFields,updateGarage)
  *               $ref: '#/components/schemas/ErrorSchemas/Error'
  */
 route.delete("/:id",validateDeleteUser,validateFields,deleteGarage)
+
+
+
 
 
 export default route;
