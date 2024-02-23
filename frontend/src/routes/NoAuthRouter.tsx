@@ -1,13 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import {
-  AddNewParking,
+  // AccountCreated,
   Landing,
   Login,
-  MenuRegister,
   NotFound,
   Register,
-  AddNewVehicule,
-  CreatedAccount,
 } from './LazyRoutes';
 
 export default function NoAuthRouter() {
@@ -16,14 +13,8 @@ export default function NoAuthRouter() {
       <Route path='/' element={<Landing />} />
       <Route path='/acceso' element={<Login />} />
       <Route path='/registro'>
-        <Route index element={<MenuRegister />} />
-        <Route path='usuario' element={<Register />} />
-        <Route path='conductor' element={<AddNewVehicule />} />
-        <Route path='estacionamiento' element={<AddNewParking />} />
-        <Route path='cuenta-creada' element={<CreatedAccount />} />
+        <Route path='usuario/:role' element={<Register />} />
       </Route>
-      <Route path='/nuevo-vehiculo' element={<AddNewVehicule />} />
-      <Route path='/cuenta-creada' element={<CreatedAccount />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
