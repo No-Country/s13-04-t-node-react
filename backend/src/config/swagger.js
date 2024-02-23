@@ -185,6 +185,28 @@ const options = {
               },
               required: ["idUser", "name", "address", "country", "province", "city", "zipCode", "capacity", "price", "whitConfirmation", "available", "coordinates"]
             },
+            FavoriteGarages: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                    format: "uuid",
+                    description: "Unique identifier for the Favorite Garage"
+                  },
+                  idUser: {
+                    type: "string",
+                    format: "uuid",
+                    description: "Identifier of the User who favorited the garage"
+                  },
+                  idGarage: {
+                    type: "string",
+                    format: "uuid",
+                    description: "Identifier of the Garage that has been favorited"
+                  }
+                },
+                required: ["idUser", "idGarage"]
+              },
+
             Booking: {
                 type: "object",
                 properties: {
