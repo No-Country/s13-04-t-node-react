@@ -75,8 +75,9 @@ export const getFilteredGarages = async(req, res, next) => {
 }
 
 const createGarage = async(req, res, next) => {
-    const {idUser, name, address, country, province, city, zipCode, capacity, price, whitConfirmation, coordinates} = req.body;
+    const {idUser, name, address, country, province, city, zipCode, capacity, price, whitConfirmation, coordinates, schedule} = req.body;
     let images = req.files?.images || null
+
     try {
         const user = await User.findByPk(idUser)
 
@@ -88,7 +89,7 @@ const createGarage = async(req, res, next) => {
             throw new Unauthorized("You are not authorized to create a garage")
         }
 
-        const garage = await Garages.create({idUser, name, address, country, province, city, zipCode, capacity, price, whitConfirmation, coordinates});
+        const garage = await Garages.create({idUser, name, address, country, province, city, zipCode, capacity, price, whitConfirmation, coordinates, schedule: JSON.parse(schedule)});
 
         if(images && images.length !== 0){
             images = await uploadImages(images)
