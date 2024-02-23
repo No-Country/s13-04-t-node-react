@@ -60,7 +60,7 @@ export const FormBooking = () => {
 
       {/* boton */}
       <CustomButton to='#' text='Reservar' type='primary' />
-      <Link to='/reservar'>Link a Reservar</Link>
+      <Link to='/reservar-horario-vehiculo'>Link a Reservar</Link>
     </div>
   );
 };

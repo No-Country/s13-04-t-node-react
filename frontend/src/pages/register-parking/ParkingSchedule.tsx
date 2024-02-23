@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { schedules } from '../../data/schedules';
 
-export default function ParkingSchedule() {
+export const ParkingSchedule = () => {
   const [enabled, setEnabled] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -133,4 +133,4 @@ export default function ParkingSchedule() {
       </div>
     </>
   );
-}
+};

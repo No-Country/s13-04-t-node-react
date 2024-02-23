@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import UserRegisterForm from '../../components/register/UserRegisterForm';
 import { HeaderLanding } from '../../components/landing/HeaderLanding';
 
-export default function Register(): JSX.Element {
+export const Register = () => {
   const { role } = useParams();
 
   return (
@@ -29,4 +29,4 @@ export default function Register(): JSX.Element {
       </main>
     </>
   );
-}
+};
