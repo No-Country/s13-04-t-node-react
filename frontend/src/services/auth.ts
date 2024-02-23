@@ -9,10 +9,11 @@ export const authService = {
         'Content-Type': 'multipart/form-data',
       },
     });
+    let loginStatus;
     if (res.status === 201) {
-      this.login(payload.get('email') as string, payload.get('password') as string);
+      loginStatus = await this.login(payload.get('email') as string, payload.get('password') as string);
     }
-    return res.status;
+    return loginStatus && res.status;
   },
 
   async login(email: string, password: string) {
