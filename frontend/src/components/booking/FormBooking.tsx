@@ -7,11 +7,10 @@ import Carousel from "./Carousel";
 import Header from "./Header";
 import Schedule from "./Schedule";
 import { schedule } from "./MockSchedule";
-
-// id1 ='8b0cec74-6355-4949-ac20-70b06df8313e'
-// id2 ='b7b7d344-fca3-4fae-a049-a914cf37fd67'
+import CustomButton from "../utilities/CustomButton";
 
 export const FormBooking = () => {
+
   const { idGaraje } = useParams();
   // datos del usuario logueado
   // const user = useCurrentUser();
@@ -24,7 +23,7 @@ export const FormBooking = () => {
       garageService.getById(idGaraje)
         .then(res => {
           setGaraje(res)
-          console.log(res)
+          // console.log(res)
         })
     }
   }, [idGaraje])
@@ -44,6 +43,7 @@ export const FormBooking = () => {
       {garaje && <Header name={garaje.name} address={garaje.address} price={garaje.price} />}
       {/* horairos */}
       <Schedule schedule={schedule} />
+
       {/* mapa */}
       <section className="bg-[#FFE9CC] w-328 h-[72px] rounded-4 py-8 px-0 gap-x-24 flex items-center justify-center">
         <Link to="/#" className="flex items-center space-x-2 text-black">
@@ -57,9 +57,7 @@ export const FormBooking = () => {
       </section>
 
       {/* boton */}
-      <Link to='/#' className="text-center py-2 px-4 text-lg font-medium rounded-3xl h-10 text-black bg-[#D58418]">
-        <span className="">Reservar </span>
-      </Link>
+      <CustomButton to="#" text="Reservar" type="primary" />
     </div>
   );
 };
