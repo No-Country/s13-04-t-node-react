@@ -13,6 +13,6 @@ route.use("/users", userRoute);
 route.use("/garages", garageRoute);
 route.use("/cars", carRoute);
 route.use("/bookings", bookingRoute);
-route.use("/review",reviewRoute)
+route.use("/reviews",reviewRoute)
 
 export default route;
