@@ -16,6 +16,7 @@ import Booking from '../pages/booking-driver/Booking';
 import GarageResults from '../pages/home-driver/GarageResults';
 import AddNewVehicule from '../pages/register-driver/AddNewVehicule';
 import ParkingAvailability from '../pages/register-parking/ParkingAvailability';
+import { BookPage } from '../pages/booking-driver/BookPage';
 import AccountCreated from '../pages/register/AccountCreated';
 
 export default function AuthRouter() {
@@ -24,6 +25,7 @@ export default function AuthRouter() {
       <Route path='/' element={<Home />} />
       <Route path='/mis-datos' element={<MyDataDriver />} />
       <Route path='/reservar/:idGaraje' element={<Booking />} />
+      <Route path='/reservar' element={<BookPage />} />
       <Route path='/editar-email' element={<DriverEmail />} />
       <Route path='/editar-celular' element={<DriverPhone />} />
       <Route path='/editar-password' element={<DriverPassword />} />
