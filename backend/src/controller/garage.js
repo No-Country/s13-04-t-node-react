@@ -103,19 +103,16 @@ const createGarage = async(req, res, next) => {
 
 const updateGarage = async(req, res, next) => {
     const {id} = req.params;
-    const {idUser, name, address, capacity, amount, whitConfirmation, available,coordinates,rating, image} = req.body;
 
     try {
-        const checkGarage = await Garages.findByPk(id)
-        if(!checkGarage) {
+        const garage = await Garages.findByPk(id)
+        if(!garage) {
             throw new NotFound("Garage not found")
         }
 
-        const garage = await Garages.update({idUser, name, address, capacity, amount, whitConfirmation, available,coordinates,rating, image},{
-            where: {
-                id
-        }});
-        return res.status(200).send("Garage updated")
+        garage.set( {...req.body});
+        garage.save();
+        return res.status(200).send({"message" :"Garage updated", "garage": garage})
     } catch (err) {
         next(err)
     }
