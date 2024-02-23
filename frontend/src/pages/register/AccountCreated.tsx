@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { HeaderLanding } from '../../components/landing/HeaderLanding';
 
-export default function AccountCreated() {
+export const AccountCreated = () => {
   return (
     <>
       <HeaderLanding />
@@ -22,4 +22,4 @@ export default function AccountCreated() {
       </Link>
     </>
   );
-}
+};

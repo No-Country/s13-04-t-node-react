@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-export default function NotFound (): JSX.Element {
+export const NotFound = () => {
   return (
     <div>
-      <p>NotFound</p> 
+      <p>NotFound</p>
       <Link to={'/'}>ir a inicio</Link>
     </div>
-  )
-}
+  );
+};
