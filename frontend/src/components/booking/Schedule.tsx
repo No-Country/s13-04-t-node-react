@@ -1,8 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Fragment } from 'react';
+
+import MyDialog from './MyDialog';
 
 interface ScheduleProps {
   schedule: Record<string, { name: string; schedule: { start: string; end: string }[] }>;
+
 }
 
 const Schedule: React.FC<ScheduleProps> = ({ schedule }) => {
@@ -10,7 +12,7 @@ const Schedule: React.FC<ScheduleProps> = ({ schedule }) => {
     <section className="w-full">
       <ul className="grid grid-cols-2 ">
         {Object.values(schedule).map((day, index) => (
-          <React.Fragment key={index}>
+          <Fragment key={index}>
             <li className="text-left">
               <strong>{day.name}:</strong>
             </li>
@@ -22,20 +24,13 @@ const Schedule: React.FC<ScheduleProps> = ({ schedule }) => {
                 </div>
               ))}
             </li>
-          </React.Fragment>
+          </Fragment>
         ))}
         {/* Inserta aquí el código para mostrar los horarios */}
       </ul>
       {/* Enlace de disponibilidad */}
-      <div className="flex items-center py-4 text-black">
-        <img
-          className="h-6 w-6"
-          src="/images/reserva-icon.svg"
-          alt="reserva icon"
-        />
-        <Link to="/reservar/disponibilidad">
-          <span>Ver Disponibilidad</span>
-        </Link>
+      <div className="flex items-center justify-items-start">
+        <MyDialog />
       </div>
     </section>
   );

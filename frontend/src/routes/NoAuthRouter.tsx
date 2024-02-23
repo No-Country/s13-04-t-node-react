@@ -13,7 +13,7 @@ export default function NoAuthRouter() {
       <Route path='/' element={<Landing />} />
       <Route path='/acceso' element={<Login />} />
       <Route path='/registro'>
-        <Route path='usuario/:type' element={<Register />} />
+        <Route path='usuario/:role' element={<Register />} />
       </Route>
       <Route path='/cuenta-creada' element={<AccountCreated />} />
       <Route path='*' element={<NotFound />} />
