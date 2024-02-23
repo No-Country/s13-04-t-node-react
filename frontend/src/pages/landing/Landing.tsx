@@ -28,6 +28,7 @@ export default function Landing() {
           />
         </div>
 
+
         <div className="flex flex-col items-center gap-4 py-10">
           <CustomButton
             to="/informacion"
@@ -41,6 +42,8 @@ export default function Landing() {
             type="primary"
             extraProps={{}}
           />
+
+
         </div>
 
         <div>

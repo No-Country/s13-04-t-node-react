@@ -26,7 +26,7 @@ export default function AddNewVehicule(): JSX.Element {
     try {
       const res = await vehiculeService.addVehicule(vehicule);
       if (res.status === 201) {
-        navigate("/registro/cuenta-creada");
+        navigate("/cuenta-creada");
       } else {
         console.log(res);
       }
