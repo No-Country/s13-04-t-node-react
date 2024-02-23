@@ -3,14 +3,14 @@ import UserRegisterForm from '../../components/register/UserRegisterForm';
 import { HeaderLanding } from '../../components/landing/HeaderLanding';
 
 export default function Register(): JSX.Element {
-  const { type } = useParams();
+  const { role } = useParams();
 
   return (
     <>
       <HeaderLanding />
 
       <main className='p-4'>
-        {type === 'conductor' ? (
+        {role === 'conductor' ? (
           <>
             <h1 className='font-semibold uppercase text-lg'>
               REGÍSTRATE COMO CONDUCTOR

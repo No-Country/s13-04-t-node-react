@@ -14,7 +14,7 @@ interface Inputs {
 	role: string;
 }
 export default function UserRegisterForm() {
-	const { type } = useParams();
+	const { role } = useParams();
 	const navigation = useNavigate();
 	const [imgUser, setImgUser] = useState<string | ArrayBuffer>(
 		'/images/addPhotoUser.svg',
@@ -33,11 +33,11 @@ export default function UserRegisterForm() {
 		for (const name in data) {
 			formData.append(name, data[name]);
 		}
-		formData.append('role', 'user');
+		formData.append('role', role === 'conductor' ? 'user': 'parking');
 		formData.delete('confirmPassword');
 		const res = await authService.signup(formData);
 		if (res === 201) {
-			navigation(`/registro/${type}`);
+			navigation(`/registro/${role}`);
 		} else {
 			console.log(res);
 		}
