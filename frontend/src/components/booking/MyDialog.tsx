@@ -4,25 +4,33 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 export default function MyDialog() {
-  const [isOpen, setIsOpen] = useState(true)
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [isOpen, setIsOpen] = useState(false)
+  const [bookingDate, setBookingDate] = useState<Date | null>(new Date());
   // const [endDate, setEndDate] = useState<Date | null>(null);
 
   function closeModal() {
     setIsOpen(false)
   }
-
   function openModal() {
     setIsOpen(true)
   }
-
+  const onChange = (date: Date) => {
+    setBookingDate(date)
+    console.log(bookingDate)
+  };
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center">
+      <div className="inset-0 flex items-center justify-center ">
+        <img
+          className="h-6 w-6"
+          src="/images/reserva-icon.svg"
+          alt="reserva icon"
+        />
         <button
           type="button"
           onClick={openModal}
-          className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-black hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+          // className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-black hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+          className="flex items-center py-4 text-black"
         >
           Ver disponibilidad
         </button>
@@ -61,9 +69,9 @@ export default function MyDialog() {
                     Fechas disponibles
                   </Dialog.Title>
                   <DatePicker
-                    selected={startDate}
+                    selected={new Date()}
                     minDate={new Date()}
-                    onChange={(date) => setStartDate(date)}
+                    onChange={onChange}
                     monthsShown={1}
                     excludeDates={[new Date('2024-02-25'), new Date('2024-02-27'), new Date('2024-03-02')]}
                     inline
