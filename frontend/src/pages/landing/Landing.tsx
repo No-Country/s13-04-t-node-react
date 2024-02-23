@@ -19,7 +19,7 @@ export default function Landing() {
 
         <div className='flex flex-col items-center gap-4 py-10'>
           <CustomButton to='/informacion' text='Mas informacion' type='secondary' extraProps={{}} />
-          <CustomButton to='/registro' text='Comenzar' type='primary' extraProps={{}} />
+          <CustomButton to='/acceso' text='Comenzar' type='primary' extraProps={{}} />
 
         </div>
 
