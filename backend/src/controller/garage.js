@@ -41,6 +41,25 @@ const getGarage = async (req, res, next) => {
   }
 };
 
+export const getGaragesRecommended = async (req, res, next) => {
+  try {
+    console.log("entro")
+    const garages = await Garages.findAll({
+      where: {
+        rating: { [Op.ne]: null }
+      },
+      order: [
+        ['rating', 'DESC']
+      ],
+      limit: 10
+    })
+
+    res.status(200).send({ garages: garages });
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const getFilteredGarages = async (req, res, next) => {
   try {
     const { location, startDate, endDate } = req.query;
