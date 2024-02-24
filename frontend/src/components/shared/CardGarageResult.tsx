@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
 // import { FaRegHeart } from 'react-icons/fa';
 import { FaHeart } from 'react-icons/fa';
-import { ISearchGarage } from '../../types/garage';
 
 interface Props {
-  garage: ISearchGarage;
+  id: string;
+  name: string;
+  price: number;
 }
 
-export const CardGarageResult = ({ garage }: Props) => {
+export const CardGarageResult = ({ id, name, price }: Props) => {
   return (
-    <Link key={garage.id} to={`/reservar/${garage.id}`}>
+    <Link key={id} to={`/reservar/${id}`}>
       <div className='flex flex-row items-center justify-between py-2'>
         <div className='flex items-center gap-4'>
           <div className='relative'>
@@ -25,9 +26,9 @@ export const CardGarageResult = ({ garage }: Props) => {
           </div>
 
           <div className='flex flex-col'>
-            <h4 className='font-semibold pb-1 line-clamp-1'>{garage.name}</h4>
+            <h4 className='font-semibold pb-1 line-clamp-1'>{name}</h4>
             <p>Descripción del garaje</p>
-            <span className='font-semibold'>${garage.price} x hora</span>
+            <span className='font-semibold'>${price} x hora</span>
           </div>
         </div>
         <span className='self-start px-1 py-0.5 bg-[#5D2B2C] text-white rounded-md'>

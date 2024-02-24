@@ -1,4 +1,4 @@
-import { HeaderUser } from '../../components/home-driver/HeaderUser';
+import { HeaderUser } from '../../components/shared/HeaderUser';
 import { BackArrowIcon } from '../../components/shared/BackArrowIcon';
 import { RiArrowGoForwardFill } from 'react-icons/ri';
 

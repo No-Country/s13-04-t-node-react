@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 // HOME DRIVER
 import { Home } from '../pages/home/Home';
-import { GarageResults } from '../pages/home-driver/GarageResults';
+import { SearchPage } from '../pages/home-driver/SearchPage';
 // REGISTER DRIVER
 import { AddNewVehicule } from '../pages/register-driver/AddNewVehicule';
 // REGISTER PARKING
@@ -41,7 +41,7 @@ export default function AuthRouter() {
     <Routes>
       {/* HOME DRIVER */}
       <Route path='/' element={<Home />} />
-      <Route path='/resultados-garajes' element={<GarageResults />} />
+      <Route path='/resultados-garajes' element={<SearchPage />} />
 
       {/* REGISTER DRIVER */}
       <Route path='/registro'>
