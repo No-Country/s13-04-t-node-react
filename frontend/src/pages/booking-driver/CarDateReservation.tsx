@@ -1,5 +1,5 @@
 import { CardCarSelection } from '../../components/book-page/CardCarSelection';
-import { HeaderUser } from '../../components/home-driver/HeaderUser';
+import { HeaderUser } from '../../components/shared/HeaderUser';
 // import { BiSolidUpArrow } from 'react-icons/bi';
 import { SelectReservationDay } from '../../components/book-page/SelectReservationDay';
 import { SelectStartTime } from '../../components/book-page/SelectStartTime';
