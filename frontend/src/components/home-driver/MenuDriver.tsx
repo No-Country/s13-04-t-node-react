@@ -45,11 +45,11 @@ export const MenuDriver = () => {
       <div className='border border-[#5B5751]/60' />
 
       <div className='flex flex-col gap-4 py-6 font-semibold'>
-        <Link to='reservas' className='flex items-center gap-2'>
+        <Link to='/lista-menu-reservas' className='flex items-center gap-2'>
           <img src='/images/reserva-icon.svg' alt='reserva-icon' />
           <h5>Reservas</h5>
         </Link>
-        <Link to='favoritos' className='flex items-center gap-2'>
+        <Link to='/garajes-favoritos' className='flex items-center gap-2'>
           <img src='/images/favorite-icon.svg' alt='favorite-icon' />
           <h5>Favoritos</h5>
         </Link>
