@@ -28,12 +28,13 @@ export const CarDateReservation = () => {
           </div>
 
           <div className='p-4 flex flex-col gap-3 sticky bottom-0 inset-x-0 mt-auto bg-white'>
-            <Link
-              to='/reserva-rechazada'
-              type='submit'
-              className='py-2 text-center bg-[#D58418] rounded-3xl font-semibold'
-            >
-              Guardar
+            <Link to='/confirmacion-reserva'>
+              <button
+                type='submit'
+                className='py-2 text-center bg-[#D58418] rounded-3xl font-semibold w-full'
+              >
+                Guardar
+              </button>
             </Link>
             <button
               type='button'
