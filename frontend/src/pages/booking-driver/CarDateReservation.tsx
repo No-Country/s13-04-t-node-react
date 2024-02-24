@@ -4,6 +4,7 @@ import { HeaderUser } from '../../components/home-driver/HeaderUser';
 import { SelectReservationDay } from '../../components/book-page/SelectReservationDay';
 import { SelectStartTime } from '../../components/book-page/SelectStartTime';
 import { SelectEndTime } from '../../components/book-page/SelectEndTime';
+import { Link } from 'react-router-dom';
 
 export const CarDateReservation = () => {
   return (
@@ -27,12 +28,13 @@ export const CarDateReservation = () => {
           </div>
 
           <div className='p-4 flex flex-col gap-3 sticky bottom-0 inset-x-0 mt-auto bg-white'>
-            <button
+            <Link
+              to='/reserva-rechazada'
               type='submit'
               className='py-2 text-center bg-[#D58418] rounded-3xl font-semibold'
             >
               Guardar
-            </button>
+            </Link>
             <button
               type='button'
               className='py-2 text-center bg-white border border-[#D58418] rounded-3xl font-semibold'
