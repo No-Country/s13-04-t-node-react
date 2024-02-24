@@ -36,7 +36,7 @@ export const Landing = () => {
             extraProps={{}}
           />
           <CustomButton
-            to='/registro'
+            to='/acceso'
             text='Comenzar'
             type='primary'
             extraProps={{}}
@@ -62,7 +62,7 @@ export const Landing = () => {
             </p>
 
             <CustomButton
-              to='/registro'
+              to='/registro/usuario/conductor'
               type='primary'
               text='Registrate como conductor'
             />
@@ -87,7 +87,7 @@ export const Landing = () => {
               adicionales de manera sencilla.
             </p>
             <CustomButton
-              to='/registro'
+              to='/registro/usuario/parking'
               type='primary'
               text='Registrate como estacionamiento'
             />
@@ -111,7 +111,7 @@ export const Landing = () => {
               manera efectiva.
             </p>
             <CustomButton
-              to='/registro'
+              to='/registro/usuario/parking'
               type='primary'
               text='Registrate como estacionamiento'
             />
