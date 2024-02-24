@@ -1,5 +1,5 @@
 import { useCurrentUser } from '../../hooks/auth';
-import { HeaderUser } from '../../components/home-driver/HeaderUser';
+import { HeaderUser } from '../../components/shared/HeaderUser';
 import { HomeDriver } from '../home-driver/HomeDriver';
 import { HomeParking } from '../home-parking/HomeParking';
 
