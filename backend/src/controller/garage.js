@@ -109,58 +109,33 @@ export const getFilteredGarages = async (req, res, next) => {
   }
 };
 
-const createGarage = async (req, res, next) => {
-  const {
-    idUser,
-    name,
-    address,
-    country,
-    province,
-    city,
-    zipCode,
-    capacity,
-    price,
-    whitConfirmation,
-    coordinates,
-  } = req.body;
-  let images = req.files?.images || null;
+export const createGarage = async(req, res, next) => {
+  const {idUser, name, address, country, province, city, zipCode, capacity, price, whitConfirmation, coordinates, schedule} = req.body;
+  let images = req.files?.images || null
+
   try {
-    const user = await User.findByPk(idUser);
+      const user = await User.findByPk(idUser)
 
-    if (!user) {
-      throw new NotFound("User not found");
-    }
+      if(!user){
+          throw new NotFound("User not found")
+      }
 
-    if (user.role !== "parking") {
-      throw new Unauthorized("You are not authorized to create a garage");
-    }
+      if(user.role !== 'parking'){
+          throw new Unauthorized("You are not authorized to create a garage")
+      }
 
-    const garage = await Garages.create({
-      idUser,
-      name,
-      address,
-      country,
-      province,
-      city,
-      zipCode,
-      capacity,
-      price,
-      whitConfirmation,
-      coordinates,
-    });
+      const garage = await Garages.create({idUser, name, address, country, province, city, zipCode, capacity, price, whitConfirmation, coordinates, schedule: JSON.parse(schedule)});
 
-    if (images && images.length !== 0) {
-      images = await uploadImages(images);
-      await Image.bulkCreate(
-        images.map((image) => ({ route: image, garage_id: garage.id }))
-      );
-    }
+      if(images && images.length !== 0){
+          images = await uploadImages(images)
+          await Image.bulkCreate(images.map(image => ({route: image, garage_id: garage.id})))
+      }
 
-    return res.status(200).send({ message: "Garage created", garage: garage });
+      return res.status(200).send({message: "Garage created", "garage": garage})
   } catch (err) {
-    next(err);
+      next(err)
   }
-};
+}
 
 const updateGarage = async (req, res, next) => {
   const { id } = req.params;
@@ -288,7 +263,6 @@ const getAllFavoriteGarages = async (req, res, next) => {
 export {
   getAllGarages,
   getGarage,
-  createGarage,
   updateGarage,
   deleteGarage,
   addFavoriteGarage,

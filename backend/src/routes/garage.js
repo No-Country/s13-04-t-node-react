@@ -206,75 +206,58 @@ route.get("/:id",getGarage)
  *     summary: Crea un nuevo garaje
  *     description: Crea un nuevo garaje con la información proporcionada
  *     tags: [Garage]
- *     consumes:
- *       - multipart/form-data
- *     parameters:
- *       - in: formData
- *         name: idUser
- *         description: ID del usuario
- *         required: true
- *         type: string
- *       - in: formData
- *         name: name
- *         description: Nombre del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: address
- *         description: Dirección del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: country
- *         description: País del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: province
- *         description: Provincia del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: city
- *         description: Ciudad del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: zipCode
- *         description: Código postal del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: coordinates
- *         description: Coordenadas del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: capacity
- *         description: Capacidad del garaje
- *         required: true
- *         type: integer
- *         format: int32
- *       - in: formData
- *         name: price
- *         description: Precio del garaje
- *         required: true
- *         type: number
- *         format: float
- *       - in: formData
- *         name: whitConfirmation
- *         description: Confirmación requerida
- *         required: true
- *         type: boolean
- *       - in: formData
- *         name: images
- *         description: Imágenes del garaje
- *         required: false
- *         type: array
- *         items:
- *           type: file
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               idUser:
+ *                 type: string
+ *                 format: uuid
+ *                 description: ID del usuario propietario del garaje
+ *               name:
+ *                 type: string
+ *                 description: Nombre del garaje
+ *               address:
+ *                 type: string
+ *                 description: Dirección del garaje
+ *               country:
+ *                 type: string
+ *                 description: País del garaje
+ *               province:
+ *                 type: string
+ *                 description: Provincia del garaje
+ *               city:
+ *                 type: string
+ *                 description: Ciudad del garaje
+ *               zipCode:
+ *                 type: string
+ *                 description: Código postal del garaje
+ *               coordinates:
+ *                 type: string
+ *                 description: Coordenadas del garaje
+ *               capacity:
+ *                 type: number
+ *                 description: Capacidad del garaje
+ *               price:
+ *                 type: number
+ *                 description: Precio del garaje
+ *               whitConfirmation:
+ *                 type: boolean
+ *                 description: Confirmación requerida para reservas
+ *               schedule:
+ *                 type: object 
+ *                 description: Horario de disponibilidad del garaje en formato JSON
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 description: Imágenes del garaje (opcional)
  *     responses:
- *       201:
+ *       200:
  *         description: Garaje creado exitosamente
  *         content:
  *           application/json:
@@ -286,6 +269,24 @@ route.get("/:id",getGarage)
  *                   example: Garage created
  *                 garage:
  *                   $ref: '#/components/schemas/Garages'
+ *       400:
+ *         description: Error en la solicitud del cliente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/BadRequest'
+ *       401:
+ *         description: No autorizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Unauthorized'
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/NotFound'
  *       500:
  *         description: Error interno del servidor
  *         content:
