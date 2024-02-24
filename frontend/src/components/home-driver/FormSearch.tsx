@@ -46,7 +46,7 @@ export const FormSearch = ({ initialValues }: Props) => {
       'start-date': startDate?.toISOString() ?? '',
       'end-date': endDate?.toISOString() ?? '',
     });
-    navigate(`/resultados-garages?${searchParams}`);
+    navigate(`/resultados-garajes?${searchParams}`);
   };
 
   return (
