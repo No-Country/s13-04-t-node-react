@@ -76,6 +76,10 @@ const Garages = sequelize.define('Garages', {
         type:DataTypes.FLOAT,
         defaultValue: null,
         allowNull: true
+    },
+    schedule: {
+        type: DataTypes.JSON,
+        allowNull: true,
     }
 });
 
