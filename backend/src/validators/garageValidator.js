@@ -16,6 +16,7 @@ export const validateCreateGarage = [
     check("capacity", "Capacity is required").isNumeric().exists().trim(),
     check("price", "Price is required").isNumeric().exists().trim(),
     check("whitConfirmation" , "With confirmation is required").isBoolean().exists().trim(),
+    check('schedule' , "Schedile is required").isJSON().exists().trim()
 ];
 
 export const validateUpdateGarage=[

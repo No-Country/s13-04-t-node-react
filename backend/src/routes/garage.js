@@ -1,8 +1,9 @@
 import { Router } from "express";
-import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage } from '../controller/garage.js'
+import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage,addFavoriteGarage, getAllFavoriteGarages,removeFavoriteGarage, getGaragesRecommended } from '../controller/garage.js'
 import {validateFields} from "../middleware/validatorGeneral.js"
 import {validateCreateGarage,validateUpdateGarage,validateDeleteUser} from "../validators/garageValidator.js"
 import { validateFiles } from "../validators/fileValidator.js";
+import {sessionAuth} from '../middleware/sessionAuth.js'
 
 /**
  * @openapi
@@ -13,6 +14,107 @@ import { validateFiles } from "../validators/fileValidator.js";
 
 
 const route=Router();
+
+/**
+ * @openapi
+ * /api/garages/recommended:
+ *   get:
+ *     summary: Obtiene todos los garages recomendados 
+ *     description: Retorna una lista de garages
+ *     tags: [Garage]
+ *     responses:
+ *       200:
+ *         description: Garages obtenidos exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Garages'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
+route.get("/recommended" , getGaragesRecommended)
+/**
+ * @openapi
+ * /api/garages/my_favorite:
+ *   get:
+ *     summary: Get all favorite garages
+ *     description: Retrieves all the garages marked as favorites by the authenticated user.
+ *     tags: [Favorite Garages]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of favorite garages.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Garage'
+ *       401:
+ *         description: Unauthorized - User not logged in.
+ *       404:
+ *         description: No favorite garages found.
+ */
+route.get("/my_favorite", sessionAuth, getAllFavoriteGarages)
+
+/**
+ * @openapi
+ * /api/garages/my_favorite/{id_garage}:
+ *   post:
+ *     summary: Add a garage to favorites
+ *     description: Marks a garage as a favorite for the authenticated user.
+ *     tags: [Favorite Garages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id_garage
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the garage to mark as favorite.
+ *     responses:
+ *       201:
+ *         description: Garage added to favorites successfully.
+ *       401:
+ *         description: Unauthorized - User not logged in.
+ *       404:
+ *         description: Garage not found.
+ */
+route.post("/my_favorite/:id_garage", sessionAuth, addFavoriteGarage)
+
+/**
+ * @openapi
+ * /api/garages/my_favorite/{id_garage}:
+ *   delete:
+ *     summary: Remove a garage from favorites
+ *     description: Removes a garage from the authenticated user's list of favorite garages.
+ *     tags: [Favorite Garages]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id_garage
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the garage to remove from favorites.
+ *     responses:
+ *       200:
+ *         description: Garage removed from favorites successfully.
+ *       401:
+ *         description: Unauthorized - User not logged in.
+ *       404:
+ *         description: Favorite garage not found.
+ */
+route.delete("/my_favorite/:id_garage", sessionAuth, removeFavoriteGarage)
 
 /**
  * @openapi
@@ -128,75 +230,58 @@ route.get("/:id",getGarage)
  *     summary: Crea un nuevo garaje
  *     description: Crea un nuevo garaje con la información proporcionada
  *     tags: [Garage]
- *     consumes:
- *       - multipart/form-data
- *     parameters:
- *       - in: formData
- *         name: idUser
- *         description: ID del usuario
- *         required: true
- *         type: string
- *       - in: formData
- *         name: name
- *         description: Nombre del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: address
- *         description: Dirección del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: country
- *         description: País del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: province
- *         description: Provincia del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: city
- *         description: Ciudad del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: zipCode
- *         description: Código postal del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: coordinates
- *         description: Coordenadas del garaje
- *         required: true
- *         type: string
- *       - in: formData
- *         name: capacity
- *         description: Capacidad del garaje
- *         required: true
- *         type: integer
- *         format: int32
- *       - in: formData
- *         name: price
- *         description: Precio del garaje
- *         required: true
- *         type: number
- *         format: float
- *       - in: formData
- *         name: whitConfirmation
- *         description: Confirmación requerida
- *         required: true
- *         type: boolean
- *       - in: formData
- *         name: images
- *         description: Imágenes del garaje
- *         required: false
- *         type: array
- *         items:
- *           type: file
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               idUser:
+ *                 type: string
+ *                 format: uuid
+ *                 description: ID del usuario propietario del garaje
+ *               name:
+ *                 type: string
+ *                 description: Nombre del garaje
+ *               address:
+ *                 type: string
+ *                 description: Dirección del garaje
+ *               country:
+ *                 type: string
+ *                 description: País del garaje
+ *               province:
+ *                 type: string
+ *                 description: Provincia del garaje
+ *               city:
+ *                 type: string
+ *                 description: Ciudad del garaje
+ *               zipCode:
+ *                 type: string
+ *                 description: Código postal del garaje
+ *               coordinates:
+ *                 type: string
+ *                 description: Coordenadas del garaje
+ *               capacity:
+ *                 type: number
+ *                 description: Capacidad del garaje
+ *               price:
+ *                 type: number
+ *                 description: Precio del garaje
+ *               whitConfirmation:
+ *                 type: boolean
+ *                 description: Confirmación requerida para reservas
+ *               schedule:
+ *                 type: object 
+ *                 description: Horario de disponibilidad del garaje en formato JSON
+ *               images:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                   format: binary
+ *                 description: Imágenes del garaje (opcional)
  *     responses:
- *       201:
+ *       200:
  *         description: Garaje creado exitosamente
  *         content:
  *           application/json:
@@ -208,6 +293,24 @@ route.get("/:id",getGarage)
  *                   example: Garage created
  *                 garage:
  *                   $ref: '#/components/schemas/Garages'
+ *       400:
+ *         description: Error en la solicitud del cliente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/BadRequest'
+ *       401:
+ *         description: No autorizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Unauthorized'
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/NotFound'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -306,6 +409,9 @@ route.patch("/:id",validateUpdateGarage,validateFields,updateGarage)
  *               $ref: '#/components/schemas/ErrorSchemas/Error'
  */
 route.delete("/:id",validateDeleteUser,validateFields,deleteGarage)
+
+
+route.get("/recommended" , getGaragesRecommended)
 
 
 export default route;
