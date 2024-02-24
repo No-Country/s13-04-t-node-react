@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage,addFavoriteGarage, getAllFavoriteGarages,removeFavoriteGarage } from '../controller/garage.js'
+import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage,addFavoriteGarage, getAllFavoriteGarages,removeFavoriteGarage, getGaragesRecommended } from '../controller/garage.js'
 import {validateFields} from "../middleware/validatorGeneral.js"
 import {validateCreateGarage,validateUpdateGarage,validateDeleteUser} from "../validators/garageValidator.js"
 import { validateFiles } from "../validators/fileValidator.js";
@@ -15,6 +15,30 @@ import {sessionAuth} from '../middleware/sessionAuth.js'
 
 const route=Router();
 
+/**
+ * @openapi
+ * /api/garages/recommended:
+ *   get:
+ *     summary: Obtiene todos los garages recomendados 
+ *     description: Retorna una lista de garages
+ *     tags: [Garage]
+ *     responses:
+ *       200:
+ *         description: Garages obtenidos exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Garages'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
+route.get("/recommended" , getGaragesRecommended)
 /**
  * @openapi
  * /api/garages/my_favorite:
@@ -386,7 +410,7 @@ route.patch("/:id",validateUpdateGarage,validateFields,updateGarage)
 route.delete("/:id",validateDeleteUser,validateFields,deleteGarage)
 
 
-
+route.get("/recommended" , getGaragesRecommended)
 
 
 export default route;
