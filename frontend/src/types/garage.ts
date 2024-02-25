@@ -17,10 +17,11 @@ export interface IGarage {
   whitConfirmation: boolean;
   available: boolean;
   coordinates: string;
-  rating: number;
-  createdAt: Date;
-  updatedAt: Date;
-  images: Image[];
+  rating: null;
+  schedule: { [key: string]: ScheduleValue };
+  createdAt: string;
+  updatedAt: string;
+  id_user: string;
 }
 
 export interface Image {
@@ -61,4 +62,23 @@ export interface User {
   role: string;
   rating: null;
   image: null;
+}
+
+export interface IFavoriteGarage {
+  id: string;
+  idUser: string;
+  idGarage: string;
+  createdAt: string;
+  updatedAt: string;
+  garage: IGarage;
+}
+
+export interface ScheduleValue {
+  name: string;
+  schedule: ScheduleElement[];
+}
+
+export interface ScheduleElement {
+  start: string;
+  end: string;
 }
