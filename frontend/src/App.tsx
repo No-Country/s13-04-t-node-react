@@ -1,10 +1,13 @@
+import { FavoritesProvider } from './context/FavoritesContext';
 import { UserProvider } from './context/UserContext';
 import Navigation from './routes';
 
 function App(): JSX.Element {
   return (
     <UserProvider>
-      <Navigation />
+      <FavoritesProvider>
+        <Navigation />
+      </FavoritesProvider>
     </UserProvider>
   );
 }
