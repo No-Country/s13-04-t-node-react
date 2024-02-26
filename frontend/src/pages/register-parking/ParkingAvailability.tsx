@@ -10,9 +10,9 @@ interface Inputs {
 export const ParkingAvailability = () => {
   const {
     register,
-    watch,
+    // watch,
     handleSubmit,
-    setValue,
+    // setValue,
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
