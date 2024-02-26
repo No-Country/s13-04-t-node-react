@@ -6,9 +6,6 @@ import { SearchPage } from '../pages/home-driver/SearchPage';
 import { AddNewVehicule } from '../pages/register-driver/AddNewVehicule';
 // REGISTER PARKING
 import { AddNewParking } from '../pages/register-parking/AddNewParking';
-import { ParkingAvailability } from '../pages/register-parking/ParkingAvailability';
-import { ParkingSchedule } from '../pages/register-parking/ParkingSchedule';
-import { ParkingLotPhotos } from '../pages/register-parking/ParkingLotPhotos';
 // MENU DATA DRIVER
 import { MyDataDriver } from '../pages/menu-data-driver/MyDataDriver';
 import { DriverEmail } from '../pages/menu-data-driver/DriverEmail';
@@ -50,12 +47,6 @@ export default function AuthRouter() {
 
       {/* REGISTER PARKING */}
       <Route path='/estacionamiento' element={<AddNewParking />} />
-      <Route
-        path='/disponibilidad-estacionamiento'
-        element={<ParkingAvailability />}
-      />
-      <Route path='/horario-estacionamiento' element={<ParkingSchedule />} />
-      <Route path='/fotos-estacionamiento' element={<ParkingLotPhotos />} />
 
       {/* MENU DATA DRIVER */}
       <Route path='/mis-datos' element={<MyDataDriver />} />

@@ -33,11 +33,11 @@ export default function UserRegisterForm() {
 		for (const name in data) {
 			formData.append(name, data[name]);
 		}
-		formData.append('role', role === 'conductor' ? 'user': 'parking');
+		formData.append('role', role === 'conductor' ? 'user' : 'parking');
 		formData.delete('confirmPassword');
 		const res = await authService.signup(formData);
 		if (res === 201) {
-			navigation(`/registro/${role}`);
+			navigation(`/${role}`);
 		} else {
 			console.log(res);
 		}
