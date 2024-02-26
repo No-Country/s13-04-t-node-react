@@ -80,6 +80,11 @@ const Garages = sequelize.define('Garages', {
     schedule: {
         type: DataTypes.JSON,
         allowNull: true,
+    },
+    type: {
+        type: DataTypes.ENUM('particular' , 'company'),
+        defaultValue: 'particular',
+        allowNull: false
     }
 });
 
