@@ -35,7 +35,7 @@ export interface Inputs {
   type: string;
   schedule: Schedule;
 }
-export default function AddNewParking() {
+export const AddNewParking = () => {
   const user = useCurrentUser();
   const methods = useForm<Inputs>({
     defaultValues: {
@@ -133,4 +133,4 @@ export default function AddNewParking() {
       </main>
     </>
   );
-}
+};
