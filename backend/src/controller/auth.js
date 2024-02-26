@@ -32,32 +32,40 @@ try {
    }
 }
 
-const register=async(req,res, next)=>{
-    const {name,email,password,phone,role}=req.body
-    let image = req.files?.image || null
+const register = async (req, res, next) => {
+    const { name, email, password, phone, role } = req.body;
+    let image = req.files?.image || null;
+
     try {
-        const checkEmail=await User.findOne({
+        const checkEmail = await User.findOne({
             where: {
-              email:email, 
-            }}) 
-        
-        if(checkEmail){
-            throw new AlreadyExist("Email already exist")
-        }
-        
-        if(image) {
-            image = await uploadImage(image)
+                email: email,
+            }
+        });
+
+        if (checkEmail) {
+            throw new AlreadyExist("Email already exists");
         }
 
-        const passwordHash=bcrypt.hashSync(password,10)
-    
-        const user = await User.create({name,email,password:passwordHash,phone,role,image });
-        
-        return res.status(201).send({message:"user created"})    
+        if (image) {
+            image = await uploadImage(image);
+        }
+
+        const passwordHash = bcrypt.hashSync(password, 10);
+
+        const user = await User.create({ name, email, password: passwordHash, phone, role, image });
+
+        const token = jwt.sign({ userId: user.id }, config.API_SECRET, { expiresIn: '1h' });
+
+        return res.status(201).json({
+            message: "User created",
+            token: token,
+        });
+
     } catch (error) {
-       next(error)
+        next(error);
     }
-    
-}
+};
+
 
 export {login, register}
