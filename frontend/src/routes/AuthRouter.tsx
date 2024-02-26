@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { AddNewParking, CreatedAccount, Home, NotFound, ParkingLotPhotos, ParkingSchedule } from './LazyRoutes';
+import { AddNewParking, CreatedAccount, Home, NotFound } from './LazyRoutes';
 import { MyDataDriver } from '../pages/data-driver/MyDataDriver';
 import { DriverEmail } from '../pages/data-driver/DriverEmail';
 import { DriverPhone } from '../pages/data-driver/DriverPhone';
@@ -9,7 +9,7 @@ import { FormDriver } from '../pages/menu-my-vehicles/FormDriver';
 import Booking from '../pages/booking-driver/Booking';
 import GarageResults from '../pages/home-driver/GarageResults';
 import AddNewVehicule from '../pages/register-driver/AddNewVehicule';
-import ParkingAvailability from '../pages/register-parking/ParkingAvailability';
+// import ParkingAvailability from '../components/createParking/ParkingAvailability';
 
 export default function AuthRouter() {
   return (
@@ -27,12 +27,12 @@ export default function AuthRouter() {
       <Route path='/registro'>
         <Route path='conductor' element={<AddNewVehicule />} />
         <Route path='estacionamiento' element={<AddNewParking />} />
-        <Route path='cuenta-creada' element={<CreatedAccount />} />
-        <Route path='disponibilidad-estacionamiento' element={<ParkingAvailability />} />
+        {/* <Route path='disponibilidad-estacionamiento' element={<ParkingAvailability />} /> */}
+        {/* <Route path='cuenta-creada' element={<CreatedAccount />} /> */}
       </Route>     
       <Route path='/cuenta-creada' element={<CreatedAccount />} />
-      <Route path='/horario-estacionamiento' element={<ParkingSchedule />} />
-      <Route path='/fotos-estacionamiento' element={<ParkingLotPhotos />} />
+      {/* <Route path='/horario-estacionamiento' element={<ParkingSchedule />} /> */}
+      {/* <Route path='/fotos-estacionamiento' element={<ParkingLotPhotos />} /> */}
       <Route path='*' element={<NotFound />} />
     </Routes>
   );

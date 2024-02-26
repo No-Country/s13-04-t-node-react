@@ -6,7 +6,6 @@ export const garageService = {
     const res = await client.get<{ garages: IGarage[] }>('/garages', {
       params: {},
     });
-    // console.log(res.data.garages);
     return res.data.garages;
   },
   async getById(idGarage: string) {
@@ -24,5 +23,13 @@ export const garageService = {
       }
     );
     return res.data.garages;
+  },
+    async createGaraje(payload: FormData) {
+    const res = await client.post('/garages', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return  res.status;
   },
 };

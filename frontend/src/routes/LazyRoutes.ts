@@ -25,14 +25,14 @@ const AddNewParking: React.LazyExoticComponent<() => JSX.Element> = lazy(
   async () => await import('../pages/register-parking/AddNewParking')
 );
 const ParkingSchedule: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  async () => await import('../pages/register-parking/ParkingSchedule')
+  async () => await import('../components/createParking/ParkingSchedule')
 );
 const ParkingLotPhotos: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  async () => await import('../pages/register-parking/ParkingLotPhotos')
+  async () => await import('../components/createParking/ParkingLotPhotos')
 );
 
 const ParkingAvailability: React.LazyExoticComponent<() => JSX.Element> = lazy(
-  async () => await import('../pages/register-parking/ParkingAvailability')
+  async () => await import('../components/createParking/ParkingAvailability')
 );
 
 const GarageResults: React.LazyExoticComponent<() => JSX.Element> = lazy(
