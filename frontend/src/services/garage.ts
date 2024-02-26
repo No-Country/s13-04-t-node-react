@@ -25,4 +25,12 @@ export const garageService = {
     );
     return res.data.garages;
   },
+    async createGaraje(payload: FormData) {
+    const res = await client.post('/garages', payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return  res;
+  },
 };
