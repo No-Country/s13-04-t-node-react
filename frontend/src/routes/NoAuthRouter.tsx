@@ -1,14 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import {
-  AddNewParking,
-  Landing,
-  Login,
-  MenuRegister,
-  NotFound,
-  Register,
-  AddNewVehicule,
-  CreatedAccount,
-} from './LazyRoutes';
+import { Landing } from '../pages/landing/Landing';
+import { Login } from '../pages/auth/Login';
+import { Register } from '../pages/register/Register';
+import { NotFound } from '../pages/not-found/NotFound';
 
 export default function NoAuthRouter() {
   return (
@@ -16,14 +10,8 @@ export default function NoAuthRouter() {
       <Route path='/' element={<Landing />} />
       <Route path='/acceso' element={<Login />} />
       <Route path='/registro'>
-        <Route index element={<MenuRegister />} />
-        <Route path='usuario' element={<Register />} />
-        <Route path='conductor' element={<AddNewVehicule />} />
-        <Route path='estacionamiento' element={<AddNewParking />} />
-        <Route path='cuenta-creada' element={<CreatedAccount />} />
+        <Route path='usuario/:role' element={<Register />} />
       </Route>
-      <Route path='/nuevo-vehiculo' element={<AddNewVehicule />} />
-      <Route path='/cuenta-creada' element={<CreatedAccount />} />
       <Route path='*' element={<NotFound />} />
     </Routes>
   );
