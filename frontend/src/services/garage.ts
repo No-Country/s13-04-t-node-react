@@ -31,6 +31,6 @@ export const garageService = {
         'Content-Type': 'multipart/form-data',
       },
     });
-    return  res.status;
+    return  res;
   },
 };

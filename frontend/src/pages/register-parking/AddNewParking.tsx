@@ -7,6 +7,7 @@ import ParkingLotPhotos from '../../components/createParking/ParkingLotPhotos';
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form';
 import { garageService } from '../../services/garage';
 import { useCurrentUser } from '../../hooks/auth';
+import { useNavigate } from 'react-router';
 interface ScheduleDay {
   end: string | null;
   start: string | null;
@@ -36,6 +37,7 @@ export interface Inputs {
   schedule: Schedule;
 }
 export const AddNewParking = () => {
+  const navigation = useNavigate();
   const user = useCurrentUser();
   const methods = useForm<Inputs>({
     defaultValues: {
@@ -88,7 +90,7 @@ export const AddNewParking = () => {
   const { handleSubmit } = methods;
   const [step, setStep] = useState(0);
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const formData = new FormData();
     for (const name in data) {
       if (name === 'schedule') {
@@ -103,7 +105,12 @@ export const AddNewParking = () => {
         formData.append(name, data[name] as string);
       }
     }
-    garageService.createGaraje(formData);
+    const res = await garageService.createGaraje(formData);
+    if (res.status === 200) {
+      navigation('/');
+    } else {
+      console.log(res.data);
+    }
   };
   return (
     <>
