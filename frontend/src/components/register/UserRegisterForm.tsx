@@ -93,7 +93,7 @@ export default function UserRegisterForm() {
 				<input
 					className='border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1'
 					placeholder='Ingresa tu numero de DNI'
-					type='number'
+					type='text'
 					{...register('identity', { required: true })}
 				/>
 				{errors.identity != null && (
@@ -119,7 +119,7 @@ export default function UserRegisterForm() {
 				<input
 					className='border-[#D58418] border rounded-md py-2 px-3 placeholder:text-black mt-1'
 					placeholder='Ingresa numero de celular'
-					type='number'
+					type='text'
 					{...register('phone', { required: true })}
 				/>
 				{errors.phone != null && (
