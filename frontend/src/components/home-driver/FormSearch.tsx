@@ -46,7 +46,7 @@ export const FormSearch = ({ initialValues }: Props) => {
       'start-date': startDate?.toISOString() ?? '',
       'end-date': endDate?.toISOString() ?? '',
     });
-    navigate(`/resultados-garages?${searchParams}`);
+    navigate(`/resultados-garajes?${searchParams}`);
   };
 
   return (
@@ -126,10 +126,11 @@ export const FormSearch = ({ initialValues }: Props) => {
 
       <button
         type='submit'
-        className='px-3 py-1 font-semibold rounded-lg w-full border bg-[#D9D9D9] text-center mt-2 mb-4'
+        className='px-3 py-1 font-semibold rounded-3xl w-full border bg-[#D58418] text-center'
       >
         Buscar
       </button>
-    </form>
+
+    </form >
   );
 };

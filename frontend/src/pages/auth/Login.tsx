@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth';
 
-export default function Login(): JSX.Element {
+export const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigation = useNavigate();
 
@@ -96,7 +96,6 @@ export default function Login(): JSX.Element {
             <hr className='w-full ml-4 border-solid border-black' />
           </article>
 
-
           <button
             className='border-[2px] border-[#D58418] rounded-3xl p-2 font-bold text-center'
             type='button'
@@ -112,7 +111,7 @@ export default function Login(): JSX.Element {
             type='button'
             onClick={(e) => {
               e.preventDefault();
-              navigation('registro/usuario/estacionamiento');
+              navigation('/registro/usuario/estacionamiento');
             }}
           >
             Registrate como estacionamiento
@@ -121,4 +120,4 @@ export default function Login(): JSX.Element {
       </section>
     </>
   );
-}
+};

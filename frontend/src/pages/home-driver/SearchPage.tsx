@@ -1,12 +1,12 @@
 import { useLocation, useSearchParams } from 'react-router-dom';
-import { HeaderUser } from '../../components/home-driver/HeaderUser';
+import { HeaderUser } from '../../components/shared/HeaderUser';
 
 import { garageService } from '../../services/garage';
 import useSWR from 'swr';
-import { CardGarageResult } from '../../components/home-driver/CardGarageResult';
+import { CardGarageResult } from '../../components/shared/CardGarageResult';
 import { FormSearch } from '../../components/home-driver/FormSearch';
 
-export default function GarageResults() {
+export const SearchPage = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
@@ -38,7 +38,12 @@ export default function GarageResults() {
         />
 
         {garages?.map((garage) => (
-          <CardGarageResult key={garage.id} garage={garage} />
+          <CardGarageResult
+            key={garage.id}
+            id={garage.id}
+            price={garage.price}
+            name={garage.name}
+          />
         ))}
       </div>
 
@@ -53,4 +58,4 @@ export default function GarageResults() {
       </div>
     </>
   );
-}
+};

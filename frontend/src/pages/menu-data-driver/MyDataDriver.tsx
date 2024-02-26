@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { HeaderUser } from '../../components/home-driver/HeaderUser';
+import { HeaderUser } from '../../components/shared/HeaderUser';
 import { useCurrentUser } from '../../hooks/auth';
 
 export const MyDataDriver = () => {
