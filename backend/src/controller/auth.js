@@ -13,7 +13,7 @@ try {
 
     const user= await User.findOne({where:{email:email}})
     if(!user){
-        throw new NotFound("Password incorrect")
+        throw new NotFound("User not found")
     }
     const passwordMatch =  bcrypt.compareSync(password, user.password);
     
@@ -21,7 +21,7 @@ try {
         throw new Unauthorized("Password incorrect")
     }
 
-    const token = jwt.sign({ userId: user.id }, config.API_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user.id }, config.API_SECRET);
 
     user.password=undefined
         
@@ -55,7 +55,7 @@ const register = async (req, res, next) => {
 
         const user = await User.create({ name, email, password: passwordHash, phone, role, image });
 
-        const token = jwt.sign({ userId: user.id }, config.API_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user.id }, config.API_SECRET);
 
         return res.status(201).json({
             message: "User created",

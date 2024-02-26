@@ -5,8 +5,70 @@ const options = {
     definition: {
       openapi: "3.0.0",
       info: { title: "EstacionAPP API", version: "1.0.0" },
+      
       components: {
+        securitySchemes: {
+          BearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+          },
+        },
         schemas: {
+            User: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                    format: "uuid",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                    description: "ID del usuario (UUID)"
+                  },
+                  name: {
+                    type: "string",
+                    example: "John Doe",
+                    description: "Nombre del usuario"
+                  },
+                  identity: {
+                    type: "string",
+                    example: "12345678",
+                    description: "Identificación del usuario"
+                  },
+                  email: {
+                    type: "string",
+                    example: "johndoe@example.com",
+                    description: "Correo electrónico del usuario"
+                  },
+                  password: {
+                    type: "string",
+                    example: "password123",
+                    description: "Contraseña del usuario"
+                  },
+                  phone: {
+                    type: "string",
+                    example: "1234567890",
+                    description: "Número de teléfono del usuario"
+                  },
+                  role: {
+                    type: "string",
+                    enum: ["parking", "user"],
+                    example: "user",
+                    description: "Rol del usuario ('parking' o 'user')"
+                  },
+                  rating: {
+                    type: "number",
+                    format: "float",
+                    example: 4.5,
+                    description: "Calificación del usuario (puede ser null)"
+                  },
+                  image: {
+                    type: "string",
+                    example: "https://example.com/profile.jpg",
+                    description: "URL de la imagen de perfil del usuario"
+                  }
+                },
+                required: ["name", "identity", "email", "password", "role"]
+            },
             Car: {
                 type: "object",
                 properties: {
@@ -38,6 +100,154 @@ const options = {
                     }
                 },
                 required: ["brand", "model", "plate", "color"]
+            },
+            Garages: {
+              type: "object",
+              properties: {
+                  id: {
+                      type: "string",
+                      format: "uuid",
+                      example: "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                      description: "ID único del garaje (UUID)"
+                  },
+                  idUser: {
+                      type: "string",
+                      format: "uuid",
+                      description: "ID del usuario propietario del garaje"
+                  },
+                  name: {
+                      type: "string",
+                      example: "Garaje Central",
+                      description: "Nombre del garaje"
+                  },
+                  address: {
+                      type: "string",
+                      example: "Calle Falsa 123",
+                      description: "Dirección del garaje"
+                  },
+                  country: {
+                      type: "string",
+                      example: "España",
+                      description: "País donde se encuentra el garaje"
+                  },
+                  province: {
+                      type: "string",
+                      example: "Barcelona",
+                      description: "Provincia donde se encuentra el garaje"
+                  },
+                  city: {
+                      type: "string",
+                      example: "Barcelona",
+                      description: "Ciudad donde se encuentra el garaje"
+                  },
+                  zipCode: {
+                      type: "string",
+                      example: "08001",
+                      description: "Código postal del garaje"
+                  },
+                  capacity: {
+                      type: "integer",
+                      example: 5,
+                      description: "Capacidad máxima de vehículos del garaje"
+                  },
+                  amount: {
+                      type: "integer",
+                      example: 0,
+                      description: "Cantidad actual de vehículos en el garaje"
+                  },
+                  price: {
+                      type: "number",
+                      format: "double",
+                      example: 15.5,
+                      description: "Precio por hora de estacionamiento"
+                  },
+                  whitConfirmation: {
+                      type: "boolean",
+                      example: false,
+                      description: "Indica si el garaje requiere confirmación para reservar"
+                  },
+                  available: {
+                      type: "boolean",
+                      example: true,
+                      description: "Disponibilidad actual del garaje"
+                  },
+                  coordinates: {
+                      type: "string",
+                      example: "41.40338, 2.17403",
+                      description: "Coordenadas geográficas del garaje"
+                  },
+                  rating: {
+                      type: "number",
+                      format: "float",
+                      example: 4.5,
+                      description: "Calificación promedio del garaje"
+                  }
+              },
+              required: ["idUser", "name", "address", "country", "province", "city", "zipCode", "capacity", "price", "whitConfirmation", "available", "coordinates"]
+            },
+            FavoriteGarages: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                    format: "uuid",
+                    description: "Unique identifier for the Favorite Garage"
+                  },
+                  idUser: {
+                    type: "string",
+                    format: "uuid",
+                    description: "Identifier of the User who favorited the garage"
+                  },
+                  idGarage: {
+                    type: "string",
+                    format: "uuid",
+                    description: "Identifier of the Garage that has been favorited"
+                  }
+                },
+                required: ["idUser", "idGarage"]
+              },
+
+            Booking: {
+                type: "object",
+                properties: {
+                  id: {
+                    type: "string",
+                    format: "uuid",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                    description: "ID de la reserva (UUID)"
+                  },
+                  date_start: {
+                    type: "string",
+                    format: "date-time",
+                    example: "2024-02-19T08:00:00Z",
+                    description: "Fecha de inicio de la reserva"
+                  },
+                  date_end: {
+                    type: "string",
+                    format: "date-time",
+                    example: "2024-02-20T08:00:00Z",
+                    description: "Fecha de fin de la reserva"
+                  },
+                  status: {
+                    type: "string",
+                    enum: ["pending", "active", "inactive"],
+                    example: "pending",
+                    description: "Estado de la reserva"
+                  },
+                  id_car: {
+                    type: "string",
+                    format: "uuid",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                    description: "ID del coche asociado a la reserva (UUID)"
+                  },
+                  id_garage: {
+                    type: "string",
+                    format: "uuid",
+                    example: "123e4567-e89b-12d3-a456-426614174000",
+                    description: "ID del garaje asociado a la reserva (UUID)"
+                  }
+                },
+                required: ["date_start", "date_end", "status", "id_car", "id_garage"]
             },
             ErrorSchemas:{
                 Error: {
@@ -142,7 +352,12 @@ const options = {
                 },
             },
         }
-    }
+    },
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
     },
     apis: ['./src/routes/*.js' , './src/models/*.js'],
     };
