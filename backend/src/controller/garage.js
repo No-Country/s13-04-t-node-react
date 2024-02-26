@@ -240,9 +240,9 @@ const getAllFavoriteGarages = async (req, res, next) => {
         }]
       });
   
-      if (!favoriteGarages.length) {
+/*       if (!favoriteGarages.length) {
         return res.status(404).json({ message: 'No favorite garages found' });
-      }
+      } */
   
       return res.status(200).json(favoriteGarages);
     } catch (error) {
@@ -278,6 +278,56 @@ const getAllFavoriteGarages = async (req, res, next) => {
       return res.status(500).json({ message: 'Internal server error' });
     }
   };
+
+export const searchLocationAutocomplete = async (req, res, next) => {
+  try {
+    let { searchForm } = req.query;
+
+    searchForm = searchForm.toLowerCase()
+
+    const garages = await Garages.findAll({
+      where: {
+        [Op.or]: [
+          where(
+            fn("LOWER", col("province")),
+            "LIKE",
+            `%${searchForm.toLowerCase()}%`
+          ),
+          where(
+            fn("LOWER", col("city")),
+            "LIKE",
+            `%${searchForm.toLowerCase()}%`
+          ),
+          where(
+            fn("LOWER", col("address")),
+            "LIKE",
+            `%${searchForm.toLowerCase()}%`
+          ),
+        ],
+      },
+      attributes: ["province", "city", "address"],
+      limit: 10
+    })
+
+    let results = []
+
+    const addResult = (field) => {
+      if(results.length < 10 && !results.includes(field)){
+        results.push(field)
+      }
+    }
+
+    garages.map((garage) =>{
+      if (garage.province.toLowerCase().includes(searchForm)){addResult(garage.province)}
+      if (garage.city.toLowerCase().includes(searchForm)){addResult(garage.city)}
+      if (garage.address.toLowerCase().includes(searchForm)){addResult(garage.address)}
+    })
+    
+    res.status(200).json({results: results})
+  } catch (error) {
+    next(error)
+  }
+}
 
 export {
   getAllGarages,

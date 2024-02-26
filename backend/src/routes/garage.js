@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage,addFavoriteGarage, getAllFavoriteGarages,removeFavoriteGarage, getGaragesRecommended } from '../controller/garage.js'
+import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage,addFavoriteGarage, getAllFavoriteGarages,removeFavoriteGarage, getGaragesRecommended, searchLocationAutocomplete } from '../controller/garage.js'
 import {validateFields} from "../middleware/validatorGeneral.js"
 import {validateCreateGarage,validateUpdateGarage,validateDeleteUser} from "../validators/garageValidator.js"
 import { validateFiles } from "../validators/fileValidator.js";
@@ -15,6 +15,7 @@ import {sessionAuth} from '../middleware/sessionAuth.js'
 
 const route=Router();
 
+route.get("/autocomplete" , searchLocationAutocomplete)
 /**
  * @openapi
  * /api/garages/recommended:
