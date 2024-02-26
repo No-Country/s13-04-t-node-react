@@ -20,7 +20,7 @@ export const HeaderUser = () => {
       <nav
         className={clsx(
           'fixed flex flex-col bg-white w-full h-full top-[72px] transition-all duration-500 z-30',
-          showMobileMenu ? 'left-0' : '-left-full'
+          showMobileMenu ? 'right-0' : '-right-full'
         )}
       >
         <MenuDriver />
