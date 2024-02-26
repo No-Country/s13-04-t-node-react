@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { garageService } from '../../services/garage';
 import { CardGarage } from './CardGarage';
+import { Link } from 'react-router-dom';
 
 export const ParticularGarages = () => {
   const { data: garages } = useSWR(['particular-garages'], () =>
@@ -13,7 +14,9 @@ export const ParticularGarages = () => {
       <h2 className='font-semibold pb-2 text-xl'>Particulares recomendados</h2>
       <ul className='flex overflow-x-auto items-center w-auto scrollbar-hidden gap-x-4'>
         {filteredGarages?.map((garage) => (
-          <CardGarage key={garage.id} garage={garage} />
+          <Link to={`/reservar/${garage.id}`}>
+            <CardGarage key={garage.id} garage={garage} />
+          </Link>
         ))}
       </ul>
     </div>

@@ -24,7 +24,7 @@ export const HomeDriver = () => {
         <ParticularGarages />
 
         <div className='pt-8'>
-          <div className='flex justify-between gap-10 bg-[#D9D9D9] px-8 py-2 rounded-md'>
+          <div className='flex justify-between gap-10 bg-[#FFE9CC] px-8 py-2 rounded-md'>
             <img src='/images/location.svg' alt='localizacion' />
             <div>
               <h4 className='text-xl font-semibold'>Ver mapa</h4>
