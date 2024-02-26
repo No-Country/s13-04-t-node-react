@@ -33,7 +33,7 @@ try {
 }
 
 const register = async (req, res, next) => {
-    const { name, email, password, phone, role } = req.body;
+    const { name, email, password, phone, role, identity } = req.body;
     let image = req.files?.image || null;
 
     try {
@@ -53,7 +53,7 @@ const register = async (req, res, next) => {
 
         const passwordHash = bcrypt.hashSync(password, 10);
 
-        const user = await User.create({ name, email, password: passwordHash, phone, role, image });
+        const user = await User.create({ name, email, password: passwordHash, phone, role, image ,identity});
 
         const token = jwt.sign({ userId: user.id }, config.API_SECRET);
 
