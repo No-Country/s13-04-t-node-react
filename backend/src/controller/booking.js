@@ -74,11 +74,29 @@ export const getBookingByGarage = async (req, res, next) => {
 export const createBooking = async (req, res, next) => {
   try {
     const { idCar, idGarage, dateStart, dateEnd } = req.body;
+    let status = 'active'
+
+    const car = await Car.findByPk(idCar);
+    if(!car){
+      throw new NotFound("Car not found");
+    }
+
+    const garage = await Garages.findByPk(idGarage);
+
+    if(!garage){
+      throw new NotFound("Garage not found");
+    }
+
+    if(garage.withConfirmation){
+      status = 'pending';
+    }
+
     const newBooking = await Booking.create({
       id_car: idCar,
       id_garage: idGarage,
       date_start: dateStart,
       date_end: dateEnd,
+      status
     });
     res.status(201).json({ message: "Booking created", booking: newBooking });
   } catch (error) {
