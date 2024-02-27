@@ -329,6 +329,23 @@ export const searchLocationAutocomplete = async (req, res, next) => {
   }
 }
 
+export const getGaragesByUser = async(req,res,next) => {
+  try {
+    const {id} = req.params
+
+    const user = await User.findByPk(id)
+
+    if(!user){
+      throw new NotFound("User not found")
+    }
+
+    const garages = await Garages.findAll({where: {id_user : id}})
+
+    res.status(200).json({garages: garages})
+  } catch (error) {
+    next(error)
+  }
+}
 export {
   getAllGarages,
   getGarage,
