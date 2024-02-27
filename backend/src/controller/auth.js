@@ -38,11 +38,19 @@ const register=async(req,res, next)=>{
     try {
         const checkEmail=await User.findOne({
             where: {
-              email:email, 
+              email:email
             }}) 
         
         if(checkEmail){
             throw new AlreadyExist("Email already exist")
+        }
+
+        const checkIdentity =await User.findOne({
+            where: {identity: identity}
+        })
+
+        if(checkIdentity){
+            throw new AlreadyExist("Identity already exist")
         }
         
         if(image) {
