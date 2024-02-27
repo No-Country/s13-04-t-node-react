@@ -39,16 +39,23 @@ const register = async (req, res, next) => {
     try {
         const checkEmail = await User.findOne({
             where: {
-                email: email,
-            }
-        });
-
-        if (checkEmail) {
-            throw new AlreadyExist("Email already exists");
+              email:email
+            }}) 
+        
+        if(checkEmail){
+            throw new AlreadyExist("Email already exist")
         }
 
-        if (image) {
-            image = await uploadImage(image);
+        const checkIdentity =await User.findOne({
+            where: {identity: identity}
+        })
+
+        if(checkIdentity){
+            throw new AlreadyExist("Identity already exist")
+        }
+        
+        if(image) {
+            image = await uploadImage(image)
         }
 
         const passwordHash = bcrypt.hashSync(password, 10);

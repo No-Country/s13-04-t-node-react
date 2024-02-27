@@ -163,6 +163,64 @@ route.get("/:id",getUser)
 */
 route.patch("/", sessionAuth,validateUpdateUser,validateFields,updateUser)
 
+/**
+ * @openapi
+ * /api/users/password:
+ *   patch:
+ *     summary: Actualiza información de usuario
+ *     description: Actualiza la información de un usuario autenticado
+ *     tags: [User]
+ *     security:
+ *       - sessionAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *                 description: Contraseña actual
+ *               newPassword:
+ *                 type: string
+ *                 description: Nueva contraseña
+ *     responses:
+ *       200:
+ *         description: Mensaje del usuario actualizada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de confirmación
+ *       400:
+ *         description: Error en los datos de entrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/BadRequest'
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/NotFound'
+ *       401:
+ *         description: Usuario no autorizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Unauthorized'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
 route.patch("/password",sessionAuth,passwordChange)
 /**
  * @openapi
