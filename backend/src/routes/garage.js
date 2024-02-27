@@ -1,7 +1,10 @@
 import { Router } from "express";
-import {getAllGarages, getGarage, getFilteredGarages,createGarage, updateGarage, deleteGarage,addFavoriteGarage, getAllFavoriteGarages,removeFavoriteGarage, getGaragesRecommended } from '../controller/garage.js'
+import {getAllGarages, getGarage, getFilteredGarages,createGarage, 
+    updateGarage, deleteGarage,addFavoriteGarage, getAllFavoriteGarages,
+    removeFavoriteGarage, getGaragesRecommended, searchLocationAutocomplete, 
+    getGaragesByUser } from '../controller/garage.js'
 import {validateFields} from "../middleware/validatorGeneral.js"
-import {validateCreateGarage,validateUpdateGarage,validateDeleteUser} from "../validators/garageValidator.js"
+import {validateCreateGarage,validateUpdateGarage,validateDeleteUser,  validateID} from "../validators/garageValidator.js"
 import { validateFiles } from "../validators/fileValidator.js";
 import {sessionAuth} from '../middleware/sessionAuth.js'
 
@@ -15,6 +18,77 @@ import {sessionAuth} from '../middleware/sessionAuth.js'
 
 const route=Router();
 
+
+/**
+ * @openapi
+ * /api/garages/user/{id}:
+ *   get:
+ *     summary: Obtiene todos los garages de un usuario
+ *     description: Retorna un garaje basado en el id del usuario
+ *     tags: [Garage]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del usuario
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *     responses:
+ *       200:
+ *         description: Garages obtenido exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Garages'
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/NotFound'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
+route.get("/user/:id", validateID, validateFields, getGaragesByUser)
+
+/**
+ * @openapi
+ * /api/garages/autocomplete:
+ *   get:
+ *     summary: Obtiene un array de posibles coincidencias.
+ *     description: Retorna una lista de ubicaciones dependiendo de lo ingresado.
+ *     tags: [Garage]
+ *     parameters:
+ *       - in: query
+ *         name: searchForm
+ *         schema:
+ *           type: string
+ *         description: Ubicación a buscar (provincia, ciudad o dirección)
+ *     responses:
+ *       200:
+ *         description: Posibles coincidencias
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
+route.get("/autocomplete" , searchLocationAutocomplete)
 /**
  * @openapi
  * /api/garages/recommended:
