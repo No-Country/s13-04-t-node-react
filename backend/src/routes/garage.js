@@ -15,6 +15,36 @@ import {sessionAuth} from '../middleware/sessionAuth.js'
 
 const route=Router();
 
+/**
+ * @openapi
+ * /api/garages/autocomplete:
+ *   get:
+ *     summary: Obtiene un array de posibles coincidencias.
+ *     description: Retorna una lista de ubicaciones dependiendo de lo ingresado.
+ *     tags: [Garage]
+ *     parameters:
+ *       - in: query
+ *         name: searchForm
+ *         schema:
+ *           type: string
+ *         description: Ubicación a buscar (provincia, ciudad o dirección)
+ *     responses:
+ *       200:
+ *         description: Posibles coincidencias
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
 route.get("/autocomplete" , searchLocationAutocomplete)
 /**
  * @openapi
