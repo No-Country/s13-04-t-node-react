@@ -30,8 +30,8 @@ function ModalMapConfirm({ coordinates, setOpenModal, setStep }: Props) {
     setStep(1);
   };
   return (
-    <section className='fixed z-10 top-0 left-0 flex min-w-[100vw] min-h-[100vh] bg-[#0000005d] p-2'>
-      <article className='  flex flex-col w-[100%] aspect-square m-auto bg-white p-8 border gap-2 rounded-lg'>
+    <section className='fixed z-10 top-0 left-0 flex min-w-[100vw] min-h-[100vh] bg-[#00000030] p-2'>
+      <article className='  flex flex-col w-[100%] max-h-[75vh] m-auto bg-white p-6 border gap-2 rounded-lg max-w-[600px]'>
         <h2 className='text-xl'>DIRECCIÓN</h2>
         <p className='text-base'>Confirma la ubicación en el mapa</p>
         <APIProvider apiKey={KEY_MAPS}>
@@ -55,7 +55,7 @@ function ModalMapConfirm({ coordinates, setOpenModal, setStep }: Props) {
           Aceptar
         </button>
         <button
-          className='border rounded-3xl p-2 font-bold text-center'
+          className='border  border-[#D58418]  rounded-3xl p-2 font-bold text-center'
           type='button'
           onClick={() => setOpenModal(false)}
         >

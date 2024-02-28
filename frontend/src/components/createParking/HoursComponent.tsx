@@ -1,14 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
-type Hours = {
-  start: Date | null;
-  end: Date | null;
-};
+import { CreateGaraje } from '../../types/garage';
+
 interface Props {
   i: number;
   dayIndex: number;
 }
+
+const addZeroToTime = (time: number) => {
+  if (time < 10) {
+    return `0${time}`
+  } else {
+    return time
+  }
+  
+}
+
 export default function HoursComponent({ i, dayIndex }: Props) {
   const { getValues, setValue, } = useFormContext();
 
@@ -16,20 +24,27 @@ export default function HoursComponent({ i, dayIndex }: Props) {
   const [endDate, setEndDate] = useState<Date | null>(null);
   useEffect(() => {
     if (startDate) {
-      setValue(`schedule.${dayIndex}.schedule[${i}].start`, `${startDate?.getHours()}:${startDate?.getMinutes() < 10 ? ('0' + startDate?.getMinutes()) : startDate?.getMinutes()}`);
+      
+      setValue(`schedule.${dayIndex}.schedule[${i}].start`, 
+      `${addZeroToTime(startDate.getHours())}:${addZeroToTime(startDate.getMinutes())}`);
     } else {
       setValue(`schedule.${dayIndex}.schedule[${i}].start`, null);
     }
   }, [startDate]);
   useEffect(() => {
     if (endDate) {
-      setValue(`schedule.${dayIndex}.schedule[${i}].end`, `${endDate?.getHours()}:${endDate?.getMinutes() < 10 ? ('0' + endDate?.getMinutes()) : endDate?.getMinutes()}`);
+      setValue(`schedule.${dayIndex}.schedule[${i}].end`, 
+      `${addZeroToTime(endDate.getHours())}:${addZeroToTime(endDate.getMinutes())}`);
+      
     } else {
       setValue(`schedule.${dayIndex}.schedule[${i}].end`, null);
     }
   }, [endDate]);
+  const maxTime = new Date();
+maxTime.setHours(23);
+maxTime.setMinutes(30);
   return (
-    <div key={`hour-${i}`} className='flex items-center justify-center gap-1'>
+    <>
       <DatePicker
         className='w-full text-end'
         selected={startDate}
@@ -38,24 +53,28 @@ export default function HoursComponent({ i, dayIndex }: Props) {
         showTimeSelectOnly
         timeIntervals={30}
         timeCaption='Time'
-        dateFormat='HH:mm aa'
+        dateFormat='HH:mm'
+        timeFormat='HH:mm'
         placeholderText='00:00'
       />-
       <DatePicker
         className='w-full text-start'
         selected={endDate}
         onChange={setEndDate}
+        minTime={startDate ?? undefined}
+        maxTime={maxTime}
         showTimeSelect
         showTimeSelectOnly
         timeIntervals={30}
         timeCaption='Time'
-        dateFormat='HH:mm aa'
+        timeFormat='HH:mm'
+        dateFormat='HH:mm'
         placeholderText='00:00'
       />
       {i !== 0 ?
         <button className='min-w-[24px]' type='button' onClick={() => {
           setValue(`schedule.${dayIndex}.schedule`, [
-            ...getValues(`schedule.${dayIndex}.schedule`).filter((_: Hours, itemIndex: number) => itemIndex !== i),
+            ...getValues(`schedule.${dayIndex}.schedule`).filter((_: CreateGaraje['schedule'], itemIndex: number) => itemIndex !== i),
           ]);
         }}>
           <img src='/images/trash.svg' className='' />
@@ -71,6 +90,6 @@ export default function HoursComponent({ i, dayIndex }: Props) {
           <img src='/images/add.svg' className='' />
         </button>
       }
-    </div>
+    </>
   );
 }
