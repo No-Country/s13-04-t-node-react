@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { mobileMenuAtom } from '../../atoms/sidebar';
 import { MenuDriver } from '../home-driver/MenuDriver';
 import clsx from 'clsx';
+import { useCurrentUser } from '../../hooks/auth';
+import { MenuParking } from '../home-parking/MenuParking';
 
 export const HeaderUser = () => {
   const [showMobileMenu, setShowMobileMenu] = useAtom(mobileMenuAtom);
-
+  const user = useCurrentUser();
   const toggleMenu = () => {
     setShowMobileMenu(!showMobileMenu);
   };
@@ -23,7 +25,7 @@ export const HeaderUser = () => {
           showMobileMenu ? 'right-0' : '-right-full'
         )}
       >
-        <MenuDriver />
+        {user.role === 'user' ? <MenuDriver /> : <MenuParking />}
       </nav>
 
       <button type='button' onClick={toggleMenu}>
