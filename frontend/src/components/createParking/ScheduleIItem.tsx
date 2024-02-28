@@ -2,21 +2,18 @@ import { Switch } from '@headlessui/react';
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import HoursComponent from './HoursComponent';
-interface Hours {
-  start: Date | null;
-  end: Date | null;
-}
+import { CreateGaraje } from '../../types/garage';
+
 interface Props {
   index: number;
   schedule: string;
 }
 export default function ScheduleIItem({ index, schedule }: Props) {
   const { setValue, watch } = useFormContext();
-
-  const [enabled, setEnabled] = useState(watch(`schedule.${index}.schedule[0].start`) && watch(`schedule.${index}.schedule[0].end`));
+  const [enabled, setEnabled] = useState(false);
   const hours = watch(`schedule.${index}.schedule`);
   return (
-    <div key={'schedule-' + index} className='grid grid-cols-12 place-items-start gap-2 text-lg my-2 '>
+    <>
       <div className='col-span-3 '>
         <p className=''>
           {schedule}
@@ -24,6 +21,7 @@ export default function ScheduleIItem({ index, schedule }: Props) {
       </div>
       <div className='flex items-center justify-center gap-1 col-span-4'>
         <Switch
+        key={`switch-${index}`}
           checked={enabled}
           onChange={(e) => {
             if (e) {
@@ -52,11 +50,13 @@ export default function ScheduleIItem({ index, schedule }: Props) {
       </div>
 
       <div className='flex items-center gap-1 justify-between flex-col w-fit col-span-5'>
-        {hours.map((_: Hours, i: number) =>
+        {hours.map((_: CreateGaraje['schedule'], i: number) =>
+        <div key={`hour-${i}`} className='flex items-center justify-center gap-1'>
           <HoursComponent i={i} dayIndex={index} />
+        </div>
         )}
       </div>
-    </div>
+    </>
 
   );
 }
