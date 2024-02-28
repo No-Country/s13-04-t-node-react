@@ -120,8 +120,6 @@ route.get("/recommended" , getGaragesRecommended)
  *     summary: Get all favorite garages
  *     description: Retrieves all the garages marked as favorites by the authenticated user.
  *     tags: [Favorite Garages]
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: A list of favorite garages.
@@ -130,7 +128,7 @@ route.get("/recommended" , getGaragesRecommended)
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/Garage'
+ *                 $ref: '#/components/schemas/Garages'
  *       401:
  *         description: Unauthorized - User not logged in.
  *       404:
@@ -145,8 +143,6 @@ route.get("/my_favorite", sessionAuth, getAllFavoriteGarages)
  *     summary: Add a garage to favorites
  *     description: Marks a garage as a favorite for the authenticated user.
  *     tags: [Favorite Garages]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id_garage
@@ -171,8 +167,6 @@ route.post("/my_favorite/:id_garage", sessionAuth, addFavoriteGarage)
  *     summary: Remove a garage from favorites
  *     description: Removes a garage from the authenticated user's list of favorite garages.
  *     tags: [Favorite Garages]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id_garage

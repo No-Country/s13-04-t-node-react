@@ -43,7 +43,6 @@ const getGarage = async (req, res, next) => {
 
 export const getGaragesRecommended = async (req, res, next) => {
   try {
-    console.log("entro")
     const garages = await Garages.findAll({
       where: {
         rating: { [Op.ne]: null }
@@ -51,7 +50,11 @@ export const getGaragesRecommended = async (req, res, next) => {
       order: [
         ['rating', 'DESC']
       ],
-      limit: 10
+      limit: 10,
+      include: [
+        { model: Image, as: "images", attributes: ["id", "route"] }
+      ]
+      
     })
 
     res.status(200).send({ garages: garages });
@@ -95,6 +98,7 @@ export const getFilteredGarages = async (req, res, next) => {
           as: "user",
           attributes: { exclude: ["password", "createdAt", "updatedAt"] },
         },
+        { model: Image, as: "images", attributes: ["id", "route"] }
       ],
     });
 
@@ -237,12 +241,11 @@ const getAllFavoriteGarages = async (req, res, next) => {
         include: [{
           model: Garages,
           as: 'garage',
+          include: [
+            { model: Image, as: "images", attributes: ["id", "route"] }
+          ]
         }]
       });
-  
-/*       if (!favoriteGarages.length) {
-        return res.status(404).json({ message: 'No favorite garages found' });
-      } */
   
       return res.status(200).json(favoriteGarages);
     } catch (error) {
@@ -339,7 +342,8 @@ export const getGaragesByUser = async(req,res,next) => {
       throw new NotFound("User not found")
     }
 
-    const garages = await Garages.findAll({where: {id_user : id}})
+    const garages = await Garages.findAll({where: {id_user : id} ,       include: [
+      { model: Image, as: "images", attributes: ["id", "route"] }]})
 
     res.status(200).json({garages: garages})
   } catch (error) {
