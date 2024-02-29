@@ -8,6 +8,13 @@ export const vehiculeService = {
     const res = await client.post<{ car: IVehicule }>("/cars", payload);
     return res;
   },
+   async getByUserId(idUser: string) {
+    const res = await client.get(`/cars/user/${idUser}`, {
+      params: {},
+    });
+    
+    return res;
+  },
 };
 
 

@@ -13,7 +13,9 @@ import { DriverPhone } from '../pages/menu-data-driver/DriverPhone';
 import { DriverPassword } from '../pages/menu-data-driver/DriverPassword';
 // MENU VEHICLE MENU
 import { MyVehicles } from '../pages/menu-my-vehicles/MyVehicles';
-import { FormDriver } from '../pages/menu-my-vehicles/FormDriver';
+// MENU PARKING MENU
+import { MyParkings } from '../pages/menu-my-parking/MyParkings';
+import { ParkingDetails } from '../pages/menu-my-parking/ParkingDetails';
 // MENU RESERVAS DRIVER
 import { ReservationMenuList } from '../pages/menu-bookings/ReservationMenuList';
 import { PendingReservations } from '../pages/menu-bookings/PendingReservations';
@@ -32,7 +34,6 @@ import { FavoriteGaragesPage } from '../pages/menu-favorite-garages/FavoriteGara
 // OTHERS
 import { AccountCreated } from '../pages/register/AccountCreated';
 import { NotFound } from '../pages/not-found/NotFound';
-import { MyParkings } from '../pages/menu-my-parking/MyParkings';
 
 export default function AuthRouter() {
   return (
@@ -57,9 +58,10 @@ export default function AuthRouter() {
 
       {/* MENU MY VEHICLES DRIVER */}
       <Route path='/mis-vehiculos' element={<MyVehicles />} />
-      <Route path='/agregar-vehiculo' element={<FormDriver />} />
+      <Route path='/agregar-vehiculo' element={<AddNewVehicule />} />
       {/* MENU MY PARKING */}
       <Route path='/mis-estacionamientos' element={<MyParkings />} />
+      <Route path='/estacionamiento/:idGaraje' element={<ParkingDetails />} />
 
       {/* MENU RESERVAS DRIVER */}
       <Route path='/lista-menu-reservas' element={<ReservationMenuList />} />
