@@ -4,7 +4,7 @@
 | Integrantes         | Rol               | Contacto            |
 | ------------------- | ----------------- | ------------------- |
 | Adrian de los Reyes | Backend           | [Linkedin](https://www.linkedin.com/in/adriandelosreyess/)|
-| David Castro        | Backend           | [Linkedin]() |
+| David Castro        | Backend           | [Linkedin](https://www.linkedin.com/in/davidcastroanaya/) |
 | Miguel guerrero     | Backend           | [Linkedin]()|  
 | Marcelo Diaz        | Backend           | [Linkedin](https://www.linkedin.com/in/marcelo-a-diaz-6a7926223/)|
 | John Pablo          | Frontend          | [Linkedin](https://www.linkedin.com/in/johnpablo/)|
