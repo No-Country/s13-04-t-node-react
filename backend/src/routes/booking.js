@@ -10,6 +10,7 @@ import {
 } from "../controller/booking.js";
 import { validateFields } from "../middleware/validatorGeneral.js";
 import { validateCreateBooking , validateUpdateBooking } from "../validators/bookingValidator.js";
+import { checkCapacity } from "../middleware/checkCapacity.js";
 
 const route = Router();
 
@@ -213,6 +214,12 @@ route.get("/garage/:id", getBookingByGarage);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorSchemas/BadRequest'
+ *       409:
+ *         description: Conflicto al crear la reserva
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Conflict'
  *       500:
  *         description: Error interno del servidor
  *         content:
@@ -220,7 +227,7 @@ route.get("/garage/:id", getBookingByGarage);
  *             schema:
  *               $ref: '#/components/schemas/ErrorSchemas/Error'
 */
-route.post("/", validateCreateBooking, validateFields, createBooking);
+route.post("/", validateCreateBooking, validateFields, checkCapacity, createBooking);
 
 /**
  * @openapi
