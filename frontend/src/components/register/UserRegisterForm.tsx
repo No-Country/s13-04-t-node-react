@@ -33,14 +33,13 @@ export default function UserRegisterForm() {
     for (const name in data) {
       formData.append(name, data[name]);
     }
-    formData.append(
-      'role',
-      role === 'conductor' ? 'agregar-vehiculo' : 'parking'
-    );
+    formData.append('role', role === 'conductor' ? 'user' : 'parking');
     formData.delete('confirmPassword');
     const res = await authService.signup(formData);
     if (res === 201) {
-      navigation(`/${role}`);
+      navigation(
+        `/${role === 'conductor' ? 'agregar-vehiculo' : 'estacionamiento'}`
+      );
     } else {
       console.log(res);
     }
@@ -167,7 +166,7 @@ export default function UserRegisterForm() {
         Siguiente
       </button>
       <button
-        className='border rounded-3xl p-2 font-bold text-center'
+        className='border rounded-3xl p-2 font-bold text-center border-[#D58418]'
         type='button'
         onClick={(e) => {
           e.preventDefault();
@@ -176,9 +175,6 @@ export default function UserRegisterForm() {
       >
         cancelar
       </button>
-      {/* <Link to={"/"} className="border rounded-md p-2 font-bold text-center">
-				Cancelar
-			</Link> */}
     </form>
   );
 }
