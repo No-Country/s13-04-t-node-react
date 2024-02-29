@@ -25,27 +25,41 @@ const getReview = async(req, res, next) => {
 };
 
 const createReview = async(req, res, next) => {
-    const {id_author, id_receiver, type, comment,rating } = req.body;
-    if(id_author && id_receiver && type && comment && rating) {
+    const { id_author, id_receiver, type, comment, rating } = req.body;
+
+    if (id_author && id_receiver && type && comment && rating) {
         try {
-            const Reviews = await Review.create({id_author, id_receiver, type, comment,rating});
-            return res.status(200).send({message: "Review created"})
+           
+            const existingReview = await Review.findOne({ where: { id_receiver } });
+
+            if (existingReview) {
+             
+                const newRating = (existingReview.rating + rating) / 2;
+
+              
+                await existingReview.update({ rating: newRating, comment, type });
+
+                return res.status(200).send({ message: "Review updated with new average rating" });
+            } else {
+              
+                const newReview = await Review.create({ id_author, id_receiver, type, comment, rating });
+                return res.status(200).send({ message: "Review created" });
+            }
         } catch (err) {
-            next(err)
+            next(err);
         }
     } else {
         res.status(400).send({
             message: 'Missing data',
             fields: {
-                id_author : 'UUID',
-                id_receiver : 'UUID',
-                type: 'ENUM', 
+                id_author: 'UUID',
+                id_receiver: 'UUID',
+                type: 'ENUM',
                 comment: 'string',
                 rating: 'float'
             }
-        })
+        });
     }
-    
 };
 
 const updateReview = async(req, res, next) => {
