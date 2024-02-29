@@ -3,8 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { geolocationService } from '../../services/geolocation';
 import ModalMapConfirm from './ModalMapConfirm';
-import { Inputs } from '../../pages/register-parking/AddNewParking';
-
+import { CreateGaraje } from '../../types/garage';
 interface Coordinates {
 	lat: number;
 	lng: number;
@@ -17,12 +16,11 @@ interface Props {
 export default function AddParkingAddress({ setStep }: Props) {
 	const { getValues, register, setValue, watch, formState: { errors } } = useFormContext();
 	const [openModal, setOpenModal] = useState(false);
-	const [coordinates, setCoordinates] = useState<Coordinates>({ lat: 0, lng: 0 });
+	const [coordinates, setCoordinates] = useState<Coordinates>({ lat: 0, lng: 0 })
 
 	const [isOpen, setIsOpen] = useState<boolean>(false);
-
 	const next = async () => {
-		const data: Partial<Inputs> = {
+		const data: Partial<CreateGaraje> = {
 			address: getValues('address'),
 			city: getValues('city'),
 			province: getValues('province'),
@@ -42,9 +40,7 @@ export default function AddParkingAddress({ setStep }: Props) {
 				<label className='flex-col flex mb-6'>
 					Tipo de estacionamiento
 					<Listbox
-						value={
-							watch('type')
-						}
+						value={watch('type') ?? 'Selecciona el tipo de estacionamiento'}
 						{...register('type', { required: true })}
 						onChange={(value: string) => {
 							setValue('type', value);
@@ -210,11 +206,15 @@ export default function AddParkingAddress({ setStep }: Props) {
 					Siguiente
 				</button>
 				<button
-					className='border rounded-3xl p-2 font-bold text-center'
-					type='button'
-				>
-					cancelar
-				</button>
+        className='border border-[#D58418]  rounded-3xl p-2 font-bold text-center w-full my-4 max-w-[600px] mx-auto'
+        type='button'
+        onClick={(e) => {
+          e.preventDefault();
+          setStep(0)
+        }}
+      >
+        cancelar
+      </button>
 			</section>
 			{openModal && <ModalMapConfirm coordinates={coordinates} setOpenModal={setOpenModal} setStep={setStep} />
 			}

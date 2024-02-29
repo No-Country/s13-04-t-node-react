@@ -1,8 +1,7 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import ScheduleIItem from './ScheduleIItem';
 import { useFormContext } from 'react-hook-form';
-import { Inputs } from '../../pages/register-parking/AddNewParking';
+import { CreateGaraje } from '../../types/garage';
 
 const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
 interface Props {
@@ -11,7 +10,7 @@ interface Props {
 export default function ScheduleForm({ setStep }: Props) {
   const { getValues, setValue } = useFormContext();
   const next = () => {
-    const schedule = getValues('schedule') as Inputs['schedule'];
+    const schedule = getValues('schedule') as CreateGaraje['schedule'];
 
 
     const filteredSchedule = Object.fromEntries(
@@ -25,13 +24,14 @@ export default function ScheduleForm({ setStep }: Props) {
     setValue('schedule', filteredSchedule);
     setStep(3);
   };
-  const navigation = useNavigate();
   return (
     <section className='flex flex-col gap-3'>
       <h2 className='text-xl' >HORARIO</h2>
       <p className='text-base  '>Selecciona los días y horarios de funcionamiento</p>
-      {daysOfWeek.map((day, index) =>
-        <ScheduleIItem index={index} schedule={day} />
+      {daysOfWeek.map((day, index) => 
+      <div key={`schedule-${index}`} className='grid grid-cols-12 place-items-start gap-2 text-lg my-2 '>
+      <ScheduleIItem index={index} schedule={day} />
+      </div>
       )}
       <button
         className='border rounded-3xl p-2 font-bold bg-[#D58418] text-center'
@@ -41,15 +41,16 @@ export default function ScheduleForm({ setStep }: Props) {
         Siguiente
       </button>
       <button
-        className='border rounded-3xl p-2 font-bold text-center'
+        className='border border-[#D58418]  rounded-3xl p-2 font-bold text-center w-full my-4 max-w-[600px] mx-auto'
         type='button'
         onClick={(e) => {
           e.preventDefault();
-          navigation('/registro');
+          setStep(0)
         }}
       >
         cancelar
       </button>
+      
     </section>
   );
 }

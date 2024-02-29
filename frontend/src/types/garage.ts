@@ -19,7 +19,7 @@ export interface IGarage {
   available: boolean;
   coordinates: string;
   rating: null;
-  schedule: { [key: string]: ScheduleValue };
+  schedule: { [key: string]: Schedule };
   createdAt: string;
   updatedAt: string;
   id_user: string;
@@ -74,12 +74,30 @@ export interface IFavoriteGarage {
   garage: IGarage;
 }
 
-export interface ScheduleValue {
-  name: string;
-  schedule: ScheduleElement[];
-}
+export type Schedule = Record<string, {
+	name: string;
+	schedule: ScheduleElement[];
+}>;
 
 export interface ScheduleElement {
-  start: string;
-  end: string;
+  start: string | null;
+  end: string | null;
+}
+
+export interface CreateGaraje {
+	[key: string]: string | File | boolean | Date | File[] | Schedule | Blob | null;
+	idUser: string;
+	name: string;
+	address: string;
+	country: string;
+	province: string;
+	city: string;
+	zipCode: string;
+	capacity: string;
+	price: string;
+	whitConfirmation: boolean;
+	coordinates: string;
+	images: File[];
+	type: string | null;
+	schedule: Schedule
 }

@@ -15,6 +15,13 @@ export const garageService = {
     });
     return res.data.garage;
   },
+   async getByUserId(idUser: string) {
+    const res = await client.get(`/garages/user/${idUser}`, {
+      params: {},
+    });
+    
+    return res;
+  },
 
   async search(params: IGarageSearchParams) {
     const res = await client.get<{ garages: ISearchGarage[] }>(
@@ -30,7 +37,7 @@ export const garageService = {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    });
+    });    
     return  res;
   },
 };

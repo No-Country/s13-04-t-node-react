@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { useFormContext } from 'react-hook-form';
-
-export default function ParkingLotPhotos() {
+interface Props {
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  isLoading: boolean;
+}
+export default function ParkingLotPhotos({ setStep, isLoading }: Props) {
   const { getValues, setValue } = useFormContext();
   const [imgStringList, setImgStringList] = useState<string[]>([]);
   const newImageToString = (newImage: File) => {
@@ -20,38 +20,28 @@ export default function ParkingLotPhotos() {
       });
     };
   };
-  const settings = {
-    dots: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    adaptiveHeight: true,
-
-  };
   return (
     <section>
-      <div className=''>
         <h2 className='text-xl'>FOTO</h2>
         <p className='text-base mt-2 mb-10'>Sube fotos de tu estacionamiento</p>
-        <section className='h-[200px]'>
+        <section className='h-[200px] w-full'>
           {
             imgStringList.length ?
-              <Slider {...settings}>
-                {imgStringList.map((image: string, index: number) =>
-                  <div key={index}>
+              <article className='flex overflow-x-scroll  w-auto  gap-x-4'>
+                {imgStringList.map((image, index) => (
+                  <div key={index} className='min-w-max h-[200px] relative'>
                     <img
                       src={image}
-                      className='max-w-[70vw] max-h-[200px] object-cover m-auto'
+                      className='max-h-full aspect-square m-auto object-contain'
                       alt={`Imagen de garaje ${index + 1}`}
-
                     />
                   </div>
-                )}
-              </Slider>
+                ))}
+              </article>
               :
               <img
-                src='/public/images/add-photo.svg'
-                className='w-1/2 m-auto aspect-square object-contain rounded-3xl'
+                src='/images/add-photo.svg'
+                className='h-full m-auto aspect-square object-contain'
                 alt='user profile'
               />
           }
@@ -61,14 +51,16 @@ export default function ParkingLotPhotos() {
           <img src='/images/add.svg' alt='agregar' />
           <span className='font-semibold'>Selecciona las imágenes</span>
           <input
+            multiple
             onChange={(e) => {
-              if (e.target.files?.item(0)) {
-                const file = e.target.files[0];
-                newImageToString(file);
-                setValue('images', [
-                  ...getValues('images'),
-                  file
-                ]);
+              if (e.target.files?.length) {
+                [...e.target.files].map((item) => {
+                  newImageToString(item);
+                  setValue('images', [
+                    ...getValues('images'),
+                    item
+                  ]);
+                });
               }
             }}
             type='file'
@@ -76,21 +68,28 @@ export default function ParkingLotPhotos() {
           />
         </div>
 
-        <div className='flex flex-col gap-3 fixed bottom-6 inset-x-0 px-4'>
+        <div className='flex flex-col gap-3 mt-10'>
           <button
             type='submit'
-            className='py-2 text-center bg-[#D58418] rounded-3xl font-semibold'
-          >
-            Guardar
+            className={`py-2 text-center ] rounded-3xl font-semibold w-full ${isLoading ? 'bg-[#FFE9CC]' : 'bg-[#D58418]'}`}
+          >{
+              isLoading ?
+                <img src='/images/Loading.svg' width={20} height={20} className='animate-spin m-auto' />
+                :
+                'Guardar'
+            }
           </button>
           <button
+            className='border border-[#D58418]  rounded-3xl p-2 font-bold text-center w-full my-4 max-w-[600px] mx-auto'
             type='button'
-            className='py-2 text-center bg-white border border-[#D58418] rounded-3xl font-semibold'
+            onClick={(e) => {
+              e.preventDefault();
+              setStep(0);
+            }}
           >
-            Cancelar
+            cancelar
           </button>
         </div>
-      </div>
     </section>
   );
 }
