@@ -6,10 +6,8 @@ import { garageService } from '../../services/garage';
 import CustomButton from '../../components/utilities/CustomButton';
 import { MyParkingCard } from '../../components/home-parking/MyParkingCard';
 import { LoadingIcon } from '../../components/shared/LoadingIcon';
-import { useNavigate } from 'react-router-dom';
 import { IGarage } from '../../types/garage';
 export const MyParkings = () => {
-  const navigation = useNavigate();
   const user = useCurrentUser();
   const [isLoading, setIsLoading] = useState(true);
   const [MyParkingLots, setMyParkingLots] = useState([]);
@@ -42,7 +40,6 @@ export const MyParkings = () => {
               <article
                 key={`parking-card-${index}`}
                 className='flex w-full h-auto border p-4 rounded-lg border-[#5D2B2C] items-center'
-                onClick={() => navigation(`/estacionamiento/${parking.id}`)}
               >
                 <MyParkingCard index={index} parking={parking} />
               </article>

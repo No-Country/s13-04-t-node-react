@@ -2,11 +2,13 @@ import { Switch } from '@headlessui/react';
 import { useState } from 'react';
 import { garageService } from '../../services/garage';
 import { IGarage } from '../../types/garage';
+import { useNavigate } from 'react-router-dom';
 interface Props {
   parking: IGarage;
   index: number;
 }
 export const MyParkingCard = ({ parking, index }: Props) => {
+  const navigation = useNavigate();
   const [enabled, setEnabled] = useState(parking.available);
 
   const setAvailable = async (status: boolean) => {
@@ -17,6 +19,7 @@ export const MyParkingCard = ({ parking, index }: Props) => {
   return (
     <>
       <img
+        onClick={() => navigation(`/estacionamiento/${parking.id}`)}
         src={
           parking.images?.length
             ? parking.images[0].route
