@@ -9,6 +9,7 @@ export interface IGarage {
   address: string;
   country: string;
   province: string;
+  images: string[];
   city: string;
   zipCode: string;
   capacity: number;

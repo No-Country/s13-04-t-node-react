@@ -1,17 +1,16 @@
 import Slider from "react-slick";
-import { FaHeart } from 'react-icons/fa';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useState } from "react";
+import { FavoriteHeartButton } from "../shared/FavoriteHeartButton";
 
 
 interface CarouselProps {
   images: string[];
+  garajeId: string
 }
 
+const Carousel: React.FC<CarouselProps> = ({ images, garajeId }) => {
 
-const Carousel: React.FC<CarouselProps> = ({ images }) => {
-  const [favorite, setFavorite] = useState<boolean>(false);
   const settings = {
     dots: true,
     infinite: true,
@@ -19,12 +18,6 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     adaptiveHeight: true,
-  };
-  const changeFavorites = () => {
-
-    //el favorito tiene que venir desde los datos del usuario
-    setFavorite(!favorite)
-    //agregar el garaje a favoritos
   };
 
   return (
@@ -36,12 +29,9 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
             alt={`Imagen de un garaje ${index + 1}`}
             className="h-auto max-h-56 w-full rounded-md"
           />
-          <button
-            className="absolute top-2 right-2 text-red-500"
-            onClick={changeFavorites}
-          >
-            <FaHeart color={favorite ? 'red' : 'gray'} />
-          </button>
+          <p className="absolute top-2 right-2 text-red-500">
+            <FavoriteHeartButton id={garajeId} />
+          </p>
         </div>
       ))}
     </Slider>

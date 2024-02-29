@@ -3,7 +3,14 @@ import { Fragment, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function MyDialog() {
+// const excludeDay = [new Date('2024-02-25'), new Date('2024-02-27'), new Date('2024-03-02')]
+
+interface ModalCalendaryProps {
+  exclideDays: Date[]
+}
+
+// export const FormBooking: React.FC<FormBookingProps> = ({ garajeId, userId }) =>
+export const ModalCalendary: React.FC<ModalCalendaryProps> = ({ exclideDays }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [bookingDate, setBookingDate] = useState<Date | null>(new Date());
   // const [endDate, setEndDate] = useState<Date | null>(null);
@@ -73,15 +80,9 @@ export default function MyDialog() {
                     minDate={new Date()}
                     onChange={onChange}
                     monthsShown={1}
-                    excludeDates={[new Date('2024-02-25'), new Date('2024-02-27'), new Date('2024-03-02')]}
+                    excludeDates={exclideDays}
                     inline
                   />
-
-                  {/* <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Aca deberia ir el calendario
-                    </p>
-                  </div> */}
 
                   <div className="mt-4">
                     <button

@@ -1,13 +1,14 @@
 import { Fragment } from 'react';
-
-import MyDialog from './MyDialog';
+import { ModalCalendary } from './ModalCalendary';
 
 interface ScheduleProps {
   schedule: Record<string, { name: string; schedule: { start: string; end: string }[] }>;
-
+  excludeDays: Date[]
 }
 
-const Schedule: React.FC<ScheduleProps> = ({ schedule }) => {
+const Schedule: React.FC<ScheduleProps> = ({ schedule, excludeDays }) => {
+
+
   return (
     <section className="w-full">
       <ul className="grid grid-cols-2 ">
@@ -30,7 +31,7 @@ const Schedule: React.FC<ScheduleProps> = ({ schedule }) => {
       </ul>
       {/* Enlace de disponibilidad */}
       <div className="flex items-center justify-items-start">
-        <MyDialog />
+        <ModalCalendary exclideDays={excludeDays} />
       </div>
     </section>
   );
