@@ -6,6 +6,7 @@ import { garageService } from '../../services/garage';
 import CustomButton from '../../components/utilities/CustomButton';
 import { MyParkingCard } from '../../components/home-parking/MyParkingCard';
 import { LoadingIcon } from '../../components/shared/LoadingIcon';
+import { IGarage } from '../../types/garage';
 export const MyParkings = () => {
   const user = useCurrentUser();
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +36,7 @@ export const MyParkings = () => {
           <LoadingIcon width={40} />
         ) : (
           <div>
-            {MyParkingLots.map((parking, index) => (
+            {MyParkingLots.map((parking: IGarage, index) => (
               <article
                 key={`parking-card-${index}`}
                 className='flex w-full h-auto border p-4 rounded-lg border-[#5D2B2C] items-center'
@@ -43,7 +44,9 @@ export const MyParkings = () => {
                 <MyParkingCard index={index} parking={parking} />
               </article>
             ))}
-            {MyParkingLots.length === 0 && <div>No hay nada</div>}
+            {MyParkingLots.length === 0 && (
+              <div>No tienes ningún estacionamiento creado</div>
+            )}
           </div>
         )}
 
