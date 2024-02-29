@@ -22,6 +22,7 @@ export interface IGarage {
   createdAt: string;
   updatedAt: string;
   id_user: string;
+  images: Image[]
 }
 
 export interface Image {

@@ -40,4 +40,8 @@ export const garageService = {
     });    
     return  res;
   },
+  async updateGarage(idGarage:IGarage['id'], payload: Partial<IGarage>) {
+    const res = await client.patch(`/garages/${idGarage}`, payload);    
+    return  res;
+  },
 };

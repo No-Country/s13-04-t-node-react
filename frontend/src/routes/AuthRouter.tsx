@@ -32,6 +32,7 @@ import { FavoriteGaragesPage } from '../pages/menu-favorite-garages/FavoriteGara
 // OTHERS
 import { AccountCreated } from '../pages/register/AccountCreated';
 import { NotFound } from '../pages/not-found/NotFound';
+import { MyParkings } from '../pages/menu-my-parking/MyParkings';
 
 export default function AuthRouter() {
   return (
@@ -57,6 +58,8 @@ export default function AuthRouter() {
       {/* MENU MY VEHICLES DRIVER */}
       <Route path='/mis-vehiculos' element={<MyVehicles />} />
       <Route path='/agregar-vehiculo' element={<FormDriver />} />
+      {/* MENU MY PARKING */}
+      <Route path='/mis-estacionamientos' element={<MyParkings />} />
 
       {/* MENU RESERVAS DRIVER */}
       <Route path='/lista-menu-reservas' element={<ReservationMenuList />} />
