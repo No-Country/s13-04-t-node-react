@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
 import { FavoriteHeartButton } from './FavoriteHeartButton';
+import { Image } from '../../types/garage';
+import ImageComponent from './ImageComponent';
 
 interface Props {
   id: string;
   name: string;
   price: number;
+  images: Image[]
 }
 
-export const CardGarageResult = ({ id, name, price }: Props) => {
+export const CardGarageResult = ({ id, name, price, images }: Props) => {
   return (
     <div>
       <div className='flex flex-row items-center justify-between py-2'>
@@ -20,11 +23,8 @@ export const CardGarageResult = ({ id, name, price }: Props) => {
             <div className='absolute text-sm bg-white px-2 py-0.1 rounded-2xl bottom-1 ml-1'>
               Particular
             </div>
-            <img
-              src='/images/image.png'
-              alt='imagen'
-              className='w-20 h-20 rounded-md'
-            />
+            <ImageComponent images={images} style='w-20 h-20 rounded-md' />
+
           </div>
 
           <Link key={id} to={`/reservar/${id}`}>
@@ -36,7 +36,7 @@ export const CardGarageResult = ({ id, name, price }: Props) => {
           </Link>
         </div>
         <span className='self-start px-1 py-0.5 bg-[#5D2B2C] text-white rounded-md'>
-          0,0
+          3,4
         </span>
       </div>
     </div>

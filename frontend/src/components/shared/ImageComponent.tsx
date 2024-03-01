@@ -1,28 +1,19 @@
-import React from 'react';
 import { Image } from '../../types/garage';
 
 interface ImageComponentProps {
   images: Image[];
+  style?: string;
 }
 
-const ImageComponent: React.FC<ImageComponentProps> = ({ images }) => {
-  return (
-    <>
-      {images.length ?
-        <img
-          src={images[0].route}
-          alt={`Image ${images[0].id}`}
-          className='rounded-md w-full object-cover'
-        />
-        :
-        <img
-          src='/images/image.png'
-          alt='gataje sin imagen'
-          className='rounded-md w-full object-cover'
-        />
-      }
+const ImageComponent: React.FC<ImageComponentProps> = ({ images, style }) => {
+  const imageUrl = images.length > 0 ? images[0].route : '/images/Image.png';
 
-    </>
+  return (
+    <img
+      src={imageUrl}
+      alt='Imagen del garaje'
+      className={`rounded-md w-full object-cover ${style || ''}`}
+    />
   );
 };
 
