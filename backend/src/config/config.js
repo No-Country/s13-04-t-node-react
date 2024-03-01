@@ -8,5 +8,6 @@ export const config={
     DB_ROUTE_SSL:process.env.DB_ROUTE_SSL,
     CLOUD_NAME:process.env.CLOUD_NAME,
     API_KEY:process.env.API_KEY,
-    API_SECRET:process.env.API_SECRET
+    API_SECRET:process.env.API_SECRET,
+    TOKEN_MP:process.env.TOKEN_MP
 }
