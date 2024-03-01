@@ -6,6 +6,8 @@ import {
   getBooking,
   getBookingByCar,
   getBookingByGarage,
+  getBookingsCarByStatus,
+  getBookingsGarageByStatus,
   updateBooking,
 } from "../controller/booking.js";
 import { validateFields } from "../middleware/validatorGeneral.js";
@@ -124,6 +126,51 @@ route.get("/car/:id", getBookingByCar);
 
 /**
  * @openapi
+ * /api/bookings/car/{id}/status/{status}:
+ *   get:
+ *     summary: Obtiene todas las reservas asociadas a un Auto por su estado
+ *     description: Retorna una lista de todas las reservas asociadas a un Auto específico por estado
+ *     tags: [Booking]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del Auto
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *       - in: path
+ *         name: status
+ *         required: true
+ *         description: Estado de la reserva ('active','inactive','pending')
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Reservas obtenidas exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Booking'
+ *       404:
+ *         description: Auto no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/NotFound'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
+route.get("/car/:id/status/:status", getBookingsCarByStatus);
+
+/**
+ * @openapi
  * /api/bookings/garage/{id}:
  *   get:
  *     summary: Obtiene todas las reservas asociadas a un Garage
@@ -160,6 +207,51 @@ route.get("/car/:id", getBookingByCar);
  *               $ref: '#/components/schemas/ErrorSchemas/Error'
 */
 route.get("/garage/:id", getBookingByGarage);
+
+/**
+ * @openapi
+ * /api/bookings/garage/{id}/status/{status}:
+ *   get:
+ *     summary: Obtiene todas las reservas asociadas a un Garage por su estado
+ *     description: Retorna una lista de todas las reservas asociadas a un Garage específico por estado
+ *     tags: [Booking]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del Garage
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *       - in: path
+ *         name: status
+ *         required: true
+ *         description: Estado de la reserva ('active','inactive','pending')
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Reservas obtenidas exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Booking'
+ *       404:
+ *         description: Garage no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/NotFound'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
+route.get("/garage/:id/status/:status", getBookingsGarageByStatus);
 
 /**
  * @openapi
