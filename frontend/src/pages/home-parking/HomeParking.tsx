@@ -1,8 +1,30 @@
+import { useState } from "react";
 import { ParkingReservatiosCard } from "../../components/parkingReservation/ParkingReservationCard";
 import { useCurrentUser } from "../../hooks/auth";
+import ModalConfirmReservation from "../../components/parkingReservation/ModalConfirmReservation";
+import ModalCancelReservation from "../../components/parkingReservation/ModalcancelReservation";
 
 export const HomeParking = () => {
   const user = useCurrentUser();
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+
+  const handleRejectReservation = () => {
+    setIsCancelModalOpen(true);
+  };
+
+  const handleAcceptReservation = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleCloseConfirmModal = () => {
+    setIsConfirmModalOpen(false);
+  };
+
+  const handleCloseCancelModal = () => {
+    setIsCancelModalOpen(false);
+  };
+  
   return (
     <>
       <div className="p-4 pb-0">
@@ -13,6 +35,10 @@ export const HomeParking = () => {
         showDate={false}
         showChat={false}
         showImgUser={false}
+        onAccept={handleAcceptReservation}
+        onReject={handleRejectReservation}
+        isLink={true}
+        
       />
       <div className="p-4">
         <div className=" mt-4">
@@ -64,6 +90,20 @@ export const HomeParking = () => {
           className="mt-4 w-full h-177"
         />
       </div>
+      <ModalConfirmReservation
+        isOpen={isConfirmModalOpen}
+        onClose={handleCloseConfirmModal}
+        userName="Nombre Usuario"
+        date="19 de febrero"
+        time="17:00"
+      />
+      <ModalCancelReservation
+        isOpen={isCancelModalOpen}
+        onClose={handleCloseCancelModal}
+        userName="Nombre Usuario"
+        date="19 de febrero"
+        time="17:00"
+      />
     </>
   );
 };
