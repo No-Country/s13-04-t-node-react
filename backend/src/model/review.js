@@ -20,12 +20,7 @@ export const Review = sequelize.define("Review", {
     },
     id_receiver : {
         type :DataTypes.UUID,
-        field: 'id_receiver',
         allowNull: false,
-        references: {
-            key: 'id',
-            model: Garages
-        }
     },
     type: {
       type: DataTypes.ENUM('User', 'Garage'),
@@ -40,4 +35,3 @@ export const Review = sequelize.define("Review", {
   });
   
   Review.belongsTo(User, { foreignKey: "id_author", as: "author" });
-  Review.belongsTo(Garages, { foreignKey: "id_receiver", as: "receiver" });
