@@ -9,5 +9,9 @@ export const config={
     CLOUD_NAME:process.env.CLOUD_NAME,
     API_KEY:process.env.API_KEY,
     API_SECRET:process.env.API_SECRET,
-    TOKEN_MP:process.env.TOKEN_MP
+    TOKEN_MP:process.env.TOKEN_MP,
+    USER:process.env.USER,
+    PASS:process.env.PASS,
+    URL_FRONT_EMAIL:process.env.URL_FRONT_EMAIL
+
 }
