@@ -71,6 +71,42 @@ export const getBookingByGarage = async (req, res, next) => {
   }
 };
 
+export const getBookingsGarageByStatus = async (req, res, next) => {
+  try {
+    const { id, status } = req.params
+
+    const garage = Garages.findByPk(id);
+
+    if(!garage){
+      throw NotFound("Garage not found")
+    }
+
+    const bookings = await Booking.findAll({ where: { id_garage: id, status: status }});
+
+    res.status(200).json({ bookings: bookings });
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getBookingsCarByStatus = async (req, res, next) => {
+  try {
+    const { id, status } = req.params
+
+    const car = Car.findByPk(id);
+
+    if(!car){
+      throw NotFound("Car not found")
+    }
+
+    const bookings = await Booking.findAll({ where: { id_car: id, status: status }});
+
+    res.status(200).json({ bookings: bookings });
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const createBooking = async (req, res, next) => {
   try {
     const { idCar, idGarage, dateStart, dateEnd } = req.body;
