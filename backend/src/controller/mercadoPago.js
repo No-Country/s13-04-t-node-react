@@ -7,15 +7,15 @@ import axios from "axios"
 const pago=async(req,res)=>{
   const { idCar, idGarage, dateStart, dateEnd, price } = req.body
    
-    const car=await Car.findByPk(idCar,{include: [{ model: User , as: 'user' , attributes: {exclude: ['password','createdAt','updatedAt']}}]})
-   const garages=await garage.findByPk(idGarage)
-   
-
-   if (!car && !garages) {
-    throw new BadRequest("car or garage do not match")
-   }
-    const url = "https://api.mercadopago.com/checkout/preferences";
     try {
+
+      const car=await Car.findByPk(idCar,{include: [{ model: User , as: 'user' , attributes: {exclude: ['password','createdAt','updatedAt']}}]})
+      const garages=await garage.findByPk(idGarage)
+      const url = "https://api.mercadopago.com/checkout/preferences";
+   
+      if (!car && !garages) {
+       throw new BadRequest("car or garage do not match")
+      }
 
       const item=[{
         title: "Estacion-app",
