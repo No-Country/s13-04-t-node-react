@@ -6,6 +6,8 @@ import bookingRoute from "./booking.js";
 import routeAuth from "./auth.js"
 import reviewRoute  from './review.js';
 import rSearchGarage from "./goeGarage.js"
+import pagosRoute from "./pagos.js"
+
 const route = Router();
 
 route.use("/auth", routeAuth)
@@ -15,4 +17,5 @@ route.use("/cars", carRoute);
 route.use("/bookings", bookingRoute);
 route.use("/review",reviewRoute)
 route.use("/searchGarage",rSearchGarage)
+route.use("/pagos",pagosRoute)
 export default route;
