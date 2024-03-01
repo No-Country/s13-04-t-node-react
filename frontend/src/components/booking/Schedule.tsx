@@ -12,7 +12,7 @@ const Schedule: React.FC<ScheduleProps> = ({ schedule, excludeDays }) => {
   return (
     <section className="w-full">
       <ul className="grid grid-cols-2 ">
-        {Object.values(schedule).map((day, index) => (
+        {schedule && Object.values(schedule).map((day, index) => (
           <Fragment key={index}>
             <li className="text-left">
               <strong>{day.name}:</strong>
