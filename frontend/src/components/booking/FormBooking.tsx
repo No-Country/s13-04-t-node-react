@@ -15,25 +15,21 @@ export const FormBooking: React.FC<FormBookingProps> = ({ garajeId, userId }) =>
   const [garaje, setGaraje] = useState<IGarage>();
 
   //cambiar por no disponibles del garaje
-  const excludeDays = [new Date('2024-02-25'), new Date('2024-02-27'), new Date('2024-03-02'),]
+  const excludeDays = [new Date('2024-03-06 22:00'), new Date('2024-03-08 '), new Date('2024-03-05')]
 
   useEffect(() => {
     garageService.getById(garajeId)
       .then((res) => setGaraje(res));
     // console.log('Garaje: ', garaje)
-    // console.log('user: ', userId)
+    // console.log('user: ', userId)   
   }, [garajeId]);
 
   return (
-    <div className='px-4 py-8 h-screen flex flex-col gap-6'>
+    <div className='px-4 py-6 h-screen flex flex-col gap-6'>
       {/* Carrusel de imagenes */}
       {garaje &&
         <Carousel
-          images={[
-            'https://tse4.mm.bing.net/th?id=OIP.wkFW3sPbRMmNXoKnAKyelwHaFj&pid=Api&P=0&h=180',
-            'https://tse2.mm.bing.net/th?id=OIP.CTTp75yu1mTgpRxM4sGK5gHaFj&pid=Api&P=0&h=180',
-            'https://tse1.mm.bing.net/th?id=OIP.8HjWX5curav0AmsxCvY-pwAAAA&pid=Api&P=0&h=180',
-          ]}
+          images={garaje.images}
           garajeId={garajeId}
         />
       }
