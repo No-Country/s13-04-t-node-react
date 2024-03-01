@@ -101,6 +101,42 @@ const options = {
                 },
                 required: ["brand", "model", "plate", "color"]
             },
+            
+    Review:{
+        type: "object",
+        properties: {
+        id: {
+          type: "string",
+          format: "uuid",
+          example: "123e4567-e89b-12d3-a456-426614174000",
+          description: "ID de la revisión (UUID)"},
+        id_author: {
+          type: "string",
+          format: "uuid",
+          example: "123e4567-e89b-12d3-a456-426614174001",
+          description: "ID del autor de la revisión (UUID)"},
+        id_receiver:{
+          type: "string",
+          format: "uuid",
+          example: "123e4567-e89b-12d3-a456-426614174002",
+          description: "ID del receptor de la revisión (UUID)"},
+        type:{
+          type: "string",
+          enum:[
+             'User',
+             'Garage'],
+          description: "Tipo de revisión (User/Garage)"},
+        rating:{
+          type: "number",
+          description: "Calificación de la revisión"},
+        comment:{
+          type: "string",
+          description: "Comentario de la revisión"},
+      required:[
+         "id_author",
+         "id_receiver",
+         "type",
+         "rating"]}},
             Garages: {
               type: "object",
               properties: {
@@ -350,6 +386,26 @@ const options = {
                         }
                     }
                 },
+                Conflict: {
+                  type : "object",
+                  properties: {
+                      error: {
+                          type: "boolean",
+                          example: true,
+                          description: "Indica si ocurrio un error"
+                      },
+                      message: {
+                          type: "string",
+                          example: "Conflict",
+                          description: "Indica el mensaje de error"
+                      },
+                      statusCode: {
+                          type: "integer",
+                          example: 409,
+                          description: "Indica el codigo de status"
+                      }
+                  }
+              },
             },
         }
     },
@@ -360,7 +416,7 @@ const options = {
     ],
     },
     apis: ['./src/routes/*.js' , './src/models/*.js'],
-    };
+};
   
 
 const swaggerSpec = swaggerJsdoc(options);
