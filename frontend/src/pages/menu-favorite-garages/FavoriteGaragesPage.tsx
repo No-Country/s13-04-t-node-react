@@ -1,13 +1,15 @@
 import useSWR from 'swr';
 import { HeaderUser } from '../../components/shared/HeaderUser';
 import { BackArrowIcon } from '../../components/shared/BackArrowIcon';
-import { garageService } from '../../services/garage';
+// import { garageService } from '../../services/garage';
 import { CardGarageResult } from '../../components/shared/CardGarageResult';
+import { favoriteService } from '../../services/favorites';
 
 export const FavoriteGaragesPage = () => {
   const { data: garages } = useSWR(['favorite-garages'], () =>
-    garageService.list()
+    favoriteService.list()
   );
+  // console.log(garages)
   return (
     <>
       <HeaderUser />
@@ -20,10 +22,11 @@ export const FavoriteGaragesPage = () => {
 
         {garages?.map((garage) => (
           <CardGarageResult
-            key={garage.id}
+            images={garage.garage.images}
+            key={garage.garage.id}
             id={garage.id}
-            name={garage.name}
-            price={garage.price}
+            name={garage.garage.name}
+            price={garage.garage.price}
           />
         ))}
       </div>
