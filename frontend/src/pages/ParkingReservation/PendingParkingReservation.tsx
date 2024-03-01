@@ -1,9 +1,9 @@
 import { HeaderUser } from "../../components/shared/HeaderUser";
-import { BackArrowIcon } from "../../components/shared/BackArrowIcon";
 import { ParkingReservatiosCard } from "../../components/parkingReservation/ParkingReservationCard";
 import { useState } from "react";
 import ModalConfirmReservation from "../../components/parkingReservation/ModalConfirmReservation";
 import ModalCancelReservation from "../../components/parkingReservation/ModalcancelReservation";
+import BackButton from "../../components/utilities/Backbutton";
 
 export const PendingParkingReservation = () => {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
@@ -29,7 +29,7 @@ export const PendingParkingReservation = () => {
     <>
       <HeaderUser />
       <div className="p-4">
-        <BackArrowIcon />
+        <BackButton to='/lista-menu-reservas ' />
         <div className="flex flex-col gap-1 py-6">
           <h1 className="text-2xl font-semibold uppercase">
             RESERVAS PENDIENTES
