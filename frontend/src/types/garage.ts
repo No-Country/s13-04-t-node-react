@@ -9,7 +9,6 @@ export interface IGarage {
   address: string;
   country: string;
   province: string;
-  images: string[];
   city: string;
   zipCode: string;
   capacity: number;
@@ -19,11 +18,14 @@ export interface IGarage {
   available: boolean;
   coordinates: string;
   rating: null;
-  schedule: { [key: string]: Schedule };
+  schedule: Record<
+    string,
+    { name: string; schedule: { start: string; end: string }[] }
+  >;
   createdAt: string;
   updatedAt: string;
   id_user: string;
-  images: Image[]
+  images: Image[];
 }
 
 export interface Image {
@@ -75,10 +77,13 @@ export interface IFavoriteGarage {
   garage: IGarage;
 }
 
-export type Schedule = Record<string, {
-	name: string;
-	schedule: ScheduleElement[];
-}>;
+export type Schedule = Record<
+  string,
+  {
+    name: string;
+    schedule: ScheduleElement[];
+  }
+>;
 
 export interface ScheduleElement {
   start: string | null;
@@ -86,19 +91,27 @@ export interface ScheduleElement {
 }
 
 export interface CreateGaraje {
-	[key: string]: string | File | boolean | Date | File[] | Schedule | Blob | null;
-	idUser: string;
-	name: string;
-	address: string;
-	country: string;
-	province: string;
-	city: string;
-	zipCode: string;
-	capacity: string;
-	price: string;
-	whitConfirmation: boolean;
-	coordinates: string;
-	images: File[];
-	type: string | null;
-	schedule: Schedule
+  [key: string]:
+    | string
+    | File
+    | boolean
+    | Date
+    | File[]
+    | Schedule
+    | Blob
+    | null;
+  idUser: string;
+  name: string;
+  address: string;
+  country: string;
+  province: string;
+  city: string;
+  zipCode: string;
+  capacity: string;
+  price: string;
+  whitConfirmation: boolean;
+  coordinates: string;
+  images: File[];
+  type: string | null;
+  schedule: Schedule;
 }
