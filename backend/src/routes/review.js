@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getAllReviews, getReview, createReview, updateReview, deleteReview } from '../controller/review.js';
+import {getAllReviews, getReview, createReview, updateReview, deleteReview,getAverageReviewRating } from '../controller/review.js';
 
 const route=Router();
 /**
@@ -149,5 +149,44 @@ route.patch("/:id", updateReview);
 */
 
 route.delete("/:id", deleteReview);
+
+/**
+ * @openapi
+ * /api/reviews/average/{id_receiver}:
+ *   get:
+ *     summary: Obtiene el promedio de las calificaciones de las revisiones por el ID del receptor
+ *     parameters:
+ *       - in: path
+ *         name: id_receiver
+ *         required: true
+ *         description: ID del receptor de las revisiones
+ *         schema:
+ *           type: string
+ *     description: Retorna el promedio de las calificaciones de las revisiones para un receptor específico, junto con el total de revisiones. El promedio de las calificaciones se calcula basado en todas las revisiones existentes para el receptor especificado.
+ *     tags: [Reviews]
+ *     responses:
+ *       200:
+ *         description: Promedio de las calificaciones obtenido exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id_receiver:
+ *                   type: string
+ *                   description: ID del receptor de las revisiones
+ *                 averageRating:
+ *                   type: string
+ *                   description: Promedio de las calificaciones de las revisiones, formateado a dos decimales
+ *                 totalReviews:
+ *                   type: integer
+ *                   description: Total de revisiones consideradas para el cálculo del promedio
+ *       404:
+ *         description: No se encuentran revisiones para el ID del receptor especificado
+ *       400:
+ *         description: Error en la solicitud
+ */
+
+route.get("/average/:id_receiver", getAverageReviewRating)
 
 export default route;

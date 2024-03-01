@@ -45,7 +45,7 @@ const createReview = async(req, res, next) => {
             }
         })
     }
-    
+
 };
 
 const updateReview = async(req, res, next) => {
@@ -89,10 +89,40 @@ const deleteReview = async(req, res,next) => {
     }
 };
 
+const getAverageReviewRating = async (req, res, next) => {
+
+    const { id_receiver } = req.params; 
+
+    try {
+        const reviews = await Review.findAll({
+            where: { id_receiver }
+        });
+
+        if(!Review) {
+            throw new NotFound({message:"This ID hasn't received reviews yet"})
+        }
+
+        let totalRating = 0;
+        reviews.forEach(review => {
+            totalRating += review.rating;
+        });
+        const averageRating = reviews.length > 0 ? totalRating / reviews.length : 0;
+
+        res.status(200).send({
+            id_receiver: id_receiver,
+            averageRating: averageRating.toFixed(2),
+            totalReviews: reviews.length
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
 export {
     getAllReviews,
     getReview,
     createReview,
     updateReview,
-    deleteReview
+    deleteReview,
+    getAverageReviewRating
 }
