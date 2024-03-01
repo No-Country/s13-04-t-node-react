@@ -1,5 +1,5 @@
-import { client } from '../config/client';
-import { IGarage, IGarageSearchParams, ISearchGarage } from '../types/garage';
+import { client } from "../config/client";
+import { IGarage, IGarageSearchParams, ISearchGarage } from "../types/garage";
 
 export const garageService = {
   async list() {
@@ -10,9 +10,12 @@ export const garageService = {
   },
 
   async listRecomended() {
-    const res = await client.get<{ garages: IGarage[] }>("/garages/recomended", {
-      params: {},
-    });
+    const res = await client.get<{ garages: IGarage[] }>(
+      "/garages/recommended",
+      {
+        params: {},
+      }
+    );
     return res.data.garages;
   },
   async getById(idGarage: string) {
