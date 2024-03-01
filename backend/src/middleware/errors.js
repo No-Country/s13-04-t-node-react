@@ -46,3 +46,13 @@ export class Unauthorized extends Error{
     this.statusCode = 401
   }
 }
+
+export class Conflict extends Error{
+  constructor(message) {
+    super()
+    this.name = this.constructor.name
+
+    this.message = message || "Conflict"
+    this.statusCode = 409
+  }
+}

@@ -386,6 +386,26 @@ const options = {
                         }
                     }
                 },
+                Conflict: {
+                  type : "object",
+                  properties: {
+                      error: {
+                          type: "boolean",
+                          example: true,
+                          description: "Indica si ocurrio un error"
+                      },
+                      message: {
+                          type: "string",
+                          example: "Conflict",
+                          description: "Indica el mensaje de error"
+                      },
+                      statusCode: {
+                          type: "integer",
+                          example: 409,
+                          description: "Indica el codigo de status"
+                      }
+                  }
+              },
             },
         }
     },
