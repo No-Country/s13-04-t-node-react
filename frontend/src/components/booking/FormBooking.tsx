@@ -21,8 +21,8 @@ export const FormBooking: React.FC<FormBookingProps> = ({ garajeId, userId }) =>
     garageService.getById(garajeId)
       .then((res) => setGaraje(res));
     // console.log('Garaje: ', garaje)
-    // console.log('user: ', userId)   
-  }, [garajeId]);
+    console.log('user: ', userId)
+  }, [garajeId, userId]);
 
   return (
     <div className='px-4 py-6 h-screen flex flex-col gap-6'>
@@ -36,6 +36,7 @@ export const FormBooking: React.FC<FormBookingProps> = ({ garajeId, userId }) =>
       {/* encabezado */}
       {garaje && (
         <Header
+          rating={garaje.rating}
           name={garaje.name}
           address={garaje.address}
           price={garaje.price}
