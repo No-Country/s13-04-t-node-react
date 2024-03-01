@@ -1,39 +1,41 @@
 import { config } from "../config/config.js"
+import {Car} from "../model/car.js"
+import garage from "../model/garage.js"
+import User from "../model/user.js";
+import { AlreadyExist, NotFound,BadRequest } from "../middleware/errors.js";
 import axios from "axios"
 const pago=async(req,res)=>{
+  const { idCar, idGarage, dateStart, dateEnd, price } = req.body
+   
+    const car=await Car.findByPk(idCar,{include: [{ model: User , as: 'user' , attributes: {exclude: ['password','createdAt','updatedAt']}}]})
+   const garages=await garage.findByPk(idGarage)
+   
 
-    // const {phone,item, shippingAddress, email, }=req.body
-    //falta fecha inicio fecha fin id de garage id de auto
-    //peticion para usuar
-    let phone=123123211
-    let shippingAddress={
-      "street_name": "Nombre de la calle",
-      "street_number": 123,
-      "zip_code": "12345"
-    }
-    let email= "yannokaiser@hotmail.com"
-    let name="Estacion-app"
-    let description=`Estacionamienro en ` 
-    let quantity=1
-    let price=234
+   if (!car && !garages) {
+    throw new BadRequest("car or garage do not match")
+   }
     const url = "https://api.mercadopago.com/checkout/preferences";
     try {
 
       const item=[{
-        title: name,
-        description: description,
+        title: "Estacion-app",
+        description: `Estacionamienro en ${garages.address} ` ,
         currency_id: "ARS",
-        quantity: quantity,
+        quantity: 1,
         unit_price: price,
       }];
 
         const data = {
           items: item,
           payer: {
-            phone: { phone: phone },
+            phone: { phone: garages.phone },
             identification: {},
-            address: shippingAddress,//debe ser un objeto
-            email: email,
+            address: shippingAddress={
+              "street_name": garages.address,
+              "street_number": "",
+              "zip_code": garages.zipcode
+            },
+            email: garages.email,
           },
           back_urls: {
             success: "http://localhost:3000/operation",
@@ -41,6 +43,7 @@ const pago=async(req,res)=>{
             failure: "El pago a fallado",
           },
           notification_url: "",
+          external_reference: { startDate:dateStart, endDate:dateEnd, car, garages},
         };
   
         const result = await axios({
@@ -56,7 +59,7 @@ const pago=async(req,res)=>{
       } catch (error) {
         console.log(error);
       }
-   
+   res.send(garages)
 }
 
 export {pago}
