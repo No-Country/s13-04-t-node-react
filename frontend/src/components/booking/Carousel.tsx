@@ -23,7 +23,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, garajeId }) => {
 
   return (
     <Slider {...settings}>
-      {images.map((image, index) => (
+      {images.length ? images.map((image, index) => (
         <div key={index} className="relative">
           <img
             src={image.route}
@@ -34,7 +34,16 @@ const Carousel: React.FC<CarouselProps> = ({ images, garajeId }) => {
             <FavoriteHeartButton id={garajeId} />
           </p>
         </div>
-      ))}
+      )) : <div className="relative">
+        <img
+          src='/images/image.png'
+          alt={`garaje sin foto`}
+          className="h-auto max-h-56 w-full rounded-md"
+        />
+        <p className="absolute top-2 right-2 text-red-500">
+          <FavoriteHeartButton id={garajeId} />
+        </p>
+      </div>}
     </Slider>
   );
 };
