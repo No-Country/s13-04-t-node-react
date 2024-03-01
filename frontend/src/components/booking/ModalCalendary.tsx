@@ -76,9 +76,11 @@ export const ModalCalendary: React.FC<ModalCalendaryProps> = ({ exclideDays }) =
                     Fechas disponibles
                   </Dialog.Title>
                   <DatePicker
-                    selected={new Date()}
+                    // selected={new Date()}
                     minDate={new Date()}
                     onChange={onChange}
+                    showTimeSelect
+                    excludeTimes={[new Date('2024-03-07 22:00'), new Date('2024-03-07 23:00'), new Date('2024-03-07 21:30')]}
                     monthsShown={1}
                     excludeDates={exclideDays}
                     inline
