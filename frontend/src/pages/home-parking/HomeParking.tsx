@@ -77,7 +77,7 @@ export const HomeParking = () => {
             <div className="flex items-center justify-center bg-[#5D2B2C] text-white rounded-md text-center px-6 py-4 text-lg">
               <span>10</span>
             </div>
-            <span>Nuevos conductores</span>
+            <span>Volvieron a elegirte</span>
           </div>
         </div>
       </div>
