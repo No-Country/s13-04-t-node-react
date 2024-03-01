@@ -2,10 +2,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FavoriteHeartButton } from "../shared/FavoriteHeartButton";
+import { Image } from "../../types/garage";
 
 
 interface CarouselProps {
-  images: string[];
+  images: Image[];
   garajeId: string
 }
 
@@ -25,7 +26,7 @@ const Carousel: React.FC<CarouselProps> = ({ images, garajeId }) => {
       {images.map((image, index) => (
         <div key={index} className="relative">
           <img
-            src={image}
+            src={image.route}
             alt={`Imagen de un garaje ${index + 1}`}
             className="h-auto max-h-56 w-full rounded-md"
           />
