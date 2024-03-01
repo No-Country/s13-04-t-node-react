@@ -28,6 +28,12 @@ export const Review = sequelize.define("Review", {
     },
     rating: {
       type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        isNumeric: true,
+        min: 1,
+        max: 10
+      }
     },
     comment: {
       type: DataTypes.STRING,
