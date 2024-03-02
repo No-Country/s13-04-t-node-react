@@ -429,6 +429,54 @@ route.put("/:id", validateUpdateBooking ,validateFields, updateBooking);
 */
 route.delete("/:id", validateFields, deleteBooking);
 
+
+/**
+ * @openapi
+ * /api/bookings/status/{id}/{status}:
+ *   patch:
+ *     summary: Actualiza el estado de una reserva
+ *     description: Actualiza el estado de una reserva
+ *     tags: [Booking]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID de la reserva a actualizar
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *       - in: path
+ *         name: status
+ *         required: true
+ *         description: Estado nuevo de la reserva ("accept", "reject")
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Reserva actualizada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Mensaje de confirmación
+ *                 booking:
+ *                   $ref: '#/components/schemas/Booking'
+ *       404:
+ *         description: Reserva no encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/NotFound'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
 route.patch("status/:id/:status",changeStatus)
 
 export default route;
