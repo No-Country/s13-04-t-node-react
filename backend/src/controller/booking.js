@@ -202,7 +202,6 @@ export const changeStatus = async (req, res, next) => {
       throw new BadRequest("Invalid status provided");
     }
   } catch (error) {
-    console.error(error);
-    next()
+    next(error)
   }
 };
