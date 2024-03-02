@@ -179,7 +179,7 @@ export const deleteBooking = async (req, res, next) => {
 
 };
 
-export const changeStatus = async (req, res) => {
+export const changeStatus = async (req, res, next) => {
   try {
     const { id, status } = req.params;
     
@@ -203,6 +203,6 @@ export const changeStatus = async (req, res) => {
     }
   } catch (error) {
     console.error(error);
-    res.status(400).send(error.message);
+    next()
   }
 };
