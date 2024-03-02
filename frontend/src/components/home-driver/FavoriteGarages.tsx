@@ -8,7 +8,6 @@ export const FavoriteGarages = () => {
   const { data: garages } = useSWR(['favorite-garages'], () =>
     // garageService.list()
     favoriteService.list()
-
   );
   // console.log(garages)
   const filteredGarages = garages;
@@ -18,8 +17,8 @@ export const FavoriteGarages = () => {
       <h2 className='font-semibold pb-2 text-xl'>Estacionamientos favoritos</h2>
       <ul className='flex overflow-x-auto items-center w-auto scrollbar-hidden gap-x-4'>
         {filteredGarages?.map((garage) => (
-          <Link key={garage.garage.id} to={`/reservar/${garage.garage.id}`}>
-            <CardGarage garage={garage.garage} />
+          <Link key={garage.id} to={`/reservar/${garage.id}`}>
+            <CardGarage garage={garage} />
           </Link>
         ))}
       </ul>
