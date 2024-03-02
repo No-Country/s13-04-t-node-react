@@ -15,11 +15,12 @@ export const garageService = {
     });
     return res.data.garage;
   },
-   async getByUserId(idUser: string) {
+
+  async getByUserId(idUser: string) {
     const res = await client.get(`/garages/user/${idUser}`, {
       params: {},
     });
-    
+
     return res;
   },
 
@@ -32,16 +33,30 @@ export const garageService = {
     );
     return res.data.garages;
   },
-    async createGaraje(payload: FormData) {
+
+  async createGaraje(payload: FormData) {
     const res = await client.post('/garages', payload, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    });    
-    return  res;
+    });
+    return res;
   },
-  async updateGarage(idGarage:IGarage['id'], payload: Partial<IGarage>) {
-    const res = await client.patch(`/garages/${idGarage}`, payload);    
-    return  res;
+
+  async updateGarage(idGarage: IGarage['id'], payload: Partial<IGarage>) {
+    const res = await client.patch(`/garages/${idGarage}`, payload);
+    return res;
+  },
+
+  async autocomplete(searchForm: string) {
+    const res = await client.get<{ results: string[] }>(
+      '/garages/autocomplete',
+      {
+        params: {
+          searchForm,
+        },
+      }
+    );
+    return res.data.results;
   },
 };

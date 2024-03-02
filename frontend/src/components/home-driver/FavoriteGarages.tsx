@@ -14,8 +14,8 @@ export const FavoriteGarages = () => {
       <h2 className='font-semibold pb-2 text-xl'>Estacionamientos favoritos</h2>
       <ul className='flex overflow-x-auto items-center w-auto scrollbar-hidden gap-x-4'>
         {filteredGarages?.map((garage) => (
-          <Link to={`/reservar/${garage.id}`}>
-            <CardGarage key={garage.id} garage={garage} />
+          <Link key={garage.id} to={`/reservar/${garage.id}`}>
+            <CardGarage garage={garage} />
           </Link>
         ))}
       </ul>
