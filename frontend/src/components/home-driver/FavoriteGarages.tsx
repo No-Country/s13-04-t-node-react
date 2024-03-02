@@ -1,12 +1,15 @@
 import useSWR from 'swr';
-import { garageService } from '../../services/garage';
+// import { garageService } from '../../services/garage';
 import { CardGarage } from './CardGarage';
 import { Link } from 'react-router-dom';
+import { favoriteService } from '../../services/favorites';
 
 export const FavoriteGarages = () => {
   const { data: garages } = useSWR(['favorite-garages'], () =>
-    garageService.list()
+    // garageService.list()
+    favoriteService.list()
   );
+  // console.log(garages)
   const filteredGarages = garages;
 
   return (
