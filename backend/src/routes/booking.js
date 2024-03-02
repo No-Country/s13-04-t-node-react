@@ -9,6 +9,7 @@ import {
   getBookingsCarByStatus,
   getBookingsGarageByStatus,
   updateBooking,
+  changeStatus
 } from "../controller/booking.js";
 import { validateFields } from "../middleware/validatorGeneral.js";
 import { validateCreateBooking , validateUpdateBooking } from "../validators/bookingValidator.js";
@@ -427,5 +428,7 @@ route.put("/:id", validateUpdateBooking ,validateFields, updateBooking);
  *               $ref: '#/components/schemas/ErrorSchemas/Error'
 */
 route.delete("/:id", validateFields, deleteBooking);
+
+route.patch("status/:id/:status",changeStatus)
 
 export default route;

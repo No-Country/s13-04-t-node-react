@@ -1,5 +1,5 @@
 import { Booking } from "../model/booking.js";
-import { NotFound } from "../middleware/errors.js";
+import { NotFound,BadRequest } from "../middleware/errors.js";
 import { Car } from "../model/car.js";
 import Garages from "../model/garage.js";
 
@@ -175,5 +175,34 @@ export const deleteBooking = async (req, res, next) => {
     return res.status(200).send({ message: "Booking deleted" });
   } catch (error) {
     next(error);
+  }
+
+};
+
+export const changeStatus = async (req, res, next) => {
+  try {
+    const { id, status } = req.params;
+    
+    const booking = await Booking.findOne({
+      where: { id },
+    });
+
+    if (!booking || booking.status !== 'pending') {
+      throw new BadRequest("Booking not found or not pending");
+    }
+
+    if (status === "accept") {
+      booking.status = "active";
+      await booking.save(); 
+      res.status(200).send(booking);
+    } else if (status === "reject") {
+      await booking.destroy();
+      res.status(200).send("Booking deleted");
+    } else {
+      throw new BadRequest("Invalid status provided");
+    }
+  } catch (error) {
+    console.error(error);
+    next()
   }
 };
