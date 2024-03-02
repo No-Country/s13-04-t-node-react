@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken"
 import {config} from "../config/config.js"
 import { Unauthorized, AlreadyExist,NotFound } from "../middleware/errors.js";
 import { uploadImage } from "../utils/imageService.js";
-
+import { sendMail } from "../utils/snedMail.js";
 const login= async(req,res,next)=>{
  
 const {email, password}=req.body
@@ -24,7 +24,7 @@ try {
     const token = jwt.sign({ userId: user.id }, config.API_SECRET);
 
     user.password=undefined
-        
+    sendMail(user,"Bienvenida")  
     return res.status(200).json({ message: 'Inicio de sesión exitoso', token: token, user: user });
 
    } catch (err) {
