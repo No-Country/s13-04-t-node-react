@@ -106,7 +106,19 @@ export const getBookingsOwnerByStatus = async (req, res, next) => {
           model: Garages,
           as: 'garage',
           attributes: ['id' , 'id_user' , 'name' ],
-          where: { id_user: id}
+          where: { id_user: id},
+        },
+        { 
+          model: Car, 
+          as: 'car', 
+          attributes: {exclude: ['createdAt', 'updatedAt']},
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: {exclude: ['createdAt', 'updatedAt']},
+            }
+          ]
         }
       ]});
 
@@ -136,7 +148,7 @@ export const getBookingsCarByStatus = async (req, res, next) => {
 
 export const createBooking = async (req, res, next) => {
   try {
-    const { idCar, idGarage, dateStart, dateEnd } = req.body;
+    const { idCar, idGarage, dateStart, dateEnd, price } = req.body;
 
     const car = await Car.findByPk(idCar);
     if(!car){
@@ -156,6 +168,7 @@ export const createBooking = async (req, res, next) => {
       id_garage: idGarage,
       date_start: dateStart,
       date_end: dateEnd,
+      price,
       status
     });
     res.status(201).json({ message: "Booking created", booking: newBooking });
