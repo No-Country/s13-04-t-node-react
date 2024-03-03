@@ -2,6 +2,7 @@ import { Booking } from "../model/booking.js";
 import { NotFound,BadRequest } from "../middleware/errors.js";
 import { Car } from "../model/car.js";
 import Garages from "../model/garage.js";
+import User from "../model/user.js";
 
 export const getAllBookings = async (req, res, next) => {
   try {
@@ -82,6 +83,32 @@ export const getBookingsGarageByStatus = async (req, res, next) => {
     }
 
     const bookings = await Booking.findAll({ where: { id_garage: id, status: status }});
+
+    res.status(200).json({ bookings: bookings });
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getBookingsOwnerByStatus = async (req, res, next) => {
+  try {
+    const { id, status } = req.params
+
+    const user = User.findByPk(id);
+
+    if(!user){
+      throw NotFound("User not found")
+    }
+
+    const bookings = await Booking.findAll({ where: { status: status }, 
+      include: [
+        {
+          model: Garages,
+          as: 'garage',
+          attributes: ['id' , 'id_user' , 'name' ],
+          where: { id_user: id}
+        }
+      ]});
 
     res.status(200).json({ bookings: bookings });
   } catch (error) {
