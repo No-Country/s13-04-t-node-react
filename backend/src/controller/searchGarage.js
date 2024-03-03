@@ -5,7 +5,7 @@ import { BadRequest } from "../middleware/errors.js";
 
 const searchGarage = async (req, res) => {
     try {
-        const clienteUbicacion = { longitude: -58.432923545307496, latitude: -34.57928730501865 };
+        const {clienteUbicacion} = req.body 
 
         if (!clienteUbicacion) {
             throw new BadRequest("Required customer location user")
