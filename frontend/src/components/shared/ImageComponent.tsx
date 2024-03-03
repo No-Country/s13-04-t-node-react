@@ -6,13 +6,13 @@ interface ImageComponentProps {
 }
 
 const ImageComponent: React.FC<ImageComponentProps> = ({ images, style }) => {
-  const imageUrl = images.length > 0 ? images[0].route : '/images/Image.png';
+  const imageUrl = images?.length > 0 ? images[0].route : '/images/image.png';
 
   return (
     <img
       src={imageUrl}
       alt='Imagen del garaje'
-      className={`rounded-md w-full object-cover ${style || ''}`}
+      className={` ${style || 'rounded-md w-full object-cover'}`}
     />
   );
 };
