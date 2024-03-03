@@ -38,9 +38,9 @@ const pago=async(req,res, next)=>{
             email: garages.email,
           },
           back_urls: {
-            success: "http://localhost:3000/operation",
-            pending: "Su pago esta pendiente",
-            failure: "El pago a fallado",
+            success: "estacionapp.vercel.app",
+/*             pending: "Su pago esta pendiente",
+            failure: "El pago a fallado", */
           },
           notification_url: "",
           external_reference: { startDate:dateStart, endDate:dateEnd, car, garages},
