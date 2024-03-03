@@ -9,7 +9,8 @@ import {
   getBookingsCarByStatus,
   getBookingsGarageByStatus,
   updateBooking,
-  changeStatus
+  changeStatus,
+  getBookingsOwnerByStatus
 } from "../controller/booking.js";
 import { validateFields } from "../middleware/validatorGeneral.js";
 import { validateCreateBooking , validateUpdateBooking } from "../validators/bookingValidator.js";
@@ -253,6 +254,52 @@ route.get("/garage/:id", getBookingByGarage);
  *               $ref: '#/components/schemas/ErrorSchemas/Error'
 */
 route.get("/garage/:id/status/:status", getBookingsGarageByStatus);
+
+
+/**
+ * @openapi
+ * /api/bookings/user/{id}/status/{status}:
+ *   get:
+ *     summary: Obtiene todas las reservas asociadas a un Usuario por su estado
+ *     description: Retorna una lista de todas las reservas asociadas a un Usuario específico por estado
+ *     tags: [Booking]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del Usuario
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *       - in: path
+ *         name: status
+ *         required: true
+ *         description: Estado de la reserva ('active','inactive','pending')
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Reservas obtenidas exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Booking'
+ *       404:
+ *         description: Usuario no encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/NotFound'
+ *       500:
+ *         description: Error interno del servidor
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorSchemas/Error'
+*/
+route.get("/user/:id/status/:status", getBookingsOwnerByStatus);
 
 /**
  * @openapi
