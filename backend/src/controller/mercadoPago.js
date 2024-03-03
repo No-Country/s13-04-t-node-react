@@ -38,7 +38,7 @@ const pago=async(req,res, next)=>{
             email: garages.email,
           },
           back_urls: {
-            success: "estacionapp.vercel.app",
+            success: "https://estacionapp.vercel.app/",
 /*             pending: "Su pago esta pendiente",
             failure: "El pago a fallado", */
           },
