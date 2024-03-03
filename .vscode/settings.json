@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/bb72497f-42c2-4230-a517-15e9b58b2c5d/resourceGroups/s13-04-t-node-react/providers/Microsoft.Web/sites/estacionar",
+    "appService.deploySubpath": "backend"
+}

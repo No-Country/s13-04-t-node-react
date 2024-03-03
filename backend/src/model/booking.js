@@ -22,6 +22,11 @@ export const Booking = sequelize.define("Booking", {
     allowNull: false,
     defaultValue: "pending",
   },
+  price: {
+    type: DataTypes.FLOAT,
+    allowNull: false,
+    defaultValue: 0
+  }
 });
 
 Booking.belongsTo(Car, { foreignKey: "id_car", as: "car" });

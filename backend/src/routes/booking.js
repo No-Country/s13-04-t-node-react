@@ -335,6 +335,10 @@ route.get("/user/:id/status/:status", getBookingsOwnerByStatus);
  *                 format: date-time
  *                 description: Fecha de fin de la reserva
  *                 required: true
+ *               price:
+ *                 type: number
+ *                 description: Precio de la reserva
+ *                 required: true
  *     responses:
  *       201:
  *         description: Reserva creada exitosamente
