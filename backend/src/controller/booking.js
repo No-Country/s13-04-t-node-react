@@ -106,7 +106,19 @@ export const getBookingsOwnerByStatus = async (req, res, next) => {
           model: Garages,
           as: 'garage',
           attributes: ['id' , 'id_user' , 'name' ],
-          where: { id_user: id}
+          where: { id_user: id},
+        },
+        { 
+          model: Car, 
+          as: 'car', 
+          attributes: {exclude: ['createdAt', 'updatedAt']},
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: {exclude: ['createdAt', 'updatedAt']},
+            }
+          ]
         }
       ]});
 
