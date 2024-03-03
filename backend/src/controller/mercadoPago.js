@@ -4,7 +4,7 @@ import garage from "../model/garage.js"
 import User from "../model/user.js";
 import { AlreadyExist, NotFound,BadRequest } from "../middleware/errors.js";
 import axios from "axios"
-const pago=async(req,res)=>{
+const pago=async(req,res, next)=>{
   const { idCar, idGarage, dateStart, dateEnd, price } = req.body
    
     try {
@@ -30,7 +30,7 @@ const pago=async(req,res)=>{
           payer: {
             phone: { phone: garages.phone },
             identification: {},
-            address: shippingAddress={
+            address:{
               "street_name": garages.address,
               "street_number": "",
               "zip_code": garages.zipcode
@@ -52,12 +52,10 @@ const pago=async(req,res)=>{
           headers: { Authorization: `Bearer ${config.TOKEN_MP}` },
           data: data,
         });
-  
-        console.log(result.data.init_point);
-        // res.send(result.data.init_point); //ENLACE DE FORMATO DE PAGO
-        return res.send(result.data.init_point); //ID de preferencia del formato
+        
+        return res.status(201).json({route: result.data.init_point}); //ID de preferencia del formato
       } catch (error) {
-        console.log(error);
+        next(error)
       }
 }
 

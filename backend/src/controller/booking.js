@@ -110,7 +110,6 @@ export const getBookingsCarByStatus = async (req, res, next) => {
 export const createBooking = async (req, res, next) => {
   try {
     const { idCar, idGarage, dateStart, dateEnd } = req.body;
-    let status = 'active'
 
     const car = await Car.findByPk(idCar);
     if(!car){
@@ -123,9 +122,7 @@ export const createBooking = async (req, res, next) => {
       throw new NotFound("Garage not found");
     }
 
-    if(garage.withConfirmation){
-      status = 'pending';
-    }
+    const status = garage.whitConfirmation ? 'pending' : 'active'
 
     const newBooking = await Booking.create({
       id_car: idCar,
