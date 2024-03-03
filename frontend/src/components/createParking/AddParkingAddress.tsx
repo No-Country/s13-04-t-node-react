@@ -21,6 +21,7 @@ export default function AddParkingAddress({ setStep }: Props) {
     register,
     setValue,
     watch,
+    handleSubmit,
     formState: { errors },
   } = useFormContext();
   const [openModal, setOpenModal] = useState(false);
@@ -207,7 +208,7 @@ export default function AddParkingAddress({ setStep }: Props) {
         <button
           className='border rounded-3xl p-2 font-bold bg-[#D58418] text-center'
           type='button'
-          onClick={next}
+          onClick={handleSubmit(next)}
         >
           Siguiente
         </button>

@@ -1,9 +1,9 @@
-import { client } from "../config/client";
-import { IGarage, IGarageSearchParams, ISearchGarage } from "../types/garage";
+import { client } from '../config/client';
+import { IGarage, IGarageSearchParams, ISearchGarage } from '../types/garage';
 
 export const garageService = {
   async list() {
-    const res = await client.get<{ garages: IGarage[] }>("/garages", {
+    const res = await client.get<{ garages: IGarage[] }>('/garages', {
       params: {},
     });
     return res.data.garages;
@@ -11,7 +11,7 @@ export const garageService = {
 
   async listRecomended() {
     const res = await client.get<{ garages: IGarage[] }>(
-      "/garages/recommended",
+      '/garages/recommended',
       {
         params: {},
       }
@@ -24,6 +24,7 @@ export const garageService = {
     });
     return res.data.garage;
   },
+
   async getByUserId(idUser: string) {
     const res = await client.get(`/garages/user/${idUser}`, {
       params: {},
@@ -34,23 +35,37 @@ export const garageService = {
 
   async search(params: IGarageSearchParams) {
     const res = await client.get<{ garages: ISearchGarage[] }>(
-      "/garages/search",
+      '/garages/search',
       {
         params,
       }
     );
     return res.data.garages;
   },
+
   async createGaraje(payload: FormData) {
-    const res = await client.post("/garages", payload, {
+    const res = await client.post('/garages', payload, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        'Content-Type': 'multipart/form-data',
       },
     });
     return res;
   },
-  async updateGarage(idGarage: IGarage["id"], payload: Partial<IGarage>) {
+
+  async updateGarage(idGarage: IGarage['id'], payload: Partial<IGarage>) {
     const res = await client.patch(`/garages/${idGarage}`, payload);
     return res;
+  },
+
+  async autocomplete(searchForm: string) {
+    const res = await client.get<{ results: string[] }>(
+      '/garages/autocomplete',
+      {
+        params: {
+          searchForm,
+        },
+      }
+    );
+    return res.data.results;
   },
 };
