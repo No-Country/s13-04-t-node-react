@@ -9,9 +9,8 @@ import CustomButton from '../utilities/CustomButton';
 
 interface FormBookingProps {
   garajeId: string;
-  userId: string
 }
-export const FormBooking: React.FC<FormBookingProps> = ({ garajeId, userId }) => {
+export const FormBooking: React.FC<FormBookingProps> = ({ garajeId }) => {
   const [garaje, setGaraje] = useState<IGarage>();
 
   //cambiar por no disponibles del garaje
@@ -20,9 +19,7 @@ export const FormBooking: React.FC<FormBookingProps> = ({ garajeId, userId }) =>
   useEffect(() => {
     garageService.getById(garajeId)
       .then((res) => setGaraje(res));
-    // console.log('Garaje: ', garaje)
-    console.log('user: ', userId)
-  }, [garajeId, userId]);
+  }, [garajeId]);
 
   return (
     <div className='px-4 py-6 h-screen flex flex-col gap-6'>
