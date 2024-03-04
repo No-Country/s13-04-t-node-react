@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {pago} from "../controller/mercadoPago.js"
+import {pago , webhook} from "../controller/mercadoPago.js"
 const route=Router()
 
 /**
@@ -72,6 +72,8 @@ const route=Router()
  *               $ref: '#/components/schemas/ErrorSchemas/Error'
 */
 route.post("/",pago)
+
+route.post("/webhook",webhook)
 
 
 export default route
