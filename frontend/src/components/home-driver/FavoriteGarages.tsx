@@ -1,24 +1,21 @@
 import useSWR from 'swr';
-// import { garageService } from '../../services/garage';
 import { CardGarage } from './CardGarage';
 import { Link } from 'react-router-dom';
 import { favoriteService } from '../../services/favorites';
 
 export const FavoriteGarages = () => {
-  const { data: garages } = useSWR(['favorite-garages'], () =>
-    // garageService.list()
+  const { data: favorites } = useSWR(['favorite-garages'], () =>
     favoriteService.list()
   );
-  // console.log(garages)
-  const filteredGarages = garages;
+  const filteredGarages = favorites;
 
   return (
     <div className='pb-6'>
       <h2 className='font-semibold pb-2 text-xl'>Estacionamientos favoritos</h2>
       <ul className='flex overflow-x-auto items-center w-auto scrollbar-hidden gap-x-4'>
-        {filteredGarages?.map((garage) => (
-          <Link key={garage.id} to={`/reservar/${garage.id}`}>
-            <CardGarage garage={garage} />
+        {filteredGarages?.map((favorite) => (
+          <Link key={favorite.id} to={`/reservar/${favorite.garage.id}`}>
+            <CardGarage garage={favorite.garage} />
           </Link>
         ))}
       </ul>

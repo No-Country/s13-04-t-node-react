@@ -10,39 +10,48 @@ interface Props {
 
 const addZeroToTime = (time: number) => {
   if (time < 10) {
-    return `0${time}`
+    return `0${time}`;
   } else {
-    return time
+    return time;
   }
-  
-}
+};
 
 export default function HoursComponent({ i, dayIndex }: Props) {
-  const { getValues, setValue, } = useFormContext();
+  const { getValues, setValue } = useFormContext();
 
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   useEffect(() => {
     if (startDate) {
-      
-      setValue(`schedule.${dayIndex}.schedule[${i}].start`, 
-      `${addZeroToTime(startDate.getHours())}:${addZeroToTime(startDate.getMinutes())}`);
+      console.log(startDate.toISOString());
+
+      setValue(
+        `schedule.${dayIndex}.schedule[${i}].start`,
+        `${addZeroToTime(startDate.getHours())}:${addZeroToTime(
+          startDate.getMinutes()
+        )}`
+      );
     } else {
       setValue(`schedule.${dayIndex}.schedule[${i}].start`, null);
     }
   }, [startDate]);
   useEffect(() => {
     if (endDate) {
-      setValue(`schedule.${dayIndex}.schedule[${i}].end`, 
-      `${addZeroToTime(endDate.getHours())}:${addZeroToTime(endDate.getMinutes())}`);
-      
+      console.log(endDate.toISOString());
+
+      setValue(
+        `schedule.${dayIndex}.schedule[${i}].end`,
+        `${addZeroToTime(endDate.getHours())}:${addZeroToTime(
+          endDate.getMinutes()
+        )}`
+      );
     } else {
       setValue(`schedule.${dayIndex}.schedule[${i}].end`, null);
     }
   }, [endDate]);
   const maxTime = new Date();
-maxTime.setHours(23);
-maxTime.setMinutes(30);
+  maxTime.setHours(23);
+  maxTime.setMinutes(30);
   return (
     <>
       <DatePicker
@@ -56,7 +65,8 @@ maxTime.setMinutes(30);
         dateFormat='HH:mm'
         timeFormat='HH:mm'
         placeholderText='00:00'
-      />-
+      />
+      -
       <DatePicker
         className='w-full text-start'
         selected={endDate}
@@ -71,25 +81,35 @@ maxTime.setMinutes(30);
         dateFormat='HH:mm'
         placeholderText='00:00'
       />
-      {i !== 0 ?
-        <button className='min-w-[24px]' type='button' onClick={() => {
-          setValue(`schedule.${dayIndex}.schedule`, [
-            ...getValues(`schedule.${dayIndex}.schedule`).filter((_: CreateGaraje['schedule'], itemIndex: number) => itemIndex !== i),
-          ]);
-        }}>
+      {i !== 0 ? (
+        <button
+          className='min-w-[24px]'
+          type='button'
+          onClick={() => {
+            setValue(`schedule.${dayIndex}.schedule`, [
+              ...getValues(`schedule.${dayIndex}.schedule`).filter(
+                (_: CreateGaraje['schedule'], itemIndex: number) =>
+                  itemIndex !== i
+              ),
+            ]);
+          }}
+        >
           <img src='/images/trash.svg' className='' />
         </button>
-        :
-        <button className='min-w-[24px] ' type='button' onClick={() => {
-          setValue(`schedule.${dayIndex}.schedule`, [
-            ...getValues(`schedule.${dayIndex}.schedule`),
-            { end: null, start: null }
-          ]);
-
-        }}>
+      ) : (
+        <button
+          className='min-w-[24px] '
+          type='button'
+          onClick={() => {
+            setValue(`schedule.${dayIndex}.schedule`, [
+              ...getValues(`schedule.${dayIndex}.schedule`),
+              { end: null, start: null },
+            ]);
+          }}
+        >
           <img src='/images/add.svg' className='' />
         </button>
-      }
+      )}
     </>
   );
 }

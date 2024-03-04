@@ -2,9 +2,9 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCurrentUser } from '../../hooks/auth';
 import { vehiculeService } from '../../services/vehicule';
-import { HeaderLanding } from '../../components/landing/HeaderLanding';
 import { useState } from 'react';
 import { LoadingIcon } from '../../components/shared/LoadingIcon';
+import { HeaderUser } from '../../components/shared/HeaderUser';
 
 export const AddNewVehicule = () => {
   const user = useCurrentUser();
@@ -29,18 +29,13 @@ export const AddNewVehicule = () => {
 
     await vehiculeService
       .getByUserId(user.id)
-      .then(async (resCarList) => {
-        console.log(resCarList);
-
+      .then(async (cars) => {
         await vehiculeService
           .addVehicule(vehicule)
           .then((resAddCar) => {
-            if (resCarList.data.cars.length === 0 && resAddCar.status === 201) {
+            if (cars.length === 0 && resAddCar.status === 201) {
               navigate('/cuenta-creada');
-            } else if (
-              resCarList.data.cars.length > 0 &&
-              resAddCar.status === 201
-            ) {
+            } else if (cars.length > 0 && resAddCar.status === 201) {
               navigate('/');
             }
             setIsLoading(false);
@@ -57,7 +52,7 @@ export const AddNewVehicule = () => {
   });
   return (
     <>
-      <HeaderLanding />
+      <HeaderUser />
       <main className='px-4 py-10'>
         {/* Titulos de la pantalla */}
         <h1 className='font-semibold text-2xl uppercase'>AÑADIR VEHÍCULO</h1>

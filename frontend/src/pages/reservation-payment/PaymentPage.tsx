@@ -59,9 +59,13 @@ export const PaymentPage = () => {
       <HeaderLogo />
       <div className='p-4'>
         <h1 className='text-2xl font-semibold uppercase'>{parking?.name}</h1>
+        <h1 className='text-2xl font-semibold uppercase'>{parking?.name}</h1>
         <span className='font-semibold text-lg'>Pago</span>
         <div className='flex items-center justify-between py-6 text-lg'>
           <span>Total a abonar:</span>
+          <span className='font-semibold'>
+            ${calcDiff(dataIn.dateStart, dataIn.dateEnd, dataIn.price_Hour)}
+          </span>
           <span className='font-semibold'>
             ${calcDiff(dataIn.dateStart, dataIn.dateEnd, dataIn.price_Hour)}
           </span>
@@ -88,6 +92,15 @@ export const PaymentPage = () => {
           </div>
         </div>
         <div className='flex flex-col gap-4 py-10'>
+          {optionSelected === 1 && (
+            <span>
+              Serás redirigido a la página de Mercado Pago para que puedas
+              abonar la reserva
+            </span>
+          )}
+          {optionSelected === 2 && (
+            <span> Abonaras en efectivo al momento de estacionar </span>
+          )}
           {optionSelected === 1 && (
             <span>
               Serás redirigido a la página de Mercado Pago para que puedas
