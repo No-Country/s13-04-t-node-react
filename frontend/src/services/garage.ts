@@ -18,6 +18,7 @@ export const garageService = {
     );
     return res.data.garages;
   },
+
   async getById(idGarage: string) {
     const res = await client.get<{ garage: IGarage }>(`/garages/${idGarage}`, {
       params: {},

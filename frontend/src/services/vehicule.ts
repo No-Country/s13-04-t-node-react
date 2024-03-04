@@ -1,20 +1,16 @@
-import { client } from "../config/client";
-import { IVehicule } from "../types/vehicule";
-//import { appStorage } from '../config/storage';
+import { client } from '../config/client';
+import { ICar, IVehicule } from '../types/vehicule';
 
 export const vehiculeService = {
   async addVehicule(payload: IVehicule) {
-       
-    const res = await client.post<{ car: IVehicule }>("/cars", payload);
+    const res = await client.post<{ car: IVehicule }>('/cars', payload);
     return res;
   },
-   async getByUserId(idUser: string) {
-    const res = await client.get(`/cars/user/${idUser}`, {
+
+  async getByUserId(idUser: string) {
+    const res = await client.get<{ cars: ICar[] }>(`/cars/user/${idUser}`, {
       params: {},
     });
-    
-    return res;
+    return res.data.cars;
   },
 };
-
-
