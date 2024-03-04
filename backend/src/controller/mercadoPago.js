@@ -2,8 +2,9 @@ import { config } from "../config/config.js"
 import {Car} from "../model/car.js"
 import garage from "../model/garage.js"
 import User from "../model/user.js";
-import { AlreadyExist, NotFound,BadRequest } from "../middleware/errors.js";
+import { BadRequest } from "../middleware/errors.js";
 import axios from "axios"
+import { Booking } from "../model/booking.js";
 const pago=async(req,res, next)=>{
   const { idCar, idGarage, dateStart, dateEnd, price } = req.body
    
@@ -38,12 +39,12 @@ const pago=async(req,res, next)=>{
             email: garages.email,
           },
           back_urls: {
-            success: "http://localhost:3000/operation",
-            pending: "Su pago esta pendiente",
-            failure: "El pago a fallado",
+            success: "https://estacionapp.vercel.app/",
+/*             pending: "Su pago esta pendiente",
+            failure: "El pago a fallado", */
           },
           notification_url: "",
-          external_reference: { startDate:dateStart, endDate:dateEnd, car, garages},
+          metadata: { startDate: dateStart, endDate:dateEnd, idCar: idCar, idGarage: idGarage},
         };
   
         const result = await axios({
@@ -57,6 +58,38 @@ const pago=async(req,res, next)=>{
       } catch (error) {
         next(error)
       }
+}
+
+export const webhook = async(req, res, next) => {
+  try{
+    const { action, data } = req.body
+
+    if(action === 'payment.created'){
+      const payment = await axios({
+        method: "get",
+        url: `https://api.mercadopago.com/v1/payments/${data.id}`,
+        headers: {
+          Authorization: `Bearer ${config.TOKEN_MP}`
+        }
+      })
+
+      const { start_date, end_date, id_car, id_garage } = payment.data.metadata
+
+      const { transaction_amount } = payment.data
+
+      await Booking.create({      
+        id_car,
+        id_garage,
+        date_start: start_date,
+        date_end: end_date,
+        price: transaction_amount,
+        status: 'active'})
+    }
+
+    res.status(200).json({message: "OK"})
+  }catch(error){
+    next(error)
+  }
 }
 
 export {pago}

@@ -32,7 +32,7 @@ export const Review = sequelize.define("Review", {
       validate: {
         isNumeric: true,
         min: 1,
-        max: 10
+        max: 5
       }
     },
     comment: {
