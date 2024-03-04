@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { garageService } from '../../services/garage';
 import { IGarage } from '../../types/garage';
@@ -9,27 +8,29 @@ import CustomButton from '../utilities/CustomButton';
 
 interface FormBookingProps {
   garajeId: string;
+  userId: string;
 }
-export const FormBooking: React.FC<FormBookingProps> = ({ garajeId }) => {
+export const FormBooking: React.FC<FormBookingProps> = ({
+  garajeId,
+  userId,
+}) => {
   const [garaje, setGaraje] = useState<IGarage>();
 
-  //cambiar por no disponibles del garaje
-  const excludeDays = [new Date('2024-03-06 22:00'), new Date('2024-03-08 '), new Date('2024-03-05')]
-
   useEffect(() => {
-    garageService.getById(garajeId)
-      .then((res) => setGaraje(res));
-  }, [garajeId]);
+    garageService.getById(garajeId).then((res) => setGaraje(res));
+  }, [garajeId, userId]);
+
+  const reservationSearchParams = new URLSearchParams({
+    garage: garajeId,
+  });
+
+  const reservationUrl = `/reservar-horario-vehiculo?${reservationSearchParams.toString()}`;
 
   return (
-    <div className='px-4 py-6 h-screen flex flex-col gap-6'>
+    <div className='px-4 py-6 flex flex-col gap-6 w-full'>
       {/* Carrusel de imagenes */}
-      {garaje &&
-        <Carousel
-          images={garaje.images}
-          garajeId={garajeId}
-        />
-      }
+      {garaje && <Carousel images={garaje.images} garajeId={garajeId} />}
+
       {/* encabezado */}
       {garaje && (
         <Header
@@ -39,29 +40,21 @@ export const FormBooking: React.FC<FormBookingProps> = ({ garajeId }) => {
           price={garaje.price}
         />
       )}
+
       {/* horairos */}
-      {garaje &&
-        <Schedule schedule={garaje.schedule} excludeDays={excludeDays} />
-      }
+      {garaje && <Schedule garage={garaje} />}
 
       {/* mapa */}
-      <section className='bg-[#FFE9CC] w-328 h-[72px] rounded-4 py-8 px-0 gap-x-24 flex items-center justify-center'>
-        <Link to='/#' className='flex items-center space-x-2 text-black'>
-          <img
-            className='h-6 w-6'
-            src='/images/location.svg'
-            alt='location icon'
-          />
-          <span className='text-lg ml-2'>Ver mapa</span>
-        </Link>
-      </section>
+      <div className='flex justify-between gap-10 bg-[#FFE9CC] px-8 py-2 rounded-md'>
+        <img src='/images/location.svg' alt='localizacion' />
+        <div>
+          <h4 className='text-xl font-semibold'>Ver mapa</h4>
+          <p>Ubica los estacionamientos cercanos</p>
+        </div>
+      </div>
 
       {/* boton */}
-      <CustomButton
-        to='/reservar-horario-vehiculo'
-        text='Reservar'
-        type='primary'
-      />
+      <CustomButton to={reservationUrl} text='Reservar' type='primary' />
     </div>
   );
 };
