@@ -18,16 +18,12 @@ export const ReservationConfirmation = () => {
             confirmada.
           </span>
         </div>
-
-        <Link to='/metodo-de-pago'>
-          <div className='flex flex-col fixed bottom-6 inset-x-0 px-4'>
-            <button
-              type='submit'
-              className='py-2 text-center bg-[#D58418] rounded-3xl font-semibold'
-            >
-              Volver al Home
-            </button>
-          </div>
+        <img src='/images/Esperando.svg' className='w-11/12 m-auto' />
+        <Link
+          to='/'
+          className='py-2 bg-[#D58418] rounded-3xl font-semibold flex px-4 justify-center mt-10'
+        >
+          Aceptar
         </Link>
       </div>
     </>

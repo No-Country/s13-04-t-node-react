@@ -15,7 +15,7 @@ export default function Booking() {
       {user.role === 'user' ? (
         <div className=''>
           {idGaraje &&
-            <FormBooking garajeId={idGaraje} userId={user.id} />
+            <FormBooking garajeId={idGaraje} />
           }
         </div>
       ) : (

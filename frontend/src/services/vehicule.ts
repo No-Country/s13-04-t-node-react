@@ -13,4 +13,11 @@ export const vehiculeService = {
     });
     return res.data.cars;
   },
+
+  async deleteCar(idCar: string) {
+    const res = await client.delete(`/cars/${idCar}`, {
+      params: {},
+    });
+    return res;
+  },
 };

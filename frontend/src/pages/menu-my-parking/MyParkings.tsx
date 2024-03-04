@@ -35,7 +35,7 @@ export const MyParkings = () => {
         {isLoading ? (
           <LoadingIcon width={40} />
         ) : (
-          <div>
+          <div className='flex flex-col gap-2'>
             {MyParkingLots.map((parking: IGarage, index) => (
               <article
                 key={`parking-card-${index}`}

@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import { BiSolidDownArrow } from 'react-icons/bi';
 import {
   addHours,
+  addMilliseconds,
   getDay,
   isAfter,
   isBefore,
@@ -68,10 +69,16 @@ export const CarDateReservation = () => {
 
     for (const { start, end } of scheduleRange) {
       const [startHour, startMinutes] = start.split(':');
-      const startTime = setHours(setMinutes(time, +startMinutes), +startHour);
+      const startTime = addMilliseconds(
+        setHours(setMinutes(time, +startMinutes), +startHour),
+        -1
+      );
 
       const [endHour, endMinutes] = end.split(':');
-      const endTime = setHours(setMinutes(time, +endMinutes), +endHour);
+      const endTime = addMilliseconds(
+        setHours(setMinutes(time, +endMinutes), +endHour),
+        1
+      );
 
       if (isBefore(startTime, time) && isAfter(endTime, time)) {
         return true;

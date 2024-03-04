@@ -3,14 +3,22 @@ import { Fragment, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { IGarage } from '../../types/garage';
-import { getDay, isAfter, isBefore, setHours, setMinutes } from 'date-fns';
+import {
+  addMilliseconds,
+  getDay,
+  isAfter,
+  isBefore,
+  setHours,
+  setMinutes,
+} from 'date-fns';
 import { Link } from 'react-router-dom';
 
 interface ModalCalendaryProps {
-  schedule: IGarage['schedule'];
+  garage: IGarage;
 }
 
-export const ModalCalendary: React.FC<ModalCalendaryProps> = ({ schedule }) => {
+export const ModalCalendary: React.FC<ModalCalendaryProps> = ({ garage }) => {
+  const { schedule } = garage;
   const [isOpen, setIsOpen] = useState(false);
   const [bookingDate, setBookingDate] = useState<Date | null>(new Date());
 
@@ -37,10 +45,16 @@ export const ModalCalendary: React.FC<ModalCalendaryProps> = ({ schedule }) => {
 
     for (const { start, end } of scheduleRange) {
       const [startHour, startMinutes] = start.split(':');
-      const startDate = setHours(setMinutes(time, +startMinutes), +startHour);
+      const startDate = addMilliseconds(
+        setHours(setMinutes(time, +startMinutes), +startHour),
+        -1
+      );
 
       const [endHour, endMinutes] = end.split(':');
-      const endDate = setHours(setMinutes(time, +endMinutes), +endHour);
+      const endDate = addMilliseconds(
+        setHours(setMinutes(time, +endMinutes), +endHour),
+        1
+      );
 
       if (isBefore(startDate, time) && isAfter(endDate, time)) {
         return true;
@@ -52,6 +66,7 @@ export const ModalCalendary: React.FC<ModalCalendaryProps> = ({ schedule }) => {
 
   const reservationSearchParams = new URLSearchParams({
     'start-date': bookingDate?.toISOString() ?? '',
+    garage: garage.id,
   });
   const reservationUrl = `/reservar-horario-vehiculo?${reservationSearchParams.toString()}`;
 

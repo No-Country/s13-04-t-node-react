@@ -18,7 +18,6 @@ export const FormBooking: React.FC<FormBookingProps> = ({
 
   useEffect(() => {
     garageService.getById(garajeId).then((res) => setGaraje(res));
-    // console.log('user: ', userId);
   }, [garajeId, userId]);
 
   const reservationSearchParams = new URLSearchParams({
@@ -43,7 +42,7 @@ export const FormBooking: React.FC<FormBookingProps> = ({
       )}
 
       {/* horairos */}
-      {garaje && <Schedule schedule={garaje.schedule} />}
+      {garaje && <Schedule garage={garaje} />}
 
       {/* mapa */}
       <div className='flex justify-between gap-10 bg-[#FFE9CC] px-8 py-2 rounded-md'>
