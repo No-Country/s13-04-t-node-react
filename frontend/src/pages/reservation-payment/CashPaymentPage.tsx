@@ -150,13 +150,11 @@ export const CashPaymentPage = () => {
           </div>
 
           <div className='p-4 flex flex-col sticky bottom-0 inset-x-0 mt-auto bg-white'>
-            <Link to='/reserva-rechazada'>
-              <button
-                type='submit'
-                className='py-2 text-center bg-[#D58418] rounded-3xl font-normal w-full'
-              >
-                Guardar
-              </button>
+            <Link
+              className='py-2 text-center bg-[#D58418] rounded-3xl font-normal w-full'
+              to='/'
+            >
+              Aceptar
             </Link>
           </div>
         </>

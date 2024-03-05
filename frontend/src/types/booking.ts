@@ -6,3 +6,10 @@ export interface  Booking {
   id_car: string
   id_garage: string
 }
+export interface CreateBooking {
+    idCar: string,
+    idGarage: string,
+    dateStart: string,
+    dateEnd: string,
+    price: number
+}

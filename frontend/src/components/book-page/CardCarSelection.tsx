@@ -11,10 +11,8 @@ interface Props {
 
 export const CardCarSelection = ({ setSelectedCar, selectedCar }: Props) => {
   const user = useCurrentUser();
-  const { data: cars } = useSWR('cars', () =>
-    vehiculeService.getByUserId(user.id)
-  );
-
+  const { data } = useSWR('cars', () => vehiculeService.getByUserId(user.id));
+  const cars: ICar[] = data?.data.cars ?? [];
   return (
     <div className='pt-5'>
       <div className='flex overflow-x-auto items-center w-auto scrollbar-hidden gap-x-4'>

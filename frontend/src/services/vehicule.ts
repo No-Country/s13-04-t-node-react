@@ -8,10 +8,10 @@ export const vehiculeService = {
   },
 
   async getByUserId(idUser: string) {
-    const res = await client.get<{ cars: ICar[] }>(`/cars/user/${idUser}`, {
+    const res = await client.get<{status: number, cars: ICar[]}>(`/cars/user/${idUser}`, {
       params: {},
     });
-    return res.data.cars;
+    return res;
   },
 
   async deleteCar(idCar: string) {
