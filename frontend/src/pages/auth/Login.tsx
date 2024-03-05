@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth';
 import { HeaderLanding } from '../../components/landing/HeaderLanding';
+import { Slide, toast } from 'react-toastify';
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
@@ -12,7 +13,17 @@ export const Login = () => {
       await authService.login(data.correo, data.contraseña);
       navigation('/');
     } catch (error) {
-      alert('Hay algo mal en tus credenciales');
+      toast.error('Hay algo mal en tus credenciales', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        transition: Slide,
+      });
     }
   });
 

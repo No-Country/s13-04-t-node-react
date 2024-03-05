@@ -8,6 +8,7 @@ interface Props {
   name: string;
   price: number;
   images: Image[];
+  rating: number;
   address: string;
 }
 
@@ -17,6 +18,7 @@ export const CardGarageResult = ({
   price,
   images,
   address,
+  rating,
 }: Props) => {
   return (
     <div>
@@ -48,9 +50,12 @@ export const CardGarageResult = ({
             </div>
           </Link>
         </div>
-        <span className='self-start px-1 py-0.5 bg-[#5D2B2C] text-white rounded-md'>
-          3,4
-        </span>
+        {rating ? (
+          <span className='items-center pr-1 min-h-6 min-w-fit flex text-sm text-white border-2 bg-[#5D2B2C] border-[#5D2B2C] rounded-[4px]'>
+            <img src='/public/images/estrellaVacia.svg' alt='estrella vacia' />
+            {rating.toFixed(1)}
+          </span>
+        ) : null}
       </div>
     </div>
   );

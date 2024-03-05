@@ -17,7 +17,7 @@ export interface IGarage {
   whitConfirmation: boolean;
   available: boolean;
   coordinates: string;
-  rating: null;
+  rating: number;
   schedule: Record<
     string,
     { name: string; schedule: { start: string; end: string }[] }

@@ -85,7 +85,7 @@ export const deleteCar = async (req,res, next) => {
             throw new NotFound("Car not found")
         }
 
-        const deletedCar = await Car.destroy({"where": {"id": id}})
+        await Car.destroy({"where": {"id": id}})
 
         return res.status(200).send({"message" : "Car deleted"})
     } catch (error) {
