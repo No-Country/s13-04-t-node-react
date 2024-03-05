@@ -7,10 +7,17 @@ interface Props {
   id: string;
   name: string;
   price: number;
-  images: Image[]
+  images: Image[];
+  address: string;
 }
 
-export const CardGarageResult = ({ id, name, price, images }: Props) => {
+export const CardGarageResult = ({
+  id,
+  name,
+  price,
+  images,
+  address,
+}: Props) => {
   return (
     <div>
       <div className='flex flex-row items-center justify-between py-2'>
@@ -23,14 +30,20 @@ export const CardGarageResult = ({ id, name, price, images }: Props) => {
             <div className='absolute text-sm bg-white px-2 py-0.1 rounded-2xl bottom-1 ml-1'>
               Particular
             </div>
-            <ImageComponent images={images} style='w-20 h-20 rounded-md' />
-
+            <ImageComponent
+              images={images}
+              style='w-20 h-20 rounded-md object-cover min-w-20'
+            />
           </div>
 
-          <Link key={id} to={`/reservar/${id}`}>
+          <Link
+            key={id}
+            to={`/reservar/${id}`}
+            className='overflow-hidden max-w-[45vw] '
+          >
             <div className='flex flex-col'>
               <h4 className='font-semibold pb-1 line-clamp-1'>{name}</h4>
-              <p>Descripción del garaje</p>
+              <p className='line-clamp-1'>{address}</p>
               <span className='font-semibold'>${price} x hora</span>
             </div>
           </Link>
