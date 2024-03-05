@@ -49,7 +49,7 @@ export const SearchPage = () => {
         ))}
       </div>
 
-      <div className='flex flex-col fixed bottom-6 inset-x-0 px-4'>
+      <div className='flex flex-col mb-4 inset-x-0 px-4'>
         <div className='flex justify-between gap-6 bg-[#FFE9CC] px-8 py-2 rounded-md'>
           <img src='/images/location.svg' alt='localización' />
           <div>
