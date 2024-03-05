@@ -8,23 +8,32 @@ import { HeaderUser } from '../../components/shared/HeaderUser';
 
 export const MyVehicles = () => {
   const [cars, setCars] = useState<Car[]>()
+  const [loading, setLoading] = useState<boolean>(true)
   const user = useCurrentUser()
 
   useEffect(() => {
+    setLoading(true)
     vehiculeService.getByUserId(user.id)
       .then(res => {
         if (res.status === 200) {
           setCars(res.data.cars)
         }
+        setLoading(false)
       }).catch(error => {
         console.error('Error fetching cars:', error);
+        setLoading(false)
       });
   }, [user])
 
   const handleDeleteCar = (id: string) => {
-    vehiculeService.deleteCar(id)
-    setCars(prevCars => prevCars?.filter(car => car.id !== id));
+    if(cars?.length === 1){
+      console.log("no se puede borrar")
+    }else{
+      vehiculeService.deleteCar(id)
+      setCars(prevCars => prevCars?.filter(car => car.id !== id));
+    }
   }
+
   return (
     <>
       <HeaderUser />
@@ -34,28 +43,33 @@ export const MyVehicles = () => {
           <span>Gestioná tus vehículos</span>
         </div>
 
-
         <div className='flex flex-col gap-3'>
-          {cars?.length ? cars.map(car => (
-            <div key={car.id} className='p-4 border border-[#5D2B2C] rounded-lg'>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-1'>
-                  <img src='/images/vehicle.svg' alt='vehiculo' />
-                  <span className='uppercase text-2xl'>{car.plate}</span>
+          
+          {loading ? 
+            <div className='mt-3'><img src='/images/Loading.svg' width={36} height={36} className='animate-spin m-auto' /></div>
+          :
+            <div>
+              {cars?.length ? cars.map(car => (
+                <div key={car.id} className='p-4 border border-[#5D2B2C] rounded-lg'>
+                  <div className='flex items-center justify-between'>
+                    <div className='flex items-center gap-1'>
+                      <img src='/images/vehicle.svg' alt='vehiculo' />
+                      <span className='uppercase text-2xl'>{car.plate}</span>
+                    </div>
+                    <button onClick={() => handleDeleteCar(car.id)}>
+                      <img src='/images/trash.svg' alt='bote' />
+                    </button>
+                  </div>
                 </div>
-                <button onClick={() => handleDeleteCar(car.id)}>
-                  <img src='/images/trash.svg' alt='bote' />
-                </button>
-              </div>
-            </div>
-          )) :
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center gap-1'>
-                <span className='uppercase text-xl'>Añade un vechíco para verlo en la lista</span>
-              </div>
+              )) :
+                <div className='flex items-center justify-between'>
+                  <div className='flex items-center gap-1'>
+                    <span className='uppercase text-xl'>Añade un vehículo para verlo en la lista</span>
+                  </div>
+                </div>
+            }
             </div>
           }
-
 
           <Link
             to='/agregar-vehiculo'
