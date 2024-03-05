@@ -8,7 +8,7 @@ interface Props {
   name: string;
   price: number;
   images: Image[];
-  rating: number;
+  rating: number | null;
   address: string;
 }
 
