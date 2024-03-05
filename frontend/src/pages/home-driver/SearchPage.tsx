@@ -42,14 +42,15 @@ export const SearchPage = () => {
             id={garage.id}
             price={garage.price}
             name={garage.name}
-            images={[]}
+            images={garage.images}
+            address={garage.address}
           />
         ))}
       </div>
 
       <div className='flex flex-col fixed bottom-6 inset-x-0 px-4'>
         <div className='flex justify-between gap-6 bg-[#FFE9CC] px-8 py-2 rounded-md'>
-          <img src='/images/location.svg' alt='localizacion' />
+          <img src='/images/location.svg' alt='localización' />
           <div>
             <h4 className='text-xl font-semibold'>Ver mapa</h4>
             <p>Ubica los estacionamientos cercanos</p>

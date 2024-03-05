@@ -55,6 +55,7 @@ export interface ISearchGarage {
   coordinates: string;
   rating: null;
   user: User;
+  images: []
 }
 
 export interface User {

@@ -7,12 +7,19 @@ interface Props {
   id: string;
   name: string;
   price: number;
-  images: Image[],
-  rating: number,
-  address: string
+  images: Image[];
+  rating: number;
+  address: string;
 }
 
-export const CardGarageResult = ({ id, name, price, images, rating, address }: Props) => {
+export const CardGarageResult = ({
+  id,
+  name,
+  price,
+  images,
+  address,
+  rating,
+}: Props) => {
   return (
     <div>
       <div className='flex flex-row items-center justify-between py-2'>
@@ -25,28 +32,31 @@ export const CardGarageResult = ({ id, name, price, images, rating, address }: P
             <div className='absolute text-sm bg-white px-2 py-0.1 rounded-2xl bottom-1 ml-1'>
               Particular
             </div>
-            <ImageComponent images={images} style='w-20 h-20 rounded-md' />
-
+            <ImageComponent
+              images={images}
+              style='w-20 h-20 rounded-md object-cover min-w-20'
+            />
           </div>
 
-          <Link key={id} to={`/reservar/${id}`}>
+          <Link
+            key={id}
+            to={`/reservar/${id}`}
+            className='overflow-hidden max-w-[45vw] '
+          >
             <div className='flex flex-col'>
               <h4 className='font-semibold pb-1 line-clamp-1'>{name}</h4>
-              <p className='max-w-44 truncate'>
-                {address}
-              </p>
+              <p className='line-clamp-1'>{address}</p>
               <span className='font-semibold'>${price} x hora</span>
             </div>
           </Link>
         </div>
-        {rating ?
+        {rating ? (
           <span className='items-center pr-1 min-h-6 min-w-fit flex text-sm text-white border-2 bg-[#5D2B2C] border-[#5D2B2C] rounded-[4px]'>
-            <img src="/public/images/estrellaVacia.svg" alt="estrella vacia" />
+            <img src='/public/images/estrellaVacia.svg' alt='estrella vacia' />
             {rating.toFixed(1)}
           </span>
-          : null}
+        ) : null}
       </div>
     </div>
   );
 };
-
