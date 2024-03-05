@@ -13,7 +13,6 @@ export const validateCreateCar = [
 ];
 
 export const validateUpdateCar=[
-  check('id','Car ID is not valid').isUUID(),
   check("idUser", "idUser is required").isUUID().optional(),
   check("brand", "Brand is required").optional().isString().trim(),
   check("model", "Model is required").optional().isString().trim(),

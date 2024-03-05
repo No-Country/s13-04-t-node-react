@@ -16,11 +16,12 @@ const Header: React.FC<HeaderProps> = ({ name, address, price, rating }) => {
           <p className='text-lg'>{address}</p>
         </div>
 
-        {rating && (
-          <div className='bg-[#5D2B2C] col-span-1 h-[52px] rounded-lg text-center flex items-center justify-center text-2xl text-white'>
-            {rating}
-          </div>
-        )}
+        {rating &&
+          <span className='bg-[#5D2B2C] col-span-1 gap-1 h-[52px] rounded-lg flex items-center mx-auto pr-2 text-2xl text-white'>
+            <img src="/public/images/estrellaVacia.svg" alt="estrella vacia" />
+            {rating.toFixed(1)}
+          </span>
+        }
       </div>
       {/* Precio */}
       <div className='text-center p-4 text-2xl font-medium rounded-lg text-black bg-[#D58418]'>

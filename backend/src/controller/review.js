@@ -1,5 +1,8 @@
 import {Review} from "../model/Review.js";
 import { AlreadyExist, NotFound } from "../middleware/errors.js";
+import User from "../model/user.js"
+import Garages from "../model/garage.js";
+import { parse } from "dotenv";
 
 const getAllReviews = async (req, res, next) => {
     try {
@@ -25,25 +28,42 @@ const getReview = async(req, res, next) => {
 };
 
 const createReview = async(req, res, next) => {
-    const {id_author, id_receiver, type, comment,rating } = req.body;
-    if(id_author && id_receiver && type && comment && rating) {
-        try {
-            const Reviews = await Review.create({id_author, id_receiver, type, comment,rating});
-            return res.status(200).send({message: "Review created"})
-        } catch (err) {
-            next(err)
+    const { id_author, id_receiver, type, comment, rating } = req.body;
+
+    try {
+       
+        let receiverModel = type === 'User' ? User : Garages;
+
+        const receiverExists = await receiverModel.findByPk(id_receiver);
+        if (!receiverExists) {
+            return res.status(404).send({ error: true, message: "Receiver not found", statusCode: 404 });
         }
-    } else {
-        res.status(400).send({
-            message: 'Missing data',
-            fields: {
-                id_author : 'UUID',
-                id_receiver : 'UUID',
-                type: 'ENUM', 
-                comment: 'string',
-                rating: 'float'
-            }
-        })
+
+        const review = await Review.create({ id_author, id_receiver, type, comment, rating });
+
+        await updateAverageRating(id_receiver, type);
+
+        return res.status(200).send({ 
+            message: `Review created and ${type.toLowerCase()} rating updated`,
+            review 
+        });
+    } catch (err) {
+        next(err);
+    }
+};
+
+async function updateAverageRating(id_receiver, type) {
+    const reviews = await Review.findAll({
+        where: { id_receiver, type }
+    });
+
+    const totalRating = reviews.reduce((acc, review) => acc + review.rating, 0);
+    const averageRating = totalRating / reviews.length;
+
+    if (type === 'User') {
+        await User.update({ rating: averageRating }, { where: { id: id_receiver } });
+    } else if (type === 'Garage') {
+        await Garages.update({ rating: averageRating }, { where: { id: id_receiver } });
     }
     
 };

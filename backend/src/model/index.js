@@ -4,10 +4,13 @@ import Garages from "./garage.js";
 import { Booking } from "./booking.js";
 import { Image } from "./image.js";
 import {Review} from "./review.js"
+import FavoriteGarages from "./favorite_garage.js";
 
+
+await Garages.sync();
 await User.sync();
 await Car.sync();
 await Image.sync()
-await Garages.sync();
 await Booking.sync();
 await Review.sync();
+await FavoriteGarages.sync();
