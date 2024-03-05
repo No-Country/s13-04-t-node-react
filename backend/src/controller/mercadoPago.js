@@ -43,7 +43,9 @@ const pago=async(req,res, next)=>{
             email: garages.email,
           },
           back_urls: {
-            success: `https://estacionapp.vercel.app/efectivo-pago/${bookingId}`
+            success: `https://estacionapp.vercel.app/efectivo-pago/${bookingId}`,
+            pending: "https://estacionapp.vercel.app",
+            failure: "https://estacionapp.vercel.app",
           },
           notification_url: "",
           metadata: { startDate: dateStart, endDate:dateEnd, idCar: idCar, idGarage: idGarage, bookingId: bookingId},
