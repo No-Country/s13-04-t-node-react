@@ -5,6 +5,8 @@ import User from "../model/user.js";
 import { BadRequest } from "../middleware/errors.js";
 import axios from "axios"
 import { Booking } from "../model/booking.js";
+import { v4 as uuidv4 } from 'uuid';
+
 const pago=async(req,res, next)=>{
   const { idCar, idGarage, dateStart, dateEnd, price } = req.body
    
@@ -17,6 +19,8 @@ const pago=async(req,res, next)=>{
       if (!car && !garages) {
        throw new BadRequest("car or garage do not match")
       }
+
+      const bookingId = uuidv4()
 
       const item=[{
         title: "Estacion-app",
@@ -39,12 +43,12 @@ const pago=async(req,res, next)=>{
             email: garages.email,
           },
           back_urls: {
-            success: "https://estacionapp.vercel.app/",
-/*             pending: "Su pago esta pendiente",
-            failure: "El pago a fallado", */
+            success: `https://estacionapp.vercel.app/efectivo-pago/${bookingId}`,
+            pending: "https://estacionapp.vercel.app",
+            failure: "https://estacionapp.vercel.app",
           },
           notification_url: "",
-          metadata: { startDate: dateStart, endDate:dateEnd, idCar: idCar, idGarage: idGarage},
+          metadata: { startDate: dateStart, endDate:dateEnd, idCar: idCar, idGarage: idGarage, bookingId: bookingId},
         };
   
         const result = await axios({
@@ -73,11 +77,12 @@ export const webhook = async(req, res, next) => {
         }
       })
 
-      const { start_date, end_date, id_car, id_garage } = payment.data.metadata
+      const { start_date, end_date, id_car, id_garage, booking_id } = payment.data.metadata
 
       const { transaction_amount } = payment.data
 
-      await Booking.create({      
+      await Booking.create({
+        id: booking_id,    
         id_car,
         id_garage,
         date_start: start_date,
