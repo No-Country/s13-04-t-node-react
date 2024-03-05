@@ -24,7 +24,7 @@ try {
     const token = jwt.sign({ userId: user.id }, config.API_SECRET);
 
     user.password=undefined
-    sendMail(user,"Bienvenida")  
+
     return res.status(200).json({ message: 'Inicio de sesión exitoso', token: token, user: user });
 
    } catch (err) {
