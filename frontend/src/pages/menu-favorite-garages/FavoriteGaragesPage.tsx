@@ -26,6 +26,8 @@ export const FavoriteGaragesPage = () => {
             id={garage.id}
             name={garage.name}
             price={garage.price}
+            rating={garage.rating}
+            address ={garage.address}
           />
         ))}
       </div>

@@ -76,9 +76,19 @@ const Garages = sequelize.define('Garages', {
         type:DataTypes.FLOAT,
         defaultValue: null,
         allowNull: true
+    },
+    schedule: {
+        type: DataTypes.JSON,
+        allowNull: true,
+    },
+    type: {
+        type: DataTypes.ENUM('particular' , 'company'),
+        defaultValue: 'particular',
+        allowNull: false
     }
 });
 
 Garages.hasMany(Image, { foreignKey: 'garage_id', as: 'images' });
+Garages.belongsTo(User, {foreignKey: 'id_user', as: 'user',});
 
 export default Garages;
