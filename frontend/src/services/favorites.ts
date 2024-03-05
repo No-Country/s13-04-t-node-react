@@ -1,9 +1,10 @@
-import { client } from '../config/client';
-import { IFavoriteGarage } from '../types/garage';
+import { client } from "../config/client";
+import { IFavoriteGarage } from "../types/garage";
 
 export const favoriteService = {
   async list() {
-    const res = await client.get<IFavoriteGarage[]>('/garages/my_favorite');
+    const res = await client.get<IFavoriteGarage[]>("/garages/my_favorite");
+    // console.log("favorite garaje: ", res.data);
     return res.data;
   },
 

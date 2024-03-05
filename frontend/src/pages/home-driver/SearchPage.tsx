@@ -1,6 +1,5 @@
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { HeaderUser } from '../../components/shared/HeaderUser';
-
 import { garageService } from '../../services/garage';
 import useSWR from 'swr';
 import { CardGarageResult } from '../../components/shared/CardGarageResult';
@@ -43,6 +42,7 @@ export const SearchPage = () => {
             id={garage.id}
             price={garage.price}
             name={garage.name}
+            images={[]}
           />
         ))}
       </div>

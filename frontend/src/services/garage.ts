@@ -9,11 +9,29 @@ export const garageService = {
     return res.data.garages;
   },
 
+  async listRecomended() {
+    const res = await client.get<{ garages: IGarage[] }>(
+      '/garages/recommended',
+      {
+        params: {},
+      }
+    );
+    return res.data.garages;
+  },
+
   async getById(idGarage: string) {
     const res = await client.get<{ garage: IGarage }>(`/garages/${idGarage}`, {
       params: {},
     });
     return res.data.garage;
+  },
+
+  async getByUserId(idUser: string) {
+    const res = await client.get(`/garages/user/${idUser}`, {
+      params: {},
+    });
+
+    return res;
   },
 
   async search(params: IGarageSearchParams) {
@@ -25,12 +43,30 @@ export const garageService = {
     );
     return res.data.garages;
   },
-    async createGaraje(payload: FormData) {
+
+  async createGaraje(payload: FormData) {
     const res = await client.post('/garages', payload, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     });
-    return  res;
+    return res;
+  },
+
+  async updateGarage(idGarage: IGarage['id'], payload: Partial<IGarage>) {
+    const res = await client.patch(`/garages/${idGarage}`, payload);
+    return res;
+  },
+
+  async autocomplete(searchForm: string) {
+    const res = await client.get<{ results: string[] }>(
+      '/garages/autocomplete',
+      {
+        params: {
+          searchForm,
+        },
+      }
+    );
+    return res.data.results;
   },
 };

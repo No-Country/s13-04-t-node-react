@@ -87,7 +87,7 @@ export const Landing = () => {
               adicionales de manera sencilla.
             </p>
             <CustomButton
-              to='/registro/usuario/parking'
+              to='/registro/usuario/estacionamiento'
               type='primary'
               text='Registrate como estacionamiento'
             />
