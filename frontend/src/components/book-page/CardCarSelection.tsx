@@ -13,6 +13,7 @@ export const CardCarSelection = ({ setSelectedCar, selectedCar }: Props) => {
   const user = useCurrentUser();
   const { data } = useSWR('cars', () => vehiculeService.getByUserId(user.id));
   const cars: ICar[] = data?.data.cars ?? [];
+
   return (
     <div className='pt-5'>
       <div className='flex overflow-x-auto items-center w-auto scrollbar-hidden gap-x-4'>
@@ -22,7 +23,7 @@ export const CardCarSelection = ({ setSelectedCar, selectedCar }: Props) => {
             type='button'
             onClick={() => setSelectedCar(car)}
             className={clsx(
-              'p-4 rounded-lg',
+              'p-4 rounded-lg border border-[#5D2B2C]',
               car.id === selectedCar?.id && 'bg-[#D58418]'
             )}
           >
