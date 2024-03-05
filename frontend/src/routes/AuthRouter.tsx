@@ -13,7 +13,9 @@ import { DriverPhone } from '../pages/menu-data-driver/DriverPhone';
 import { DriverPassword } from '../pages/menu-data-driver/DriverPassword';
 // MENU VEHICLE MENU
 import { MyVehicles } from '../pages/menu-my-vehicles/MyVehicles';
-import { FormDriver } from '../pages/menu-my-vehicles/FormDriver';
+// MENU PARKING MENU
+import { MyParkings } from '../pages/menu-my-parking/MyParkings';
+import { ParkingDetails } from '../pages/menu-my-parking/ParkingDetails';
 // MENU RESERVAS DRIVER
 import { ReservationMenuList } from '../pages/menu-bookings/ReservationMenuList';
 import { PendingReservations } from '../pages/menu-bookings/PendingReservations';
@@ -32,6 +34,10 @@ import { FavoriteGaragesPage } from '../pages/menu-favorite-garages/FavoriteGara
 // OTHERS
 import { AccountCreated } from '../pages/register/AccountCreated';
 import { NotFound } from '../pages/not-found/NotFound';
+import { ActParkingReservations } from '../pages/ParkingReservation/ActParkingReservation';
+import { PastParkingReservation } from '../pages/ParkingReservation/PastParkingReservation';
+import { PendingParkingReservation } from '../pages/ParkingReservation/PendingParkingReservation';
+import { ConfirmDeclineReservation } from '../pages/ParkingReservation/ConfirmDeclineReservation';
 
 export default function AuthRouter() {
   return (
@@ -56,13 +62,34 @@ export default function AuthRouter() {
 
       {/* MENU MY VEHICLES DRIVER */}
       <Route path='/mis-vehiculos' element={<MyVehicles />} />
-      <Route path='/agregar-vehiculo' element={<FormDriver />} />
+      <Route path='/agregar-vehiculo' element={<AddNewVehicule />} />
+      {/* MENU MY PARKING */}
+      <Route path='/mis-estacionamientos' element={<MyParkings />} />
+      <Route path='/estacionamiento/:idGaraje' element={<ParkingDetails />} />
 
       {/* MENU RESERVAS DRIVER */}
       <Route path='/lista-menu-reservas' element={<ReservationMenuList />} />
-      <Route path='/reservas-pendientes' element={<PendingReservations />} />
-      <Route path='/reservas-activas' element={<ActiveReservations />} />
-      <Route path='/reservas-pasadas' element={<PastReservations />} />
+      <Route path='/reservas/pendientes' element={<PendingReservations />} />
+      <Route path='/reservas/activas' element={<ActiveReservations />} />
+      <Route path='/reservas/pasadas' element={<PastReservations />} />
+
+      {/* MENU RESERVAS DRIVER */}
+      <Route
+        path='/reservasParking/pendientes'
+        element={<PendingParkingReservation />}
+      />
+      <Route
+        path='/reservasParking/activas'
+        element={<ActParkingReservations />}
+      />
+      <Route
+        path='/reservasParking/pasadas'
+        element={<PastParkingReservation />}
+      />
+      <Route
+        path='/gestionarParking/reserva'
+        element={<ConfirmDeclineReservation />}
+      />
 
       {/* MENU FAVORITE GARAGES DRIVER */}
       <Route path='/garajes-favoritos' element={<FavoriteGaragesPage />} />
@@ -80,7 +107,7 @@ export default function AuthRouter() {
 
       {/* RESERVATION PAYMENT */}
       <Route path='/metodo-de-pago' element={<PaymentPage />} />
-      <Route path='/efectivo-pago' element={<CashPaymentPage />} />
+      <Route path='/efectivo-pago/:idBooking' element={<CashPaymentPage />} />
       <Route path='/reserva-rechazada' element={<RejectedReservationPage />} />
 
       {/* OTHERS */}
