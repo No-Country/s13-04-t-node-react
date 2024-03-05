@@ -74,10 +74,22 @@ export default function AuthRouter() {
       <Route path='/reservas/pasadas' element={<PastReservations />} />
 
       {/* MENU RESERVAS DRIVER */}
-      <Route path="/reservasParking/pendientes" element={<PendingParkingReservation />} />
-      <Route path="/reservasParking/activas" element={<ActParkingReservations />} />
-      <Route path="/reservasParking/pasadas" element={<PastParkingReservation />} />
-      <Route path="/gestionarParking/reserva" element={<ConfirmDeclineReservation />} />
+      <Route
+        path='/reservasParking/pendientes'
+        element={<PendingParkingReservation />}
+      />
+      <Route
+        path='/reservasParking/activas'
+        element={<ActParkingReservations />}
+      />
+      <Route
+        path='/reservasParking/pasadas'
+        element={<PastParkingReservation />}
+      />
+      <Route
+        path='/gestionarParking/reserva'
+        element={<ConfirmDeclineReservation />}
+      />
 
       {/* MENU FAVORITE GARAGES DRIVER */}
       <Route path='/garajes-favoritos' element={<FavoriteGaragesPage />} />
@@ -95,7 +107,7 @@ export default function AuthRouter() {
 
       {/* RESERVATION PAYMENT */}
       <Route path='/metodo-de-pago' element={<PaymentPage />} />
-      <Route path='/efectivo-pago' element={<CashPaymentPage />} />
+      <Route path='/efectivo-pago/:idBooking' element={<CashPaymentPage />} />
       <Route path='/reserva-rechazada' element={<RejectedReservationPage />} />
 
       {/* OTHERS */}

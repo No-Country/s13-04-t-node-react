@@ -29,18 +29,13 @@ export const AddNewVehicule = () => {
 
     await vehiculeService
       .getByUserId(user.id)
-      .then(async (resCarList) => {
-        console.log(resCarList);
-
+      .then(async (res) => {
         await vehiculeService
           .addVehicule(vehicule)
           .then((resAddCar) => {
-            if (resCarList.data.cars.length === 0 && resAddCar.status === 201) {
+            if (res.data.cars.length === 0 && resAddCar.status === 201) {
               navigate('/cuenta-creada');
-            } else if (
-              resCarList.data.cars.length > 0 &&
-              resAddCar.status === 201
-            ) {
+            } else if (res.data.cars.length > 0 && resAddCar.status === 201) {
               navigate('/');
             }
             setIsLoading(false);
