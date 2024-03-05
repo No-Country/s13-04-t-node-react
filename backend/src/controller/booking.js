@@ -94,35 +94,61 @@ export const getBookingsOwnerByStatus = async (req, res, next) => {
   try {
     const { id, status } = req.params
 
-    const user = User.findByPk(id);
+    const user = await User.findByPk(id);
 
     if(!user){
       throw NotFound("User not found")
     }
 
-    const bookings = await Booking.findAll({ where: { status: status }, 
-      include: [
-        {
-          model: Garages,
-          as: 'garage',
-          attributes: ['id' , 'id_user' , 'name' ],
-          where: { id_user: id},
-        },
-        { 
-          model: Car, 
-          as: 'car', 
-          attributes: {exclude: ['createdAt', 'updatedAt']},
-          include: [
-            {
-              model: User,
-              as: 'user',
-              attributes: {exclude: ['createdAt', 'updatedAt']},
-            }
-          ]
-        }
-      ]});
+    if(user.role === "parking"){
+      const bookings = await Booking.findAll({ where: { status: status }, 
+        include: [
+          {
+            model: Garages,
+            as: 'garage',
+            attributes: ['id' , 'id_user' , 'name'],
+            where: { id_user: id},
+          },
+          { 
+            model: Car, 
+            as: 'car', 
+            attributes: {exclude: ['createdAt', 'updatedAt']},
+            include: [
+              {
+                model: User,
+                as: 'user',
+                attributes: {exclude: ['createdAt', 'updatedAt']},
+              }
+            ]
+          }
+        ]});
 
-    res.status(200).json({ bookings: bookings });
+        res.status(200).json({ bookings: bookings });
+    }else{
+      const bookings = await Booking.findAll({ where: { status: status }, 
+        include: [
+          {
+            model: Garages,
+            as: 'garage',
+            attributes: ['id' , 'id_user' , 'name', 'rating']
+          },
+          { 
+            model: Car, 
+            as: 'car', 
+            attributes: {exclude: ['createdAt', 'updatedAt']},
+            where: {user_id: id},
+            include: [
+              {
+                model: User,
+                as: 'user',
+                attributes: {exclude: ['createdAt', 'updatedAt']},
+              }
+            ]
+          }
+        ]});
+
+        res.status(200).json({ bookings: bookings });
+    }
   } catch (error) {
     next(error)
   }
