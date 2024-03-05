@@ -5,6 +5,7 @@ import Carousel from './Carousel';
 import Header from './Header';
 import Schedule from './Schedule';
 import CustomButton from '../utilities/CustomButton';
+import { BackArrowIcon } from '../shared/BackArrowIcon';
 
 interface FormBookingProps {
   garajeId: string;
@@ -28,6 +29,7 @@ export const FormBooking: React.FC<FormBookingProps> = ({
 
   return (
     <div className='px-4 py-6 flex flex-col gap-6 w-full'>
+      <BackArrowIcon />
       {/* Carrusel de imagenes */}
       {garaje && <Carousel images={garaje.images} garajeId={garajeId} />}
 
