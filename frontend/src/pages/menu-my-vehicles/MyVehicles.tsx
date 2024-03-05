@@ -4,6 +4,7 @@ import { useCurrentUser } from '../../hooks/auth';
 import { vehiculeService } from '../../services/vehicule';
 import { Car } from '../../types/vehicule';
 import { HeaderUser } from '../../components/shared/HeaderUser';
+import { Slide, toast } from 'react-toastify';
 
 
 export const MyVehicles = () => {
@@ -27,7 +28,18 @@ export const MyVehicles = () => {
 
   const handleDeleteCar = (id: string) => {
     if(cars?.length === 1){
-      console.log("no se puede borrar")
+      toast.error('No puedes borrar todos tus autos!',
+      {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        transition: Slide,
+      });
     }else{
       vehiculeService.deleteCar(id)
       setCars(prevCars => prevCars?.filter(car => car.id !== id));
