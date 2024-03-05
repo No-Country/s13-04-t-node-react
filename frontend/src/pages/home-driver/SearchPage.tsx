@@ -44,6 +44,7 @@ export const SearchPage = () => {
             name={garage.name}
             images={garage.images}
             address={garage.address}
+            rating={garage.rating}
           />
         ))}
       </div>
