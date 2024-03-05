@@ -1,6 +1,6 @@
 import { CardCarSelection } from '../../components/book-page/CardCarSelection';
 import { HeaderUser } from '../../components/shared/HeaderUser';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import { BiSolidDownArrow } from 'react-icons/bi';
 import {
@@ -17,6 +17,7 @@ import useSWR from 'swr';
 import { garageService } from '../../services/garage';
 import { useState } from 'react';
 import { ICar } from '../../types/vehicule';
+import { Slide, toast } from 'react-toastify';
 
 export const CarDateReservation = () => {
   const navigate = useNavigate();
@@ -92,7 +93,18 @@ export const CarDateReservation = () => {
     e.preventDefault();
 
     if (!selectedCar) {
-      return alert('Elije un carro');
+      toast.warn('Debe de elejir un auto!', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        transition: Slide,
+      });
+      return;
     }
 
     const checkoutSearchParams = new URLSearchParams({
@@ -175,12 +187,13 @@ export const CarDateReservation = () => {
               Guardar
             </button>
 
-            <button
+            <Link
+              to={`/reservar/${garageId}`}
               type='button'
               className='py-2 text-center bg-white border border-[#D58418] rounded-3xl font-semibold'
             >
               Cancelar
-            </button>
+            </Link>
           </div>
         </form>
       </div>
