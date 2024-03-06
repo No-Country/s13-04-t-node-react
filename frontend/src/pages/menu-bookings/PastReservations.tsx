@@ -94,7 +94,7 @@ export const PastReservations = () => {
             ))}
             {(pastBookings?.length === 0 || !pastBookings) && (
               <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
-                <img src="/images/noBookingPast.svg" alt="no past bookings" />
+                <img src="/images/BookingCarPast.svg" alt="no past bookings" />
                 <span>No tienes ninguna reserva pasada</span>
               </div>
             )}
