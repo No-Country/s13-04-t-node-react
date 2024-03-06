@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { IBooking } from '../../types/bookings';
 import { useCurrentUser } from '../../hooks/auth';
 import { LoadingIcon } from '../../components/shared/LoadingIcon';
-import { format }  from "date-fns"
+import { format } from "date-fns"
 import { vehiculeService } from '../../services/vehicule';
 import useSWR from 'swr';
 import { ICar } from '../../types/vehicule';
@@ -19,10 +19,10 @@ export const ActiveReservations = () => {
 
   const user = useCurrentUser();
 
-  const {data: carList} = useSWR(['car-list'] , () => 
-  vehiculeService.getByUserId(user.id)
+  const { data: carList } = useSWR(['car-list'], () =>
+    vehiculeService.getByUserId(user.id)
   )
-  
+
   useEffect(() => {
     const fetchActiveBookings = async () => {
       setLoading(true)
@@ -38,14 +38,14 @@ export const ActiveReservations = () => {
       setLoading(false)
     };
 
-    if(carSelected !== ''){
+    if (carSelected !== '') {
       fetchActiveBookingsByCar(carSelected)
-    }else{
+    } else {
       fetchActiveBookings()
     }
   }, [carSelected, user.id])
 
-  
+
   const handleSelect = (e) => {
     e.stopPropagation()
     setCarSelected(e.target.value)
@@ -63,24 +63,24 @@ export const ActiveReservations = () => {
 
         <form>
           <select onChange={handleSelect} className="border border-black rounded-lg mb-3">
-            <option key={1} value=''>Selecciona un establecimiento</option>
+            <option key={1} value=''>Selecciona un vehículo</option>
             {carList?.data.cars.map((car: ICar) => (
               <option key={car.id} value={car.id}>{car.plate}</option>
             ))}
           </select>
         </form>
 
-        {loading ? 
-          <LoadingIcon width={36}/>
-        :
+        {loading ?
+          <LoadingIcon width={36} />
+          :
           <div>
             {activeBookings?.map((booking: IBooking) => (
               <CarReservationCard
-              name={booking.garage.name} 
-              address={booking.garage.address}
-              time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
-              plate={booking.car.plate}
-              key={booking.id}
+                name={booking.garage.name}
+                address={booking.garage.address}
+                time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                plate={booking.car.plate}
+                key={booking.id}
               />
             ))}
             {(activeBookings?.length === 0 || !activeBookings) && (

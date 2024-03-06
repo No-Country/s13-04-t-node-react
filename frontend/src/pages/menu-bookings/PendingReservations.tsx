@@ -3,7 +3,7 @@ import { BackArrowIcon } from '../../components/shared/BackArrowIcon';
 import { CarReservationCard } from '../../components/carReservation/CarReservationCard';
 import { useState, useEffect } from 'react';
 import { IBooking } from '../../types/bookings';
-import { format }  from "date-fns"
+import { format } from "date-fns"
 import { vehiculeService } from '../../services/vehicule';
 import useSWR from 'swr';
 import { ICar } from '../../types/vehicule';
@@ -19,13 +19,13 @@ export const PendingReservations = () => {
   const [carSelected, setCarSelected] = useState<string>('')
   const [modalConfirm, setModalConfirm] = useState(false)
   const [currentBooking, setCurrentBooking] = useState<string>('')
-  
+
   const user = useCurrentUser();
 
-  const {data: carList} = useSWR(['car-list'] , () => 
-  vehiculeService.getByUserId(user.id)
+  const { data: carList } = useSWR(['car-list'], () =>
+    vehiculeService.getByUserId(user.id)
   )
-  
+
   useEffect(() => {
     const fetchPendingBookings = async () => {
       setLoading(true)
@@ -41,30 +41,30 @@ export const PendingReservations = () => {
       setLoading(false)
     };
 
-    if(carSelected !== ''){
+    if (carSelected !== '') {
       fetchPendingBookingsByCar(carSelected)
-    }else{
+    } else {
       fetchPendingBookings()
     }
   }, [carSelected, user.id])
 
-  
+
   const handleSelect = (e) => {
     e.stopPropagation()
     setCarSelected(e.target.value)
   }
-  
-  const onCancel = (e, id) =>{
-    if(id){
+
+  const onCancel = (e, id) => {
+    if (id) {
       setCurrentBooking(id)
     }
     setModalConfirm(prev => !prev)
   }
 
-  const onDelete = () =>{
-    if(currentBooking){
+  const onDelete = () => {
+    if (currentBooking) {
       bookingService.deleteBooking(currentBooking)
-      setPendingBookings(prev => prev.filter(booking => booking.id !== currentBooking))
+      setPendingBookings(prev => prev?.filter(booking => booking.id !== currentBooking))
     }
     setModalConfirm(false)
   }
@@ -83,38 +83,38 @@ export const PendingReservations = () => {
 
         <form>
           <select onChange={handleSelect} className="border border-black rounded-lg mb-3">
-            <option key={1} value=''>Selecciona un establecimiento</option>
+            <option key={1} value=''>Selecciona un vehículo</option>
             {carList?.data.cars.map((car: ICar) => (
               <option key={car.id} value={car.id}>{car.plate}</option>
             ))}
           </select>
         </form>
 
-        {loading ? 
-          <LoadingIcon width={36}/>
-        :
+        {loading ?
+          <LoadingIcon width={36} />
+          :
           <div>
             {pendingBookings?.map((booking: IBooking) => (
               <CarReservationCard
-              name={booking.garage.name} 
-              address={booking.garage.address}
-              time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
-              plate={booking.car.plate}
-              pending={true}
-              onCancel={(e) => onCancel(e,booking.id)}
-              key={booking.id}
+                name={booking.garage.name}
+                address={booking.garage.address}
+                time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                plate={booking.car.plate}
+                pending={true}
+                onCancel={(e) => onCancel(e, booking.id)}
+                key={booking.id}
               />
             ))}
             {(pendingBookings?.length === 0 || !pendingBookings) && (
               <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
-                <img src="/images/noPastBookings.svg" alt="no past bookings" />
+                <img src="/images/noPending.svg" alt="no past bookings" />
                 <span>No tienes ninguna reserva pendiente</span>
               </div>
             )}
           </div>
         }
       </div>
-      {modalConfirm && <ModalConfirm title='Cancelar reserva' message='Estas seguro que deseas cancelar esta reserva?' onClose={onCancel} onConfirm={onDelete}/>}
+      {modalConfirm && <ModalConfirm title='Cancelar reserva' message='Estas seguro que deseas cancelar esta reserva?' onClose={onCancel} onConfirm={onDelete} />}
     </>
   );
 };
