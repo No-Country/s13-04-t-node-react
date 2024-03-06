@@ -86,7 +86,7 @@ export const getBookingsGarageByStatus = async (req, res, next) => {
       {
         model: Garages,
         as: 'garage',
-        attributes: ['id' , 'id_user' , 'name'],
+        attributes: ['id' , 'id_user' , 'name', 'address'],
       },
       { 
         model: Car, 
@@ -124,7 +124,7 @@ export const getBookingsOwnerByStatus = async (req, res, next) => {
           {
             model: Garages,
             as: 'garage',
-            attributes: ['id' , 'id_user' , 'name'],
+            attributes: ['id' , 'id_user' , 'name', 'address'],
             where: { id_user: id},
           },
           { 
@@ -148,7 +148,7 @@ export const getBookingsOwnerByStatus = async (req, res, next) => {
           {
             model: Garages,
             as: 'garage',
-            attributes: ['id' , 'id_user' , 'name', 'rating']
+            attributes: ['id' , 'id_user' , 'name', 'rating', 'address']
           },
           { 
             model: Car, 
@@ -187,7 +187,7 @@ export const getBookingsCarByStatus = async (req, res, next) => {
         {
           model: Garages,
           as: 'garage',
-          attributes: ['id' , 'id_user' , 'name', 'rating']
+          attributes: ['id' , 'id_user' , 'name', 'rating', 'address']
         },
         { 
           model: Car, 
