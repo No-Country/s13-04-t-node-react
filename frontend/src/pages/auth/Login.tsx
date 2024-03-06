@@ -3,13 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth';
 import { HeaderLanding } from '../../components/landing/HeaderLanding';
 import { Slide, toast } from 'react-toastify';
+import { useState } from 'react';
+import { LoadingIcon } from '../../components/shared/LoadingIcon';
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigation = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const enviarDatos = handleSubmit(async (data) => {
     try {
+      setIsLoading(true);
       await authService.login(data.correo, data.contraseña);
       navigation('/');
     } catch (error) {
@@ -25,6 +28,7 @@ export const Login = () => {
         transition: Slide,
       });
     }
+    setIsLoading(false);
   });
 
   return (
@@ -98,10 +102,12 @@ export const Login = () => {
             ¿Olvidaste tu contraseña?
           </button>
           <button
-            className='border rounded-3xl p-2 font-bold bg-[#D58418] text-center'
             type='submit'
+            className={`py-2 text-center ] rounded-3xl font-semibold w-full ${
+              isLoading ? 'bg-[#FFE9CC]' : 'bg-[#D58418]'
+            }`}
           >
-            Iniciar sesión
+            {isLoading ? <LoadingIcon width={16} /> : 'Iniciar sesión'}
           </button>
 
           <article className='flex justify-center items-center'>
