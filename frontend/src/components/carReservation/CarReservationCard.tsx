@@ -1,5 +1,5 @@
 import { MdOutlineMessage } from "react-icons/md";
-import { RiCloseLine } from "react-icons/ri";
+import { RiArrowGoForwardFill, RiCloseLine } from "react-icons/ri";
 
 type CarReservationCarProps = {
     name?: string;
@@ -7,6 +7,7 @@ type CarReservationCarProps = {
     time?: string;
     plate?:string;
     pending?: boolean;
+    past?:boolean
     onCancel: () => void | null;
 }
 
@@ -16,6 +17,7 @@ export const CarReservationCard: React.FC<CarReservationCarProps> = ({
     time = new Date().toLocaleTimeString(),
     plate = 'Car Plate',
     pending = false,
+    past = false,
     onCancel = null
 }) => {
     return(
@@ -50,6 +52,14 @@ export const CarReservationCard: React.FC<CarReservationCarProps> = ({
                     <span className='text-lg font-semibold'>Cancelar reserva</span>
                 </button>
                 </div>
+            }
+            {past &&
+                <div className='flex items-center gap-2'>
+                   <RiArrowGoForwardFill className='text-2xl text-[#5D2B2C] font-extrabold' />
+                   <button onClick={onCancel}>
+                    <span className='text-lg font-semibold'>Volver a reservar</span>
+                   </button>
+                 </div>
             }
             </div>
         </div>
