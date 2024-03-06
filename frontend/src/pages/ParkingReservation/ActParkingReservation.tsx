@@ -17,9 +17,6 @@ export const ActParkingReservations = () => {
   const [gargageSelected, setGarageSelected] = useState<string>('')
 
   const user = useCurrentUser();
-/*   const { data: activeBookings, isValidating } = useSWR(["active-bookins"], () =>
-    bookingsService.ActiveList(user.id)
-  ); */
 
   const {data: garageList} = useSWR(['garage-list'] , () => 
   garageService.getByUserId(user.id)
@@ -32,14 +29,17 @@ export const ActParkingReservations = () => {
 
   useEffect(() =>{
     const fetchPendingBookings = async () => {
+      setLoading(true)
       const data = await bookingsService.ActiveList(user.id);
       setActiveBookings(data);
+      setLoading(false)
     };
 
     const fetchPendingBookingsByGarage = async (id: string) => {
+      setLoading(true)
       const data = await bookingsService.ActiveListByGarage(id);
-      console.log(data)
       setActiveBookings(data);
+      setLoading(false)
     };
 
 
@@ -61,18 +61,18 @@ export const ActParkingReservations = () => {
           <p>Consulta tus reservas activas</p>
         </div>
 
+        <form>
+          <select onChange={handleSelect} className="border border-black rounded-lg">
+            <option key={1} value=''>Selecciona un establecimiento</option>
+            {garageList?.data.garages.map((garage: [IGarage]) => (
+              <option key={garage.id} value={garage.id}>{garage.name}</option>
+            ))}
+          </select>
+        </form>
         {loading ? 
           <LoadingIcon width={36} />
         :
           <div>
-            <form>
-              <select onChange={handleSelect}>
-                <option value='' >Selecciona un garage</option>
-                {garageList?.data.garages.map((garage: [IGarage]) => (
-                  <option value={garage.id}>{garage.name}</option>
-                ))}
-              </select>
-            </form>
             {activeBookings?.bookings.map((booking: any) => (
               <ParkingReservatiosCard
                 key={booking.id}

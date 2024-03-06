@@ -5,12 +5,49 @@ import { useCurrentUser } from "../../hooks/auth";
 import { bookingsService } from "../../services/bookings";
 import useSWR from "swr";
 import { LoadingIcon } from "../../components/shared/LoadingIcon";
+import { useState, useEffect } from "react";
+import { IBooking, IGarage } from "../../types/bookings";
+import { garageService } from "../../services/garage";
 
 export const PastParkingReservation = () => {
+  const [pastBookings, setPastBookings] = useState<IBooking[] | undefined>()
+  const [loading, setLoading] = useState(false)
+  const [gargageSelected, setGarageSelected] = useState<string>('')
+
   const user = useCurrentUser();
-  const { data: pastBookings, isValidating } = useSWR(["past-bookings"], () =>
-    bookingsService.PastList(user.id)
-  );
+  
+  const {data: garageList} = useSWR(['garage-list'] , () => 
+    garageService.getByUserId(user.id)
+  )
+
+  useEffect(() =>{
+    const fetchPendingBookings = async () => {
+      setLoading(true)
+      const data = await bookingsService.PastList(user.id);
+      setPastBookings(data);
+      setLoading(false)
+    };
+
+    const fetchPendingBookingsByGarage = async (id: string) => {
+      setLoading(true)
+      const data = await bookingsService.PastListByGarage(id);
+      setPastBookings(data);
+      setLoading(false)
+    };
+
+
+    if(gargageSelected !== ''){
+      fetchPendingBookingsByGarage(gargageSelected)
+    }else{
+      fetchPendingBookings()
+    }
+  }, [gargageSelected, user.id])
+
+  const handleSelect = (e) => {
+    e.stopPropagation()
+    setGarageSelected(e.target.value)
+  }
+
   return (
     <>
       <HeaderUser />
@@ -22,7 +59,16 @@ export const PastParkingReservation = () => {
         </div>
 
 
-        {isValidating ? 
+        <form>
+          <select onChange={handleSelect} className="border border-black rounded-lg">
+            <option key={1} value=''>Selecciona un establecimiento</option>
+            {garageList?.data.garages.map((garage: [IGarage]) => (
+              <option key={garage.id} value={garage.id}>{garage.name}</option>
+            ))}
+          </select>
+        </form>
+
+        {loading ? 
           <LoadingIcon width={36} />
         :
           <div>
@@ -50,7 +96,7 @@ export const PastParkingReservation = () => {
               />
             ))}
             {pastBookings?.bookings.length === 0 && (
-              <div className="flex flex-col items-center justify-center font-semibold gap-1">
+              <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
                 <img src="/images/noPastBookings.svg" alt="no past bookings" />
                 <span>No tienes ninguna reserva pasada</span>
               </div>
