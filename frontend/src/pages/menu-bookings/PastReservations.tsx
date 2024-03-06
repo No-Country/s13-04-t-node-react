@@ -1,8 +1,62 @@
 import { HeaderUser } from '../../components/shared/HeaderUser';
 import { BackArrowIcon } from '../../components/shared/BackArrowIcon';
-import { RiArrowGoForwardFill } from 'react-icons/ri';
+import { useState, useEffect } from 'react';
+import { IBooking } from '../../types/bookings';
+import { ICar } from '../../types/vehicule';
+import { vehiculeService } from '../../services/vehicule';
+import useSWR from 'swr';
+import { useCurrentUser } from '../../hooks/auth';
+import { bookingsService } from '../../services/bookings';
+import { format } from 'date-fns';
+import { CarReservationCard } from '../../components/carReservation/CarReservationCard';
+import { LoadingIcon } from '../../components/shared/LoadingIcon';
+import { useNavigate } from 'react-router-dom';
 
 export const PastReservations = () => {
+  const [pastBookings, setPastBookings] = useState<IBooking[] | undefined>([])
+  const [loading, setLoading] = useState(false)
+  const [carSelected, setCarSelected] = useState<string>('')
+
+  const navigate = useNavigate();
+
+  const user = useCurrentUser();
+
+  const {data: carList} = useSWR(['car-list'] , () => 
+  vehiculeService.getByUserId(user.id)
+  )
+
+  useEffect(() => {
+    const fetchPastBookings = async () => {
+      setLoading(true)
+      const data = await bookingsService.PastListCar(user.id);
+      setPastBookings(data.bookings);
+      setLoading(false)
+    };
+
+    const fetchPastBookingsByCar = async (id: string) => {
+      setLoading(true)
+      const data = await bookingsService.PastListByCar(id);
+      setPastBookings(data.bookings);
+      setLoading(false)
+    };
+
+    if(carSelected !== ''){
+      fetchPastBookingsByCar(carSelected)
+    }else{
+      fetchPastBookings()
+    }
+  }, [carSelected, user.id])
+
+  
+  const handleSelect = (e) => {
+    e.stopPropagation()
+    setCarSelected(e.target.value)
+  }
+  
+  const handleRedirect = (e, id: string) => {
+    navigate(`/reservar/${id}`)
+  }
+
   return (
     <>
       <HeaderUser />
@@ -13,31 +67,38 @@ export const PastReservations = () => {
           <p>Consulta tu historial de reservas</p>
         </div>
 
-        <div className='p-4 shadow-md rounded'>
-          <div className='flex flex-col gap-4'>
-            <div className='flex items-center justify-between gap-1'>
-              <div className='flex flex-col gap-1'>
-                <h2 className='text-xl font-semibold'>GARAJE DE JUAN</h2>
-                <span className='line-clamp-1'>
-                  Av. Directorio 3452, CABA, Argentina
-                </span>
+        <form>
+          <select onChange={handleSelect} className="border border-black rounded-lg mb-3">
+            <option key={1} value=''>Selecciona un establecimiento</option>
+            {carList?.data.cars.map((car: ICar) => (
+              <option key={car.id} value={car.id}>{car.plate}</option>
+            ))}
+          </select>
+        </form>
+
+        {loading ? 
+          <LoadingIcon width={36}/>
+        :
+          <div>
+            {pastBookings?.map((booking: IBooking) => (
+              <CarReservationCard
+                name={booking.garage.name} 
+                address={booking.garage.address}
+                time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                plate={booking.car.plate}
+                past={true}
+                key={booking.id}
+                onCancel={(e) => handleRedirect(e, booking.garage.id)}
+              />
+            ))}
+            {(pastBookings?.length === 0 || !pastBookings) && (
+              <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
+                <img src="/images/noPastBookings.svg" alt="no past bookings" />
+                <span>No tienes ninguna reserva pasada</span>
               </div>
-
-              <span className='self-start px-3 py-3 bg-[#5D2B2C] text-white rounded-md'>
-                0,0
-              </span>
-            </div>
-
-            <div className='py-1 border-2 border-[#D58418] rounded-md text-center'>
-              <span className='text-lg font-semibold'>Día - Horario</span>
-            </div>
-
-            <div className='flex items-center gap-2'>
-              <RiArrowGoForwardFill className='text-2xl text-[#5D2B2C] font-extrabold' />
-              <span className='text-lg font-semibold'>Volver a reservar</span>
-            </div>
+            )}
           </div>
-        </div>
+        }
       </div>
     </>
   );
