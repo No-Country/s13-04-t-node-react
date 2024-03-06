@@ -84,7 +84,8 @@ export const PastReservations = () => {
               <CarReservationCard
                 name={booking.garage.name}
                 address={booking.garage.address}
-                time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                start={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                end={format(new Date(booking.date_end), 'MM/dd - HH:mm')}
                 plate={booking.car.plate}
                 past={true}
                 key={booking.id}

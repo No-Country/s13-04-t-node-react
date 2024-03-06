@@ -28,13 +28,11 @@ export const AceptedReservation = () => {
   const endMinutes = endDate.getMinutes();
 
   // Formatear la hora en formato militar
-  const formattedHour = `${hours < 10 ? "0" : ""}${hours}:${
-    minutes < 10 ? "0" : ""
-  }${minutes}`;
+  const formattedHour = `${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""
+    }${minutes}`;
 
-  const formattedEndHour = `${endHours < 10 ? "0" : ""}${endHours}:${
-    endMinutes < 10 ? "0" : ""
-  }${endMinutes}`;
+  const formattedEndHour = `${endHours < 10 ? "0" : ""}${endHours}:${endMinutes < 10 ? "0" : ""
+    }${endMinutes}`;
 
   // Array de nombres de meses en español
   const months = [
@@ -96,8 +94,8 @@ export const AceptedReservation = () => {
         </div>
 
         <div className="flex justify-end">
-          <button  
-          onClick={handleClick}          
+          <button
+            onClick={handleClick}
             className="py-2 text-center bg-[#D58418] rounded-3xl font-semibold mt-8 w-full"
             style={{ height: "40px", gap: "4px" }}
           >
