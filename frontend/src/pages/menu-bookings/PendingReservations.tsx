@@ -98,7 +98,8 @@ export const PendingReservations = () => {
               <CarReservationCard
                 name={booking.garage.name}
                 address={booking.garage.address}
-                time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                start={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                end={format(new Date(booking.date_end), 'MM/dd - HH:mm')}
                 plate={booking.car.plate}
                 pending={true}
                 onCancel={(e) => onCancel(e, booking.id)}
@@ -107,7 +108,7 @@ export const PendingReservations = () => {
             ))}
             {(pendingBookings?.length === 0 || !pendingBookings) && (
               <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
-                <img src="/images/noPending.svg" alt="no past bookings" />
+                <img src="/images/BookingCarPending.svg" alt="no past bookings" />
                 <span>No tienes ninguna reserva pendiente</span>
               </div>
             )}

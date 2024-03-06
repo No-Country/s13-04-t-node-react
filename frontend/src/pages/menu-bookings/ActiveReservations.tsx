@@ -78,14 +78,15 @@ export const ActiveReservations = () => {
               <CarReservationCard
                 name={booking.garage.name}
                 address={booking.garage.address}
-                time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                start={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                end={format(new Date(booking.date_end), 'MM/dd - HH:mm')}
                 plate={booking.car.plate}
                 key={booking.id}
               />
             ))}
             {(activeBookings?.length === 0 || !activeBookings) && (
               <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
-                <img src="/images/noPastBookings.svg" alt="no active bookings" />
+                <img src="/images/BookingCarActive.svg" alt="no active bookings" />
                 <span>No tienes ninguna reserva activa</span>
               </div>
             )}
