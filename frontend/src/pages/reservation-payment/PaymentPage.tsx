@@ -7,16 +7,12 @@ import { LoadingIcon } from '../../components/shared/LoadingIcon';
 import { useNavigate } from 'react-router';
 import { Link, useSearchParams } from 'react-router-dom';
 import { bookingService } from '../../services/booking';
+import moment from 'moment';
 function calcDiff(dateStart: string, dateEnd: string, price_Hour: number) {
-  const startHour = new Date(dateStart).getHours();
-  const startMinutes = new Date(dateStart).getMinutes();
-  const endHour = new Date(dateEnd).getHours();
-  const endMinutes = new Date(dateEnd).getMinutes();
-  const startMinutesTotal = startHour * 60 + startMinutes;
-  const endMinutesTotal = endHour * 60 + endMinutes;
-  const diffMinutes = endMinutesTotal - startMinutesTotal;
-  const diffHours = diffMinutes / 60;
-  return price_Hour * diffHours;
+  const startMoment = moment(dateStart);
+  const endMoment = moment(dateEnd);
+  const diff_hours = endMoment.diff(startMoment, 'hours');
+  return price_Hour * diff_hours;
 }
 export const PaymentPage = () => {
   const [searchParams] = useSearchParams();
