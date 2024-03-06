@@ -28,14 +28,14 @@ export const ActParkingReservations = () => {
   }
 
   useEffect(() =>{
-    const fetchPendingBookings = async () => {
+    const fetchActiveBookings = async () => {
       setLoading(true)
       const data = await bookingsService.ActiveList(user.id);
       setActiveBookings(data);
       setLoading(false)
     };
 
-    const fetchPendingBookingsByGarage = async (id: string) => {
+    const fetchActiveBookingsByGarage = async (id: string) => {
       setLoading(true)
       const data = await bookingsService.ActiveListByGarage(id);
       setActiveBookings(data);
@@ -44,9 +44,9 @@ export const ActParkingReservations = () => {
 
 
     if(gargageSelected !== ''){
-      fetchPendingBookingsByGarage(gargageSelected)
+      fetchActiveBookingsByGarage(gargageSelected)
     }else{
-      fetchPendingBookings()
+      fetchActiveBookings()
     }
   }, [gargageSelected, user.id])
 

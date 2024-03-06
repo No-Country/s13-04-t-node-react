@@ -49,4 +49,22 @@ export const bookingsService = {
       
       return res.data;
     },
+
+    async PendingListCar(idUser: string) {
+      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/pending`);
+      
+      return res.data;
+    },
+
+    async PastListCar(idUser: string) {
+      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/inactive`);
+      
+      return res.data;
+    },
+
+    async ActiveListCar(idUser: string) {
+      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/active`);
+      
+      return res.data;
+    },
 };

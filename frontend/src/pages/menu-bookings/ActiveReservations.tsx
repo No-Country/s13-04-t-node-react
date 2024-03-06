@@ -1,8 +1,43 @@
 import { HeaderUser } from '../../components/shared/HeaderUser';
 import { BackArrowIcon } from '../../components/shared/BackArrowIcon';
-import { MdOutlineMessage } from 'react-icons/md';
+import { CarReservationCar } from '../../components/carReservation/CarReservationCar';
+import { bookingsService } from '../../services/bookings';
+import { useEffect, useState } from 'react';
+import { IBooking } from '../../types/bookings';
+import { useCurrentUser } from '../../hooks/auth';
+import { LoadingIcon } from '../../components/shared/LoadingIcon';
 
 export const ActiveReservations = () => {
+  const [activeBookings, setActiveBookings] = useState<IBooking[] | undefined>([])
+  const [loading, setLoading] = useState(false)
+  const [carSelected, setCarSelected] = useState<string>('')
+
+
+  const user = useCurrentUser();
+  
+  useEffect(() => {
+    const fetchActiveBookings = async () => {
+      setLoading(true)
+      const data = await bookingsService.ActiveListCar(user.id);
+      console.log(data)
+      setActiveBookings(data.bookings);
+      setLoading(false)
+    };
+
+/*     const fetchActiveBookingsByGarage = async (id: string) => {
+      setLoading(true)
+      const data = await bookingsService.ActiveListByGarage(id);
+      setActiveBookings(data);
+      setLoading(false)
+    };
+ */
+    if(carSelected !== ''){
+      console.log('aca')
+    }else{
+      fetchActiveBookings()
+    }
+  }, [carSelected, user.id])
+
   return (
     <>
       <HeaderUser />
@@ -13,29 +48,28 @@ export const ActiveReservations = () => {
           <p>Consulta tus reservas activas</p>
         </div>
 
-        <div className='p-4 shadow-md rounded'>
-          <div className='flex flex-col gap-4'>
-            <div className='flex items-center justify-between gap-1'>
-              <div className='flex flex-col gap-1'>
-                <h2 className='text-xl font-semibold'>GARAJE DE JUAN</h2>
-                <span className='line-clamp-1'>
-                  Av. Directorio 3452, CABA, Argentina
-                </span>
-              </div>
-
-              <MdOutlineMessage className='text-3xl' />
-            </div>
-
-            <div className='py-1 border-2 border-[#D58418] rounded-md text-center'>
-              <span className='text-lg font-semibold'>Día - Horario</span>
-            </div>
-
-            <div className='flex items-center justify-between bg-[#5D2B2C] text-white rounded-md text-center px-4 py-2'>
-              <span>CÓDIGO DE RESERVA:</span>
-              <span>2548793</span>
-            </div>
+        {loading ? 
+          <LoadingIcon width={36}/>
+        :
+          <div>
+            {activeBookings?.map((booking: IBooking) => (
+              <CarReservationCar 
+              name={booking.garage.name} 
+              address='Av. Directorio 3452, CABA, Argentina'
+              time='04/02/21 - 10:00 - 12:00'
+              plate={booking.car.plate}
+              key={booking.id}
+              />
+            ))}
           </div>
-        </div>
+        }
+
+{/*         <CarReservationCar 
+          name='Garaje de Juan' 
+          address='Av. Directorio 3452, CABA, Argentina'
+          time='04/02/21 - 10:00 - 12:00'
+          plate='ABC123'
+          /> */}
       </div>
     </>
   );
