@@ -3,17 +3,28 @@ import { ParkingReservatiosCard } from "../../components/parkingReservation/Park
 import { useCurrentUser } from "../../hooks/auth";
 import ModalConfirmReservation from "../../components/parkingReservation/ModalConfirmReservation";
 import ModalCancelReservation from "../../components/parkingReservation/ModalcancelReservation";
+import useSWR from "swr";
+import { bookingsService } from "../../services/bookings";
 
 export const HomeParking = () => {
   const user = useCurrentUser();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
-  const handleRejectReservation = () => {
+  const { data: pendingBookings } = useSWR(["pending-bookins"], () =>
+    bookingsService.PendingList(user.id)
+  );
+
+  console.log("Pending bookings:", pendingBookings);
+
+  const handleRejectReservation = (booking) => {
+    setSelectedBooking(booking);
     setIsCancelModalOpen(true);
   };
 
-  const handleAcceptReservation = () => {
+  const handleAcceptReservation = (booking) => {
+    setSelectedBooking(booking);
     setIsConfirmModalOpen(true);
   };
 
@@ -24,22 +35,37 @@ export const HomeParking = () => {
   const handleCloseCancelModal = () => {
     setIsCancelModalOpen(false);
   };
-  
+
   return (
     <>
       <div className="p-4 pb-0">
         <h1 className="uppercase text-2xl pb-8">¡HOLA, {user.name}!</h1>
         <span className=" font-semibold">Reservas pendientes</span>
-      </div>      
-      <ParkingReservatiosCard
-        showDate={false}
-        showChat={false}
-        showImgUser={false}
-        onAccept={handleAcceptReservation}
-        onReject={handleRejectReservation}
-        isLink={true}
-        
-      />
+      </div>
+      {pendingBookings?.bookings.map((booking: any) => (
+        <ParkingReservatiosCard
+          key={booking.id}
+          showDate={false}
+          showChat={false}
+          showImgUser={false}
+          onAccept={() => handleAcceptReservation(booking)}
+          onReject={() => handleRejectReservation(booking)}
+          isLink={true}
+          id={booking.id}
+          patente={booking?.car.plate}
+          modelo={booking?.car.model}
+          marca={booking?.car.brand}
+          userName={booking.car?.user.name}
+          ranking={booking.car?.user.rating ? booking.car?.user.rating : "0,0"}
+          garageName={booking.garage.name}
+        />
+      ))}
+      {pendingBookings?.bookings.length === 0 && (
+        <div className="flex flex-col items-center justify-center font-semibold gap-1">
+          <img src="/images/noPending.svg" alt="no pending bookings" />
+          <span>No tienes ninguna reserva pendiente</span>
+        </div>
+      )}
       <div className="p-4">
         <div className=" mt-4">
           <span className="font-semibold ">Tus estadísticas semanales</span>
@@ -91,6 +117,7 @@ export const HomeParking = () => {
         />
       </div>
       <ModalConfirmReservation
+        bookingData={selectedBooking}
         isOpen={isConfirmModalOpen}
         onClose={handleCloseConfirmModal}
         userName="Nombre Usuario"
@@ -98,6 +125,7 @@ export const HomeParking = () => {
         time="17:00"
       />
       <ModalCancelReservation
+        bookingData={selectedBooking}
         isOpen={isCancelModalOpen}
         onClose={handleCloseCancelModal}
         userName="Nombre Usuario"
