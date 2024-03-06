@@ -4,12 +4,13 @@ import BackButton from "../../components/utilities/Backbutton";
 import { useCurrentUser } from "../../hooks/auth";
 import { bookingsService } from "../../services/bookings";
 import useSWR from "swr";
+import { LoadingIcon } from "../../components/shared/LoadingIcon";
 
 
 export const ActParkingReservations = () => {
   const user = useCurrentUser();
-  const { data: pendingBookings } = useSWR(["pending-bookins"], () =>
-    bookingsService.PastList(user.id)
+  const { data: activeBookings, isValidating } = useSWR(["active-bookins"], () =>
+    bookingsService.ActiveList(user.id)
   );
   return (
     <>
@@ -21,30 +22,36 @@ export const ActParkingReservations = () => {
           <h1 className="text-2xl font-semibold uppercase">RESERVAS ACTIVAS</h1>
           <p>Consulta tus reservas activas</p>
         </div>
-        {pendingBookings?.bookings.map((booking: any) => (
-          <ParkingReservatiosCard
-            key={booking.id}
-            showDate={false}
-            showChat={false}
-            showImgUser={false}
-            isLink={true}
-            id={booking.id}
-            patente={booking?.car.plate}
-            modelo={booking?.car.model}
-            marca={booking?.car.brand}
-            userName={booking.car?.user.name}
-            ranking={
-              booking.car?.user.rating ? booking.car?.user.rating : "0,0"
-            }
-            garageName={booking.garage.name}
-          />
-        ))}
-        {pendingBookings?.bookings.length === 0 && (
-          <div className="flex flex-col items-center justify-center font-semibold gap-1">
-            <img src="/images/noPastBookings.svg" alt="no pending bookings" />
-            <span>No tienes ninguna reserva pasada</span>
+        {isValidating ? 
+          <LoadingIcon width={36} />
+        :
+          <div>
+          {activeBookings?.bookings.map((booking: any) => (
+            <ParkingReservatiosCard
+              key={booking.id}
+              showDate={false}
+              showChat={false}
+              showImgUser={false}
+              isLink={true}
+              id={booking.id}
+              patente={booking?.car.plate}
+              modelo={booking?.car.model}
+              marca={booking?.car.brand}
+              userName={booking.car?.user.name}
+              ranking={
+                booking.car?.user.rating ? booking.car?.user.rating : null
+              }
+              garageName={booking.garage.name}
+            />
+          ))}
+          {activeBookings?.bookings.length === 0 && (
+            <div className="flex flex-col items-center justify-center font-semibold gap-1">
+              <img src="/images/noPastBookings.svg" alt="no active bookings" />
+              <span>No tienes ninguna reserva pasada</span>
+            </div>
+          )}
           </div>
-        )}
+        }
       </div>
     </>
   );

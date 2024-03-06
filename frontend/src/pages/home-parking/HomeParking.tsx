@@ -16,8 +16,6 @@ export const HomeParking = () => {
     bookingsService.PendingList(user.id)
   );
 
-  console.log("Pending bookings:", pendingBookings);
-
   const handleRejectReservation = (booking) => {
     setSelectedBooking(booking);
     setIsCancelModalOpen(true);

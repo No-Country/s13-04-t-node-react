@@ -82,10 +82,12 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
             />
           )}
           <span className="ml-2">{userName}</span>
-          <div className="flex items-center justify-between bg-[#5D2B2C] text-white rounded-md text-center px-1 py-1 ml-auto">
-            <img src="/images/whiteStar.svg" alt="star" />
-            <span className="ml-1">{ranking}</span>
-          </div>
+          {ranking &&
+            <div className="flex items-center justify-between bg-[#5D2B2C] text-white rounded-md text-center px-1 py-1 ml-auto">
+              <img src="/images/whiteStar.svg" alt="star" />
+              <span className="ml-1">{ranking}</span>
+            </div>
+          }
           {showChat && (
             <button
               className="text-3xl flex-shrink-0 ml-2" /*onClick={redirectToChat}*/
