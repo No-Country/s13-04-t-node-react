@@ -65,7 +65,7 @@ export const FormBooking: React.FC<FormBookingProps> = ({
         <Header
           rating={garaje.rating}
           name={garaje.name}
-          address={garaje.address}
+          address={`${garaje.address}, ${garaje.city}, ${garaje.province}, ${garaje.country}`}
           price={garaje.price}
         />
       )}
@@ -86,7 +86,7 @@ export const FormBooking: React.FC<FormBookingProps> = ({
           <APIProvider apiKey={KEY_MAPS}>
             <div className='w-full aspect-square m-auto p-5 max-w-[500px] bg-white rounded-lg'>
               <div className='flex items-center justify-between pb-2'>
-                <p>{garaje?.address}</p>
+                <p>{`${garaje.address}, ${garaje.city}, ${garaje.province}, ${garaje.country}`}</p>
                 <img
                   className='cursor-pointer'
                   onClick={() => setOpenModal(false)}
