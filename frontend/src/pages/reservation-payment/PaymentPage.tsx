@@ -11,7 +11,9 @@ import moment from 'moment';
 function calcDiff(dateStart: string, dateEnd: string, price_Hour: number) {
   const startMoment = moment(dateStart);
   const endMoment = moment(dateEnd);
-  const diff_hours = endMoment.diff(startMoment, 'hours');
+  const diff_minutes = endMoment.diff(startMoment, 'minutes');
+  const diff_hours = diff_minutes / 60;
+  console.log(diff_hours);
   return price_Hour * diff_hours;
 }
 export const PaymentPage = () => {
