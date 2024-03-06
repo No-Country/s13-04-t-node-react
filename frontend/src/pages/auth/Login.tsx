@@ -1,35 +1,52 @@
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth';
+import { HeaderLanding } from '../../components/landing/HeaderLanding';
+import { Slide, toast } from 'react-toastify';
+import { useState } from 'react';
+import { LoadingIcon } from '../../components/shared/LoadingIcon';
 
 export const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigation = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const enviarDatos = handleSubmit(async (data) => {
     try {
+      setIsLoading(true);
       await authService.login(data.correo, data.contraseña);
       navigation('/');
     } catch (error) {
-      alert('Hay algo mal en tus credenciales');
+      toast.error('Hay algo mal en tus credenciales', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        transition: Slide,
+      });
     }
+    setIsLoading(false);
   });
 
   return (
     <>
-      <section>
-        <Link to='/'>
-          <h1 className='w-32 mt-3 text-2xl ml-[16px]'>Bienvenido</h1>
-        </Link>
-      </section>
+      <HeaderLanding />
+
+      <div className='p-4'>
+        <h1 className='text-2xl uppercase pt-2 font-semibold'>Bienvenido</h1>
+        <p>Iniciar sesión</p>
+      </div>
 
       <section className='flex justify-center m-2 min-h-96 '>
         <form onSubmit={enviarDatos} className='flex flex-col w-96 h-40 gap-6 '>
           <article className='flex flex-col '>
-            <label htmlFor='correo'>Correo</label>
+            <label htmlFor='correo'>E-mail</label>
             <input
               className='border-solid border-[1px] border-black rounded-[4px] pt-[8px] pr-[10px] pb-[8px] pl-[16px] '
-              placeholder='Ingresa tu correo'
+              placeholder='Ingresa tu e-mail'
               type='email'
               id='correo'
               {...register('correo', {
@@ -81,14 +98,16 @@ export const Login = () => {
             } */}
           </article>
 
-          <button type='button' className='p-2 text-left'>
-            ¿Olvidaste la contraseña?
+          <button type='button' className='text-left font-semibold pb-4'>
+            ¿Olvidaste tu contraseña?
           </button>
           <button
-            className='border rounded-3xl p-2 font-bold bg-[#D58418] text-center'
             type='submit'
+            className={`py-2 text-center ] rounded-3xl font-semibold w-full ${
+              isLoading ? 'bg-[#FFE9CC]' : 'bg-[#D58418]'
+            }`}
           >
-            Iniciar sesión
+            {isLoading ? <LoadingIcon width={16} /> : 'Iniciar sesión'}
           </button>
 
           <article className='flex justify-center items-center'>

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { HeaderLogo } from '../../components/data-driver/HeaderLogo';
 import { userService } from '../../services/user';
+import { Slide, toast } from 'react-toastify';
 
 export const DriverPassword = () => {
   const navigate = useNavigate();
@@ -15,7 +16,17 @@ export const DriverPassword = () => {
       navigate('/mis-datos');
     } catch (error) {
       console.log('Error', error);
-      alert('Ocurrio un error');
+      toast.error('Ocurrio un error', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+        transition: Slide,
+      });
     }
   };
 

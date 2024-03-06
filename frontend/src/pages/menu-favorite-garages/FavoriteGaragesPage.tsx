@@ -8,6 +8,7 @@ export const FavoriteGaragesPage = () => {
   const { data: favorites } = useSWR(['favorite-garages'], () =>
     favoriteService.list()
   );
+  // console.log(garages)
   return (
     <>
       <HeaderUser />
@@ -20,10 +21,13 @@ export const FavoriteGaragesPage = () => {
 
         {favorites?.map(({ garage }) => (
           <CardGarageResult
+            images={garage.images}
             key={garage.id}
             id={garage.id}
             name={garage.name}
             price={garage.price}
+            rating={garage.rating}
+            address ={garage.address}
           />
         ))}
       </div>

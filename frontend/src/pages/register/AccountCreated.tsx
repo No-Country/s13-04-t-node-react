@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
 import { HeaderLanding } from '../../components/landing/HeaderLanding';
+import { HeaderUser } from '../../components/shared/HeaderUser';
 
 export const AccountCreated = () => {
   return (
     <>
-      <HeaderLanding />
+      {/* <HeaderLanding /> */}
+      <HeaderUser />
       <div className='px-4 py-8 flex flex-col h-[80dvh]'>
         <div>
           <h1 className='font-semibold text-xl'>¡FELICITACIONES!</h1>
