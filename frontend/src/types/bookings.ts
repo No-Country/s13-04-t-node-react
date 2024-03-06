@@ -21,6 +21,7 @@ export interface IBookingResponse {
     id: string;
     id_user: string; 
     name: string;
+    address: string;
   }
   
   export interface IVehicle {

@@ -1,17 +1,22 @@
 import { MdOutlineMessage } from "react-icons/md";
+import { RiCloseLine } from "react-icons/ri";
 
 type CarReservationCarProps = {
     name?: string;
     address?: string;
     time?: string;
     plate?:string;
+    pending?: boolean;
+    onCancel: () => void | null;
 }
 
-export const CarReservationCar: React.FC<CarReservationCarProps> = ({
+export const CarReservationCard: React.FC<CarReservationCarProps> = ({
     name = 'Car Name',
     address = 'Car Address',
     time = new Date().toLocaleTimeString(),
-    plate = 'Car Plate'
+    plate = 'Car Plate',
+    pending = false,
+    onCancel = null
 }) => {
     return(
         <div className='p-4 shadow-md rounded'>
@@ -38,6 +43,14 @@ export const CarReservationCar: React.FC<CarReservationCarProps> = ({
                 <span>CÓDIGO DE RESERVA:</span>
                 <span>2548793</span>
             </div>
+            {pending &&
+                <div className='flex items-center gap-1'>
+                <RiCloseLine className='text-2xl text-[#5D2B2C] font-extrabold' />
+                <button onClick={onCancel}>
+                    <span className='text-lg font-semibold'>Cancelar reserva</span>
+                </button>
+                </div>
+            }
             </div>
         </div>
     )

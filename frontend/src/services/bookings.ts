@@ -1,5 +1,5 @@
 import { client } from "../config/client";
-import { IBooking } from "../types/bookings";
+import { IBooking, IBookingResponse } from "../types/bookings";
 
 export const bookingsService = {
     async PendingList(idUser: string) {
@@ -51,19 +51,37 @@ export const bookingsService = {
     },
 
     async PendingListCar(idUser: string) {
-      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/pending`);
+      const res = await client.get<IBookingResponse>(`/bookings/user/${idUser}/status/pending`);
       
       return res.data;
     },
 
     async PastListCar(idUser: string) {
-      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/inactive`);
+      const res = await client.get<IBookingResponse>(`/bookings/user/${idUser}/status/inactive`);
       
       return res.data;
     },
 
     async ActiveListCar(idUser: string) {
-      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/active`);
+      const res = await client.get<IBookingResponse>(`/bookings/user/${idUser}/status/active`);
+      
+      return res.data;
+    },
+
+    async PendingListByCar(idCar: string) {
+      const res = await client.get<IBookingResponse>(`/bookings/car/${idCar}/status/pending`);
+      
+      return res.data;
+    },
+
+    async PastListByCar(idCar: string) {
+      const res = await client.get<IBookingResponse>(`/bookings/car/${idCar}/status/inactive`);
+      
+      return res.data;
+    },
+
+    async ActiveListByCar(idCar: string) {
+      const res = await client.get<IBookingResponse>(`/bookings/car/${idCar}/status/active`);
       
       return res.data;
     },
