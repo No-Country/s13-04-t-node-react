@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
-import { HeaderLanding } from '../../components/landing/HeaderLanding';
 import { HeaderUser } from '../../components/shared/HeaderUser';
 
 export const AccountCreated = () => {
   return (
     <>
-      {/* <HeaderLanding /> */}
       <HeaderUser />
       <div className='px-4 py-8 flex flex-col h-[80dvh]'>
         <div>
