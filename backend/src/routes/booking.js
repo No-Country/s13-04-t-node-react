@@ -528,6 +528,6 @@ route.delete("/:id", validateFields, deleteBooking);
  *             schema:
  *               $ref: '#/components/schemas/ErrorSchemas/Error'
 */
-route.patch("status/:id/:status",changeStatus)
+route.patch("/status/:id/:status",changeStatus)
 
 export default route;
