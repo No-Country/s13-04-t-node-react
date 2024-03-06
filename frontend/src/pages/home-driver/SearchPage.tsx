@@ -4,11 +4,13 @@ import { garageService } from '../../services/garage';
 import useSWR from 'swr';
 import { CardGarageResult } from '../../components/shared/CardGarageResult';
 import { FormSearch } from '../../components/home-driver/FormSearch';
+import { useEffect, useState } from 'react';
+import { LoadingIcon } from '../../components/shared/LoadingIcon';
 
 export const SearchPage = () => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
-
+  const [IsLoading, setIsLoading] = useState(true);
   const place = searchParams.get('place') ?? '';
   const startDate = searchParams.get('start-date') ?? '';
   const endDate = searchParams.get('end-date') ?? '';
@@ -22,11 +24,13 @@ export const SearchPage = () => {
         endDate: endDate,
       })
   );
-
+  useEffect(() => {
+    garages && setIsLoading(false);
+  }, [garages]);
   return (
     <>
       <HeaderUser />
-      <div className='p-4'>
+      <div className='p-4 flex flex-1 flex-col'>
         <FormSearch
           key={location.search}
           initialValues={{
@@ -35,7 +39,7 @@ export const SearchPage = () => {
             endDate: new Date(endDate),
           }}
         />
-
+        {IsLoading && <LoadingIcon width={50} />}
         {garages?.map((garage) => (
           <CardGarageResult
             key={garage.id}
