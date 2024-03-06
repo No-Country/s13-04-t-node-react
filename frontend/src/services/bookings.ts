@@ -15,7 +15,7 @@ export const bookingsService = {
     },
 
     async ActiveList(idUser: string) {
-      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/inactive`);
+      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/active`);
       
       return res.data;
     },
