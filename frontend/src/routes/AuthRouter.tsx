@@ -38,6 +38,7 @@ import { ActParkingReservations } from '../pages/ParkingReservation/ActParkingRe
 import { PastParkingReservation } from '../pages/ParkingReservation/PastParkingReservation';
 import { PendingParkingReservation } from '../pages/ParkingReservation/PendingParkingReservation';
 import { ConfirmDeclineReservation } from '../pages/ParkingReservation/ConfirmDeclineReservation';
+import { AceptedReservation } from '../pages/ParkingReservation/AceptedReservation';
 
 export default function AuthRouter() {
   return (
@@ -89,6 +90,11 @@ export default function AuthRouter() {
       <Route
         path='/gestionarParking/reserva'
         element={<ConfirmDeclineReservation />}
+      />
+      
+      <Route
+        path='/gestionarParking/reservaAceptada'
+        element={<AceptedReservation />}
       />
 
       {/* MENU FAVORITE GARAGES DRIVER */}

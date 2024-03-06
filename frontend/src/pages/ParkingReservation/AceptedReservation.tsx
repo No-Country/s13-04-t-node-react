@@ -1,7 +1,11 @@
 import { ParkingReservatiosCard } from "../../components/parkingReservation/ParkingReservationCard";
 import { HeaderUser } from "../../components/shared/HeaderUser";
+import { useLocation } from "react-router-dom";
 
-export const ActParkingReservations = () => {
+export const AceptedReservation = () => {
+  const location = useLocation();
+  const bookingData = location.state?.bookingData;
+  console.log(bookingData)
   return (
     <>
       <HeaderUser />

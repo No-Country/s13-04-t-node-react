@@ -1,5 +1,6 @@
 import React, { MouseEvent } from "react";
 import { bookingsService } from "../../services/bookings";
+import { useNavigate } from "react-router-dom";
 
 interface ModalProps {
   isOpen: boolean;
@@ -16,6 +17,7 @@ const ModalConfirmReservation: React.FC<ModalProps> = ({
   onClose,
   bookingData,
 }) => {
+  const navigate = useNavigate();
   const handleClickOutside = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -29,6 +31,9 @@ const ModalConfirmReservation: React.FC<ModalProps> = ({
       };
       const resConfirmationBooking = await bookingsService.ConfirmBooking(confirmationData.idUser);
       console.log(resConfirmationBooking);
+      
+      navigate("/gestionarParking/reservaAceptada", { state: { bookingData } });
+      
       onClose(); 
     } catch (error) {
       console.error("Error confirming booking:", error);
