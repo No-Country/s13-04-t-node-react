@@ -21,8 +21,8 @@ export const PastReservations = () => {
 
   const user = useCurrentUser();
 
-  const {data: carList} = useSWR(['car-list'] , () => 
-  vehiculeService.getByUserId(user.id)
+  const { data: carList } = useSWR(['car-list'], () =>
+    vehiculeService.getByUserId(user.id)
   )
 
   useEffect(() => {
@@ -40,19 +40,19 @@ export const PastReservations = () => {
       setLoading(false)
     };
 
-    if(carSelected !== ''){
+    if (carSelected !== '') {
       fetchPastBookingsByCar(carSelected)
-    }else{
+    } else {
       fetchPastBookings()
     }
   }, [carSelected, user.id])
 
-  
+
   const handleSelect = (e) => {
     e.stopPropagation()
     setCarSelected(e.target.value)
   }
-  
+
   const handleRedirect = (e, id: string) => {
     navigate(`/reservar/${id}`)
   }
@@ -69,20 +69,20 @@ export const PastReservations = () => {
 
         <form>
           <select onChange={handleSelect} className="border border-black rounded-lg mb-3">
-            <option key={1} value=''>Selecciona un establecimiento</option>
+            <option key={1} value=''>Selecciona un vehiculo</option>
             {carList?.data.cars.map((car: ICar) => (
               <option key={car.id} value={car.id}>{car.plate}</option>
             ))}
           </select>
         </form>
 
-        {loading ? 
-          <LoadingIcon width={36}/>
-        :
+        {loading ?
+          <LoadingIcon width={36} />
+          :
           <div>
             {pastBookings?.map((booking: IBooking) => (
               <CarReservationCard
-                name={booking.garage.name} 
+                name={booking.garage.name}
                 address={booking.garage.address}
                 time={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
                 plate={booking.car.plate}
