@@ -27,8 +27,8 @@ export const MenuDriver = () => {
       <div className='flex items-center gap-8'>
         <img src='/images/photo.png' alt='foto' />
         <div>
-          <h4 className='text-2xl font-semibold'>{user.name}</h4>
-          <span className='text-xl'>0,0</span>
+          <h4 className='text-2xl font-semibold uppercase'>{user.name}</h4>
+          {!user.rating ? null : <span className='text-xl'>{user.rating}</span>}
         </div>
       </div>
 
@@ -46,7 +46,7 @@ export const MenuDriver = () => {
 
       <div className='flex flex-col gap-4 py-6 font-semibold'>
         <Link to='/lista-menu-reservas' className='flex items-center gap-2'>
-          <img src='/images/reserva-icon.svg' alt='reserva-icon' />
+          <img src='/images/reserva-icon-black.svg' alt='reserva-icon' />
           <h5>Reservas</h5>
         </Link>
         <Link to='/garajes-favoritos' className='flex items-center gap-2'>
