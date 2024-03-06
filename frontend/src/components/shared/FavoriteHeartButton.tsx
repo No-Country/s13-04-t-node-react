@@ -13,11 +13,11 @@ export const FavoriteHeartButton = ({ id }: Props) => {
     <>
       {favorite ? (
         <button type='button' onClick={() => removeFavorite(id)}>
-          <FaHeart className='text-xl text-red-500' />
+          <FaHeart className='text-xl text-black' />
         </button>
       ) : (
         <button type='button' onClick={() => addFavorite(id)}>
-          <FaRegHeart className='text-xl text-red-500' />
+          <FaRegHeart className='text-xl text-black' />
         </button>
       )}
     </>
