@@ -107,7 +107,7 @@ export const PendingReservations = () => {
             ))}
             {(pendingBookings?.length === 0 || !pendingBookings) && (
               <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
-                <img src="/images/noPastBookings.svg" alt="no past bookings" />
+                <img src="/images/BookingCarPending.svg" alt="no past bookings" />
                 <span>No tienes ninguna reserva pendiente</span>
               </div>
             )}

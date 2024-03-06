@@ -85,7 +85,7 @@ export const ActiveReservations = () => {
             ))}
             {(activeBookings?.length === 0 || !activeBookings) && (
               <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
-                <img src="/images/noPastBookings.svg" alt="no active bookings" />
+                <img src="/images/BookingCarActive.svg" alt="no active bookings" />
                 <span>No tienes ninguna reserva activa</span>
               </div>
             )}
