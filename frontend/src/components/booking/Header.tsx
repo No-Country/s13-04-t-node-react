@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ name, address, price, rating }) => {
 
         {rating &&
           <span className='bg-[#5D2B2C] col-span-1 gap-1 h-[52px] rounded-lg flex items-center mx-auto pr-2 text-2xl text-white'>
-            <img src="/public/images/estrellaVacia.svg" alt="estrella vacia" />
+            <img src="/images/estrellaVacia.svg" alt="estrella vacia" />
             {rating.toFixed(1)}
           </span>
         }

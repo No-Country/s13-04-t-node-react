@@ -29,9 +29,9 @@ export const CardGarageResult = ({
               <FavoriteHeartButton id={id} />
             </div>
 
-            <div className='absolute text-sm bg-white px-2 py-0.1 rounded-2xl bottom-1 ml-1'>
-              Particular
-            </div>
+            {/* <div className='absolute text-sm bg-white px-2 py-0.1 rounded-2xl bottom-1 ml-1'>
+              {rolGaraje}
+            </div> */}
             <ImageComponent
               images={images}
               style='w-20 h-20 rounded-md object-cover min-w-20'
