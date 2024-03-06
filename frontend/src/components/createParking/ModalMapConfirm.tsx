@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
 import { KEY_MAPS } from '../../constants/key';
-import { APIProvider, AdvancedMarker, Map, Pin } from '@vis.gl/react-google-maps';
+import {
+  APIProvider,
+  AdvancedMarker,
+  Map,
+  Pin,
+} from '@vis.gl/react-google-maps';
 import { useFormContext } from 'react-hook-form';
 
 interface Props {
   coordinates: {
     lat: number;
     lng: number;
-  },
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>,
+  };
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
@@ -41,8 +46,16 @@ function ModalMapConfirm({ coordinates, setOpenModal, setStep }: Props) {
               defaultCenter={markerPosition}
               mapId='961237163a24f96a'
             >
-              <AdvancedMarker position={markerPosition} draggable onDragEnd={onMarkerDragEnd}>
-                <Pin background={'red'} borderColor={'red'} glyphColor={'white'} />
+              <AdvancedMarker
+                position={markerPosition}
+                draggable
+                onDragEnd={onMarkerDragEnd}
+              >
+                <Pin
+                  background={'red'}
+                  borderColor={'red'}
+                  glyphColor={'white'}
+                />
               </AdvancedMarker>
             </Map>
           </div>
