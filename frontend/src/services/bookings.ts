@@ -20,6 +20,24 @@ export const bookingsService = {
       return res.data;
     },
 
+    async PendingListByGarage(idGarage: string) {
+      const res = await client.get<IBooking[]>(`/bookings/garage/${idGarage}/status/pending`);
+      
+      return res.data;
+    },
+
+    async PastListByGarage(idGarage: string) {
+      const res = await client.get<IBooking[]>(`/bookings/garage/${idGarage}/status/inactive`);
+      
+      return res.data;
+    },
+
+    async ActiveListByGarage(idGarage: string) {
+      const res = await client.get<IBooking[]>(`/bookings/garage/${idGarage}/status/active`);
+      
+      return res.data;
+    },
+
     async ConfirmBooking(idUser: any) {
       const res = await client.patch<IBooking[]>(`/bookings/status/${idUser}/accept`);
       
