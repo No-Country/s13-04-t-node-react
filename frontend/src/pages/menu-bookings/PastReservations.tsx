@@ -11,14 +11,30 @@ import { format } from 'date-fns';
 import { CarReservationCard } from '../../components/carReservation/CarReservationCard';
 import { LoadingIcon } from '../../components/shared/LoadingIcon';
 import { useNavigate } from 'react-router-dom';
+import { ReviewModal } from '../../components/shared/reviewModal';
 
 export const PastReservations = () => {
   const [pastBookings, setPastBookings] = useState<IBooking[] | undefined>([])
   const [loading, setLoading] = useState(false)
   const [carSelected, setCarSelected] = useState<string>('')
+  const [openModal, setOpenModal] = useState(false)
+  const [ratingReview, setRatingReview] = useState(0)
+
+  useEffect(() => {
+    //no se si la funcion deberia estar en un useEffect
+    //¿como vamos a validar que solo haga una review?
+    //hacer el post del review
+    console.log('Rating review', ratingReview)
+    /**
+  "id_author": "string",
+  "id_receiver": "string",
+  "type": "User",
+  "rating": 0,
+  "comment": "string"
+     */
+  }, [ratingReview])
 
   const navigate = useNavigate();
-
   const user = useCurrentUser();
 
   const { data: carList } = useSWR(['car-list'], () =>
@@ -89,7 +105,9 @@ export const PastReservations = () => {
                 plate={booking.car.plate}
                 past={true}
                 key={booking.id}
-                onCancel={(e) => handleRedirect(e, booking.garage.id)}
+                onCancel={(event) => {
+                  setOpenModal(true)
+                }}
               />
             ))}
             {(pastBookings?.length === 0 || !pastBookings) && (
@@ -101,6 +119,7 @@ export const PastReservations = () => {
           </div>
         }
       </div>
+      {openModal && <ReviewModal setOpenModal={setOpenModal} setRatingReview={setRatingReview} />}
     </>
   );
 };
