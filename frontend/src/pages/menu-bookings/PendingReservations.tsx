@@ -10,7 +10,7 @@ import { ICar } from '../../types/vehicule';
 import { LoadingIcon } from '../../components/shared/LoadingIcon';
 import { bookingsService } from '../../services/bookings';
 import { useCurrentUser } from '../../hooks/auth';
-import { ModalConfirm } from '../../components/modal/Confirm';
+import { ModalConfirm } from '../../components/shared/ConfirmModal';
 import { bookingService } from '../../services/booking';
 
 export const PendingReservations = () => {

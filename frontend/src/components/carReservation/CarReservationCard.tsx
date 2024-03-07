@@ -1,3 +1,4 @@
+import { MouseEventHandler } from "react";
 import { MdOutlineMessage } from "react-icons/md";
 import { RiArrowGoForwardFill, RiCloseLine } from "react-icons/ri";
 
@@ -9,7 +10,7 @@ type CarReservationCarProps = {
     plate?: string;
     pending?: boolean;
     past?: boolean
-    onCancel: () => void | null;
+    onCancel: () => MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 export const CarReservationCard: React.FC<CarReservationCarProps> = ({
@@ -20,8 +21,9 @@ export const CarReservationCard: React.FC<CarReservationCarProps> = ({
     plate = 'Car Plate',
     pending = false,
     past = false,
-    onCancel = null
+    onCancel = undefined
 }) => {
+
     return (
         <div className='p-4 shadow-md rounded'>
             <div className='flex flex-col gap-4'>
@@ -32,7 +34,7 @@ export const CarReservationCard: React.FC<CarReservationCarProps> = ({
                             {address}
                         </span>
                     </div>
-
+                    {/* se podria agregar un toast al boton de mensaje para avisar que todavia no está disponible */}
                     <MdOutlineMessage className='text-3xl' />
                 </div>
 
@@ -56,11 +58,20 @@ export const CarReservationCard: React.FC<CarReservationCarProps> = ({
                     </div>
                 }
                 {past &&
-                    <div className='flex items-center gap-2'>
-                        <RiArrowGoForwardFill className='text-2xl text-[#5D2B2C] font-extrabold' />
-                        <button onClick={onCancel}>
-                            <span className='text-lg font-semibold'>Volver a reservar</span>
-                        </button>
+                    <div className="flex justify-between gap-2">
+                        <div className=''>
+                            <button className="flex items-center" onClick={onCancel}>
+                                <img src="/images/estrellaVaciaBlack.svg" alt="estrella vacia" />
+                                <span className='text-lg font-semibold'>Valorar</span>
+                            </button>
+                        </div>
+                        <div className=''>
+                            {/* completar para volver a reservar */}
+                            <button className="flex" onClick={undefined}>
+                                <RiArrowGoForwardFill className='text-2xl text-[#5D2B2C] font-extrabold' />
+                                <span className='text-lg font-semibold'>Volver a reservar</span>
+                            </button>
+                        </div>
                     </div>
                 }
             </div>
