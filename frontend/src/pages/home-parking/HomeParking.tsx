@@ -56,6 +56,10 @@ export const HomeParking = () => {
           userName={booking.car?.user.name}
           ranking={booking.car?.user.rating ? booking.car?.user.rating : "0,0"}
           garageName={booking.garage.name}
+          linkTo={{
+            pathname: "/gestionarParking/reserva",
+            state: { booking },
+          }}
         />
       ))}
       {pendingBookings?.bookings.length === 0 && (
