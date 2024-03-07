@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 type ModalConfirmProps = {
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>
-    setRatingReview: React.Dispatch<React.SetStateAction<number>>
+    handlePostReview: (rating: number) => void
 }
 
-export const ReviewModal: React.FC<ModalConfirmProps> = ({ setOpenModal, setRatingReview }) => {
+export const ReviewModal: React.FC<ModalConfirmProps> = ({ setOpenModal, handlePostReview }) => {
     const [rating, setRating] = useState<number>(0);
 
     const handleStarClick = (starNumber: number) => {
@@ -32,7 +32,7 @@ export const ReviewModal: React.FC<ModalConfirmProps> = ({ setOpenModal, setRati
                 </div>
                 <div className="flex flex-col gap-2">
                     <button onClick={() => {
-                        setRatingReview(rating)
+                        handlePostReview(rating)
                         setOpenModal(false)
                     }} className="px-3 py-1 font-semibold rounded-3xl w-full border bg-[#D58418] text-center">
                         Aceptar

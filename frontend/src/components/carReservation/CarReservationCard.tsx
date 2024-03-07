@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+// import { MouseEventHandler } from "react";
 import { MdOutlineMessage } from "react-icons/md";
 import { RiArrowGoForwardFill, RiCloseLine } from "react-icons/ri";
 
@@ -10,7 +10,8 @@ type CarReservationCarProps = {
     plate?: string;
     pending?: boolean;
     past?: boolean
-    onCancel: () => MouseEventHandler<HTMLButtonElement> | undefined;
+    onAction: () => void | undefined;
+    handleRedirect: () => void | undefined
 }
 
 export const CarReservationCard: React.FC<CarReservationCarProps> = ({
@@ -21,7 +22,8 @@ export const CarReservationCard: React.FC<CarReservationCarProps> = ({
     plate = 'Car Plate',
     pending = false,
     past = false,
-    onCancel = undefined
+    onAction = undefined,
+    handleRedirect
 }) => {
 
     return (
@@ -52,7 +54,7 @@ export const CarReservationCard: React.FC<CarReservationCarProps> = ({
                 {pending &&
                     <div className='flex items-center gap-1'>
                         <RiCloseLine className='text-2xl text-[#5D2B2C] font-extrabold' />
-                        <button onClick={onCancel}>
+                        <button onClick={onAction}>
                             <span className='text-lg font-semibold'>Cancelar reserva</span>
                         </button>
                     </div>
@@ -60,14 +62,14 @@ export const CarReservationCard: React.FC<CarReservationCarProps> = ({
                 {past &&
                     <div className="flex justify-between gap-2">
                         <div className=''>
-                            <button className="flex items-center" onClick={onCancel}>
+                            <button className="flex items-center" onClick={onAction}>
                                 <img src="/images/estrellaVaciaBlack.svg" alt="estrella vacia" />
                                 <span className='text-lg font-semibold'>Valorar</span>
                             </button>
                         </div>
                         <div className=''>
                             {/* completar para volver a reservar */}
-                            <button className="flex" onClick={undefined}>
+                            <button className="flex" onClick={handleRedirect}>
                                 <RiArrowGoForwardFill className='text-2xl text-[#5D2B2C] font-extrabold' />
                                 <span className='text-lg font-semibold'>Volver a reservar</span>
                             </button>
