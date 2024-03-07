@@ -16,7 +16,7 @@ Tu compañero ideal para resolver los desafíos de estacionamiento en entornos u
 
 ## Documentación
 
-[Diseño del proyecto](https://www.figma.com/file/Iz6UZSJquEcHygi4kfpG3G/Plataforma-de-estacionamiento?type=design&node-id=1%3A3&mode=design&t=NAyrsG8Gxc0Gjc0l-1)
+[Diseño del proyecto](https://www.figma.com/proto/WN8RrJTc1WzxkKLSMGph4l/Presentaci%C3%B3n-estacionAPP?page-id=1095%3A9904&type=design&node-id=1095-9905&viewport=722%2C-5939%2C0.77&t=n7ECZhM8l42SCrWe-1&scaling=min-zoom&mode=design)
 
 [Documentación con Swagger](https://estacionar.azurewebsites.net/api/docs)
 
