@@ -1,5 +1,6 @@
 import React, { MouseEvent } from "react";
 import { bookingsService } from "../../services/bookings";
+import { IBooking } from "../../types/bookings";
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,7 +8,7 @@ interface ModalProps {
   userName: string;
   date: string;
   time: string;
-  bookingData: any;
+  bookingData?: IBooking;
 }
 
 const ModalCancelReservation: React.FC<ModalProps> = ({
@@ -24,7 +25,7 @@ const ModalCancelReservation: React.FC<ModalProps> = ({
   const sendConfirmation = async () => {
     try {
       const confirmationData = {
-        idUser: bookingData.id,
+        idUser: bookingData?.id || '',
       };
       const resRejectBooking = await bookingsService.RejectBooking(confirmationData.idUser);
       console.log(resRejectBooking);
@@ -37,7 +38,7 @@ const ModalCancelReservation: React.FC<ModalProps> = ({
   if (!isOpen) return null;
   console.log("Booking Data:", bookingData);
   // Convertir la fecha a un objeto Date
-  const startDate = new Date(bookingData?.date_start);
+  const startDate = new Date(bookingData?.date_start || new Date());
 
   // Obtener los componentes de la fecha
   const day = startDate.getDate();

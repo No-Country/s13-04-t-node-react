@@ -10,8 +10,8 @@ type CarReservationCarProps = {
     plate?: string;
     pending?: boolean;
     past?: boolean
-    onAction: () => void | undefined;
-    handleRedirect: () => void | undefined
+    onAction?: () => void | undefined;
+    handleRedirect?: () => void | undefined
 }
 
 export const CarReservationCard: React.FC<CarReservationCarProps> = ({
