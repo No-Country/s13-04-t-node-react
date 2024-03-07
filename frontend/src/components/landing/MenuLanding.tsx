@@ -16,7 +16,7 @@ export const MenuLanding = () => {
   return (
     <>
       <div className='flex flex-col gap-y-6 px-4 py-10'>
-        <Link to='/acceso' className='flex items-center font-semibold'>
+        <Link to='/acceso' className='flex items-center font-semibold gap-2'>
           <img src='/images/user-icon.svg' alt='icon-car' />
           <p>Inicia sesión</p>
         </Link>
@@ -27,7 +27,7 @@ export const MenuLanding = () => {
           to='/registro/usuario/conductor'
           className='flex items-center gap-2 font-semibold'
         >
-          <img src='/images/car.svg' alt='icon-car' className='pl-1' />
+          <img src='/images/car.svg' alt='icon-car' />
           <p>Registrarse como conductor</p>
         </Link>
 
@@ -35,7 +35,7 @@ export const MenuLanding = () => {
           to='/registro/usuario/estacionamiento'
           className='flex items-center gap-2 font-semibold'
         >
-          <img src='/images/geo.svg' alt='icon-car' className='pl-1' />
+          <img src='/images/Parking.svg' alt='icon-car' />
           <p>Registrarse como estacionamiento</p>
         </Link>
       </div>
