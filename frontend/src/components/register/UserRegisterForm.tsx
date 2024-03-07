@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { authService } from '../../services/auth';
+import { Slide, toast } from 'react-toastify';
 interface Inputs {
   [key: string]: string | File;
   name: string;
@@ -16,6 +17,7 @@ interface Inputs {
 export default function UserRegisterForm() {
   const { role } = useParams();
   const navigation = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [imgUser, setImgUser] = useState<string | ArrayBuffer>(
     '/images/addPhotoUser.svg'
   );
@@ -27,22 +29,38 @@ export default function UserRegisterForm() {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-
+    setIsLoading(true);
     const formData = new FormData();
     for (const name in data) {
       formData.append(name, data[name]);
     }
     formData.append('role', role === 'conductor' ? 'user' : 'parking');
     formData.delete('confirmPassword');
-    const res = await authService.signup(formData);
-    if (res === 201) {
-      navigation(
-        `/${role === 'conductor' ? 'agregar-vehiculo' : 'estacionamiento'}`
-      );
-    } else {
-      console.log(res);
-    }
+    authService
+      .signup(formData)
+      .then((res) => {
+        if (res === 201) {
+          navigation(
+            `/${role === 'conductor' ? 'agregar-vehiculo' : 'estacionamiento'}`
+          );
+        }
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error('Hay algo mal en tus credenciales', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+          transition: Slide,
+        });
+        setIsLoading(false);
+      });
   };
   const loadNewImage = (newImage: File) => {
     const reader = new FileReader();
@@ -137,12 +155,22 @@ export default function UserRegisterForm() {
           placeholder='Ingresa una contraseña'
           type='password'
           {...register('password', {
-            required: true,
-            min: 6,
+            required: {
+              value: true,
+              message: 'Debe ingresar contraseña',
+            },
+            minLength: {
+              value: 6,
+              message: 'Debe tener al menos 6 caracteres',
+            },
+            maxLength: {
+              value: 15,
+              message: 'no debe ser mayor a 15 caracteres',
+            },
           })}
         />
         {errors.password != null && (
-          <span className='text-red-500'>La contraseña es obligatoria</span>
+          <span className='text-red-500'>{errors.password.message}</span>
         )}
       </label>
       <label className='flex-col flex mb-6 '>
@@ -160,10 +188,21 @@ export default function UserRegisterForm() {
         )}
       </label>
       <button
-        className='border rounded-3xl p-2 font-bold bg-[#D58418] text-center'
         type='submit'
+        className={`py-2 text-center ] rounded-3xl font-semibold w-full ${
+          isLoading ? 'bg-[#FFE9CC]' : 'bg-[#D58418]'
+        }`}
       >
-        Siguiente
+        {isLoading ? (
+          <img
+            src='/images/Loading.svg'
+            width={20}
+            height={20}
+            className='animate-spin m-auto'
+          />
+        ) : (
+          'Siguiente'
+        )}
       </button>
       <button
         className='border rounded-3xl p-2 font-bold text-center border-[#D58418]'

@@ -2,7 +2,11 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'sans': ['Roboto Condensed', 'Helvetica', 'Arial', 'sans-serif']
+      }
+    },
   },
   // eslint-disable-next-line no-undef
   plugins: [require('tailwind-scrollbar')],

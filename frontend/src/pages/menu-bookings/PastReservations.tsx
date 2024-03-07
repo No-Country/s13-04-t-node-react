@@ -1,8 +1,78 @@
 import { HeaderUser } from '../../components/shared/HeaderUser';
 import { BackArrowIcon } from '../../components/shared/BackArrowIcon';
-import { RiArrowGoForwardFill } from 'react-icons/ri';
+import { useState, useEffect, SetStateAction } from 'react';
+import { IBooking } from '../../types/bookings';
+import { ICar } from '../../types/vehicule';
+import { vehiculeService } from '../../services/vehicule';
+import useSWR from 'swr';
+import { useCurrentUser } from '../../hooks/auth';
+import { bookingsService } from '../../services/bookings';
+import { format } from 'date-fns';
+import { CarReservationCard } from '../../components/carReservation/CarReservationCard';
+import { LoadingIcon } from '../../components/shared/LoadingIcon';
+import { useNavigate } from 'react-router-dom';
+import { ReviewModal } from '../../components/shared/reviewModal';
+import { reviewService } from '../../services/review';
 
 export const PastReservations = () => {
+  const [pastBookings, setPastBookings] = useState<IBooking[] | undefined>([])
+  const [loading, setLoading] = useState(false)
+  const [carSelected, setCarSelected] = useState<string>('')
+  const [openModal, setOpenModal] = useState(false)
+  const [currentGarage, setCurrentGarage] = useState<string>('')
+
+
+  const navigate = useNavigate();
+  const user = useCurrentUser();
+
+
+  const handlePostReview = (rating: number) => {
+    reviewService.createReview({
+      id_author: user.id,
+      id_receiver: currentGarage,
+      type: 'Garage',
+      rating: rating,
+      comment: ''
+    })
+      .then(res => res.status === 200 ? handleRedirect(currentGarage) : alert('Ups, algo fallo'))
+  }
+
+  const { data: carList } = useSWR(['car-list'], () =>
+    vehiculeService.getByUserId(user.id)
+  )
+
+  useEffect(() => {
+    const fetchPastBookings = async () => {
+      setLoading(true)
+      const data = await bookingsService.PastListCar(user.id);
+      setPastBookings(data.bookings);
+      setLoading(false)
+    };
+
+    const fetchPastBookingsByCar = async (id: string) => {
+      setLoading(true)
+      const data = await bookingsService.PastListByCar(id);
+      setPastBookings(data.bookings);
+      setLoading(false)
+    };
+
+    if (carSelected !== '') {
+      fetchPastBookingsByCar(carSelected)
+    } else {
+      fetchPastBookings()
+    }
+  }, [carSelected, user.id])
+
+
+  const handleSelect = (e: { stopPropagation: () => void; target: { value: SetStateAction<string>; }; }) => {
+    e.stopPropagation()
+    setCarSelected(e.target.value)
+  }
+
+  const handleRedirect = (id: string) => {
+    navigate(`/reservar/${id}`)
+  }
+
   return (
     <>
       <HeaderUser />
@@ -13,32 +83,47 @@ export const PastReservations = () => {
           <p>Consulta tu historial de reservas</p>
         </div>
 
-        <div className='p-4 shadow-md rounded'>
-          <div className='flex flex-col gap-4'>
-            <div className='flex items-center justify-between gap-1'>
-              <div className='flex flex-col gap-1'>
-                <h2 className='text-xl font-semibold'>GARAJE DE JUAN</h2>
-                <span className='line-clamp-1'>
-                  Av. Directorio 3452, CABA, Argentina
-                </span>
+        <form>
+          <select onChange={handleSelect} className="border border-black rounded-lg mb-3">
+            <option key={1} value=''>Selecciona un vehiculo</option>
+            {carList?.data.cars.map((car: ICar) => (
+              <option key={car.id} value={car.id}>{car.plate}</option>
+            ))}
+          </select>
+        </form>
+
+        {loading ?
+          <LoadingIcon width={36} />
+          :
+          <div>
+            {pastBookings?.map((booking: IBooking) => (
+              <CarReservationCard
+                handleRedirect={() => {
+                  handleRedirect(booking.garage.id)
+                }}
+                name={booking.garage.name}
+                address={booking.garage.address}
+                start={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
+                end={format(new Date(booking.date_end), 'MM/dd - HH:mm')}
+                plate={booking.car.plate}
+                past={true}
+                key={booking.id}
+                onAction={() => {
+                  setCurrentGarage(booking.garage.id)
+                  setOpenModal(true)
+                }}
+              />
+            ))}
+            {(pastBookings?.length === 0 || !pastBookings) && (
+              <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
+                <img src="/images/BookingCarPast.svg" alt="no past bookings" />
+                <span>No tienes ninguna reserva pasada</span>
               </div>
-
-              <span className='self-start px-3 py-3 bg-[#5D2B2C] text-white rounded-md'>
-                0,0
-              </span>
-            </div>
-
-            <div className='py-1 border-2 border-[#D58418] rounded-md text-center'>
-              <span className='text-lg font-semibold'>Día - Horario</span>
-            </div>
-
-            <div className='flex items-center gap-2'>
-              <RiArrowGoForwardFill className='text-2xl text-[#5D2B2C] font-extrabold' />
-              <span className='text-lg font-semibold'>Volver a reservar</span>
-            </div>
+            )}
           </div>
-        </div>
+        }
       </div>
+      {openModal && <ReviewModal setOpenModal={setOpenModal} handlePostReview={handlePostReview} />}
     </>
   );
 };

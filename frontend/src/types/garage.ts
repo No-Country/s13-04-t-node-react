@@ -17,7 +17,7 @@ export interface IGarage {
   whitConfirmation: boolean;
   available: boolean;
   coordinates: string;
-  rating: null;
+  rating: number;
   schedule: Record<
     string,
     { name: string; schedule: { start: string; end: string }[] }
@@ -55,6 +55,7 @@ export interface ISearchGarage {
   coordinates: string;
   rating: null;
   user: User;
+  images: []
 }
 
 export interface User {
