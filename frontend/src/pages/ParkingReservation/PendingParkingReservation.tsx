@@ -8,14 +8,14 @@ import BackButton from "../../components/utilities/Backbutton";
 import useSWR from "swr";
 import { bookingsService } from "../../services/bookings";
 import { LoadingIcon } from "../../components/shared/LoadingIcon";
-import { IBooking } from "../../types/bookings";
+import { IBooking, IGarage } from "../../types/bookings";
 import { garageService } from "../../services/garage";
 
 export const PendingParkingReservation = () => {
   const user = useCurrentUser();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [selectedBooking, setSelectedBooking] = useState<IBooking | null>(null);
   const [pendingBookings, setPendingBookings] = useState<
     IBooking[] | undefined
   >();
@@ -30,14 +30,14 @@ export const PendingParkingReservation = () => {
     const fetchPendingBookings = async () => {
       setLoading(true);
       const data = await bookingsService.PendingList(user.id);
-      setPendingBookings(data);
+      setPendingBookings(data.bookings);
       setLoading(false);
     };
 
     const fetchPendingBookingsByGarage = async (id: string) => {
       setLoading(true);
       const data = await bookingsService.PendingListByGarage(id);
-      setPendingBookings(data);
+      setPendingBookings(data.bookings);
       setLoading(false);
     };
 
@@ -48,17 +48,17 @@ export const PendingParkingReservation = () => {
     }
   }, [gargageSelected, user.id]);
 
-  const handleSelect = (e) => {
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.stopPropagation();
     setGarageSelected(e.target.value);
   };
 
-  const handleRejectReservation = (booking) => {
+  const handleRejectReservation = (booking: IBooking) => {
     setSelectedBooking(booking);
     setIsCancelModalOpen(true);
   };
 
-  const handleAcceptReservation = (booking) => {
+  const handleAcceptReservation = (booking: IBooking) => {
     setSelectedBooking(booking);
     setIsConfirmModalOpen(true);
   };
@@ -91,7 +91,7 @@ export const PendingParkingReservation = () => {
             <option key={1} value="">
               Selecciona un establecimiento
             </option>
-            {garageList?.data.garages.map((garage: [IGarage]) => (
+            {garageList?.data.garages.map((garage: IGarage) => (
               <option key={garage.id} value={garage.id}>
                 {garage.name}
               </option>
@@ -103,7 +103,7 @@ export const PendingParkingReservation = () => {
           <LoadingIcon width={36} />
         ) : (
           <div>
-            {pendingBookings?.bookings.map((booking: any) => (
+            {pendingBookings?.map((booking: IBooking) => (
               <ParkingReservatiosCard
                 key={booking.id}
                 showDate={false}
@@ -121,13 +121,13 @@ export const PendingParkingReservation = () => {
                 marca={booking?.car.brand}
                 userName={booking.car?.user.name}
                 ranking={
-                  booking.car?.user.rating ? booking.car?.user.rating : null
+                  booking.car?.user.rating ? booking.car?.user.rating : undefined
                 }
                 garageName={booking.garage.name}
                 onAccept={() => handleAcceptReservation(booking)}
               />
             ))}
-            {pendingBookings?.bookings.length === 0 && (
+            {pendingBookings?.length === 0 && (
               <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
                 <img src="/images/noPending.svg" alt="no pending bookings" />
                 <span>No tienes ninguna reserva pendiente</span>

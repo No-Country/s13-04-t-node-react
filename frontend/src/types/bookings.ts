@@ -13,7 +13,7 @@ export interface IBookingResponse {
     id_car: string;
     id_garage: string;
     garage: IGarage;
-    car: IVehicle;
+    car: IVehicleUser;
    // bookings: IBooking[]; 
   }
   
@@ -30,6 +30,15 @@ export interface IBookingResponse {
     model: string;
     plate: string;
     color: string;
+  }
+
+  export interface IVehicleUser {
+    id: string;
+    brand: string;
+    model: string;
+    plate: string;
+    color: string;
+    user: IUser
   }
   
   export interface IUser {

@@ -1,51 +1,51 @@
 import { client } from "../config/client";
-import { IBooking, IBookingResponse } from "../types/bookings";
+import { IBookingResponse } from "../types/bookings";
 
 export const bookingsService = {
     async PendingList(idUser: string) {
-      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/pending`);
+      const res = await client.get<IBookingResponse>(`/bookings/user/${idUser}/status/pending`);
       
       return res.data;
     },
 
     async PastList(idUser: string) {
-      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/inactive`);
+      const res = await client.get<IBookingResponse>(`/bookings/user/${idUser}/status/inactive`);
       
       return res.data;
     },
 
     async ActiveList(idUser: string) {
-      const res = await client.get<IBooking[]>(`/bookings/user/${idUser}/status/active`);
+      const res = await client.get<IBookingResponse>(`/bookings/user/${idUser}/status/active`);
       
       return res.data;
     },
 
     async PendingListByGarage(idGarage: string) {
-      const res = await client.get<IBooking[]>(`/bookings/garage/${idGarage}/status/pending`);
+      const res = await client.get<IBookingResponse>(`/bookings/garage/${idGarage}/status/pending`);
       
       return res.data;
     },
 
     async PastListByGarage(idGarage: string) {
-      const res = await client.get<IBooking[]>(`/bookings/garage/${idGarage}/status/inactive`);
+      const res = await client.get<IBookingResponse>(`/bookings/garage/${idGarage}/status/inactive`);
       
       return res.data;
     },
 
     async ActiveListByGarage(idGarage: string) {
-      const res = await client.get<IBooking[]>(`/bookings/garage/${idGarage}/status/active`);
+      const res = await client.get<IBookingResponse>(`/bookings/garage/${idGarage}/status/active`);
       
       return res.data;
     },
 
     async ConfirmBooking(idUser: string) {
-      const res = await client.patch<IBooking[]>(`/bookings/status/${idUser}/accept`);
+      const res = await client.patch<IBookingResponse>(`/bookings/status/${idUser}/accept`);
       
       return res.data;
     },
 
     async RejectBooking(idUser: string) {
-      const res = await client.patch<IBooking[]>(`/bookings/status/${idUser}/reject`);
+      const res = await client.patch<IBookingResponse>(`/bookings/status/${idUser}/reject`);
       
       return res.data;
     },
