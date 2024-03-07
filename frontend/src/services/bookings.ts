@@ -38,13 +38,13 @@ export const bookingsService = {
       return res.data;
     },
 
-    async ConfirmBooking(idUser: any) {
+    async ConfirmBooking(idUser: string) {
       const res = await client.patch<IBooking[]>(`/bookings/status/${idUser}/accept`);
       
       return res.data;
     },
 
-    async RejectBooking(idUser: any) {
+    async RejectBooking(idUser: string) {
       const res = await client.patch<IBooking[]>(`/bookings/status/${idUser}/reject`);
       
       return res.data;
