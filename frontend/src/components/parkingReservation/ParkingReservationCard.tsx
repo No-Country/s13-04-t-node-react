@@ -25,6 +25,7 @@ type ParkingReservationsCardProps = {
     pathname: string;
     state: any;
   };
+  setOpenModal? : MouseEventHandler<HTMLButtonElement>
 };
 export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
   showValorateButtons = false,
@@ -47,8 +48,8 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
   ranking = "number",
   garageName = "string",
   linkTo,
+  setOpenModal = () => {}
 }) => {
-  console.log("Datos: ", linkTo);
 
   const cardContent = (
     <div
@@ -114,7 +115,7 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
         {showValorateButtons && (
         <div className="flex flex-row justify-end space-x-1 font-semibold">
           <img src="/images/valorateStar.svg" alt="valorate star" />
-          <button onClick={onReject}>Valorar conductor</button>
+          <button onClick={setOpenModal}>Valorar conductor</button>
         </div>
       )}
     

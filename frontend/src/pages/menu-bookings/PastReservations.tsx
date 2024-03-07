@@ -13,6 +13,7 @@ import { LoadingIcon } from '../../components/shared/LoadingIcon';
 import { useNavigate } from 'react-router-dom';
 import { ReviewModal } from '../../components/shared/reviewModal';
 import { reviewService } from '../../services/review';
+import {toast, Slide} from 'react-toastify';
 
 export const PastReservations = () => {
   const [pastBookings, setPastBookings] = useState<IBooking[] | undefined>([])
@@ -34,7 +35,19 @@ export const PastReservations = () => {
       rating: rating,
       comment: ''
     })
-      .then(res => res.status === 200 ? handleRedirect(currentGarage) : alert('Ups, algo fallo'))
+      .then(res => res.status === 200 ? handleRedirect(currentGarage) : 
+        toast.error('Algo salió mal', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+          transition: Slide,
+        })
+      )
   }
 
   const { data: carList } = useSWR(['car-list'], () =>
