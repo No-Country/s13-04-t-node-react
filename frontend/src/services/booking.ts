@@ -8,5 +8,9 @@ export const bookingService = {
   async createBooking(payload: CreateBooking){
     const res = await client.post(`/bookings`, payload);
     return res;
+  },
+  async deleteBooking(idBooking: string){
+    const res = await client.delete(`/bookings/${idBooking}`);
+    return res
   }
 };

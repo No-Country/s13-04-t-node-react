@@ -18,6 +18,7 @@ import { garageService } from '../../services/garage';
 import { useState } from 'react';
 import { ICar } from '../../types/vehicule';
 import { Slide, toast } from 'react-toastify';
+import { LoadingIcon } from '../../components/shared/LoadingIcon';
 
 export const CarDateReservation = () => {
   const navigate = useNavigate();
@@ -52,7 +53,11 @@ export const CarDateReservation = () => {
   }
 
   if (!garage) {
-    return <p>Cargando...</p>;
+    return (
+      <div className='flex min-h-dvh'>
+        <LoadingIcon width={50} />
+      </div>
+    );
   }
 
   const schedule = garage.schedule;
@@ -116,7 +121,9 @@ export const CarDateReservation = () => {
     });
     navigate(`/metodo-de-pago?${checkoutSearchParams}`);
   };
-
+  const maxTime = new Date();
+  maxTime.setHours(23);
+  maxTime.setMinutes(30);
   return (
     <>
       <HeaderUser />
@@ -136,7 +143,7 @@ export const CarDateReservation = () => {
 
           <div className='px-4 grid gap-4'>
             <div className='relative flex flex-col w-full'>
-              <label className='mb-1'>Día de reserva</label>
+              <label className='mb-1'>Hora de inicio de reserva</label>
               <div className='flex flex-col w-full relative'>
                 <BiSolidDownArrow className='absolute top-2 right-2 z-30' />
                 <DatePicker
@@ -153,14 +160,13 @@ export const CarDateReservation = () => {
                   dateFormat='d MMMM, yyyy h:mm aa'
                   minDate={new Date()}
                   className='px-4 py-1 border border-[#D58418] rounded-lg w-full outline-none placeholder:text-black font-semibold'
-                  placeholderText='Selección que día queres estacionar'
                   required
                 />
               </div>
             </div>
 
             <div className='relative flex flex-col w-full'>
-              <label className='mb-1'>Hora de inicio de reserva</label>
+              <label className='mb-1'>Hora de finalización de reserva</label>
               <div className='flex flex-col w-full relative'>
                 <BiSolidDownArrow className='absolute top-2 right-2 z-30' />
                 <DatePicker
@@ -171,8 +177,10 @@ export const CarDateReservation = () => {
                   filterTime={isAvailableTime('end')}
                   dateFormat='d MMMM, yyyy h:mm aa'
                   minDate={startDate}
+                  // maxDate={startDate}
+                  minTime={startDate ?? undefined}
+                  maxTime={maxTime}
                   className='px-4 py-1 border border-[#D58418] rounded-lg w-full outline-none placeholder:text-black font-semibold'
-                  placeholderText='Selecciona a que hora queres estacionar'
                   required
                 />
               </div>

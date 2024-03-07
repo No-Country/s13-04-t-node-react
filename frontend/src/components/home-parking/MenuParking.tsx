@@ -38,7 +38,7 @@ export const MenuParking = () => {
           <h5>Mis datos</h5>
         </Link>
         <Link to='/mis-estacionamientos' className='flex items-center gap-2'>
-          <img src='/images/geo.svg' alt='car-icon' />
+          <img src='/images/Parking.svg' alt='car-icon' />
           <h5>Mis establecimientos</h5>
         </Link>
       </div>
