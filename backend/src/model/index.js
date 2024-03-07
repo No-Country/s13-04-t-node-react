@@ -7,8 +7,8 @@ import {Review} from "./review.js"
 import FavoriteGarages from "./favorite_garage.js";
 
 
-await Garages.sync();
 await User.sync();
+await Garages.sync();
 await Car.sync();
 await Image.sync()
 await Booking.sync();
