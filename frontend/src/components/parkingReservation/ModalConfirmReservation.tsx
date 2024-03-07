@@ -1,15 +1,16 @@
 import React, { MouseEvent } from "react";
 import { bookingsService } from "../../services/bookings";
 import { useNavigate } from "react-router-dom";
+import { IBooking } from "../../types/bookings";
 
 interface ModalProps {
-  isOpen: boolean;
+  isOpen?: boolean;
   onClose: () => void;
-  userName: string;
-  date: string;
-  time: string;
-  bookingData: any;
-  idUser: string;
+  userName?: string;
+  date?: string;
+  time?: string;
+  bookingData?: IBooking;
+  idUser?: string;
 }
 
 const ModalConfirmReservation: React.FC<ModalProps> = ({
@@ -27,7 +28,7 @@ const ModalConfirmReservation: React.FC<ModalProps> = ({
   const sendConfirmation = async () => {
     try {
       const confirmationData = {
-        idUser: bookingData.id,
+        idUser: bookingData?.id || '',
       };
       const resConfirmationBooking = await bookingsService.ConfirmBooking(confirmationData.idUser);
       console.log(resConfirmationBooking);
@@ -45,7 +46,7 @@ const ModalConfirmReservation: React.FC<ModalProps> = ({
   console.log("Booking Data:", bookingData);
   
   // Convertir la fecha a un objeto Date
-  const startDate = new Date(bookingData?.date_start);
+  const startDate = new Date(bookingData?.date_start || new Date());
 
   // Obtener los componentes de la fecha
   const day = startDate.getDate();

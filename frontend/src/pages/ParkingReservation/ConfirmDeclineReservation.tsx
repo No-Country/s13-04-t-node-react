@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { ParkingReservatiosCard } from "../../components/parkingReservation/ParkingReservationCard";
 import { HeaderUser } from "../../components/shared/HeaderUser";
@@ -6,23 +5,23 @@ import ModalConfirmReservation from "../../components/parkingReservation/ModalCo
 import ModalCancelReservation from "../../components/parkingReservation/ModalcancelReservation";
 import BackButton from "../../components/utilities/Backbutton";
 import { useLocation } from "react-router-dom";
+import { IBooking } from "../../types/bookings";
 
 export const ConfirmDeclineReservation = () => {
   const location = useLocation();
   const bookingData = location.state?.booking;
-  console.log("a", bookingData);
   //const { booking } = props.location.state; // Accede a los datos de la reserva
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [selectedBooking, setSelectedBooking] = useState<IBooking | undefined>(undefined);
 
-  const handleRejectReservation = (bookingData) => {
+  const handleRejectReservation = (bookingData: IBooking) => {
     setSelectedBooking(bookingData);
     setIsCancelModalOpen(true);
   };
 
-  const handleAcceptReservation = (bookingData) => {
+  const handleAcceptReservation = (bookingData: IBooking) => {
     setSelectedBooking(bookingData);
     setIsConfirmModalOpen(true);
   };
@@ -39,10 +38,10 @@ export const ConfirmDeclineReservation = () => {
   const startDate = new Date(bookingData?.date_start);
   const endDate = new Date(bookingData?.date_end);
 
-  // Obtener los componentes de la fecha
+/*   // Obtener los componentes de la fecha
   const day = startDate.getDate();
 
-  const monthIndex = startDate.getMonth(); // Índice del mes (0-11)
+  const monthIndex = startDate.getMonth(); // Índice del mes (0-11) */
 
   const hours = startDate.getHours();
   const endHours = endDate.getHours();
@@ -58,7 +57,7 @@ export const ConfirmDeclineReservation = () => {
     endMinutes < 10 ? "0" : ""
   }${endMinutes}`;
 
-  // Array de nombres de meses en español
+/*   // Array de nombres de meses en español
   const months = [
     "enero",
     "febrero",
@@ -78,7 +77,7 @@ export const ConfirmDeclineReservation = () => {
   const month = months[monthIndex];
 
   // Construir la cadena de fecha en el formato deseado
-  const formattedDate = `${day} de ${month}`;
+  const formattedDate = `${day} de ${month}`; */
 
   return (
     <>
