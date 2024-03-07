@@ -6,12 +6,13 @@ import ModalCancelReservation from "../../components/parkingReservation/Modalcan
 import useSWR from "swr";
 import { bookingsService } from "../../services/bookings";
 import { LoadingIcon } from "../../components/shared/LoadingIcon";
+import { IBooking } from "../../types/bookings";
 
 export const HomeParking = () => {
   const user = useCurrentUser();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [selectedBooking, setSelectedBooking] = useState<IBooking | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
   const { data: pendingBookings } = useSWR(["pending-bookins"], () => {
@@ -24,12 +25,12 @@ export const HomeParking = () => {
     }
   }, [pendingBookings]);
 
-  const handleRejectReservation = (booking) => {
+  const handleRejectReservation = (booking: IBooking) => {
     setSelectedBooking(booking);
     setIsCancelModalOpen(true);
   };
 
-  const handleAcceptReservation = (booking) => {
+  const handleAcceptReservation = (booking: IBooking) => {
     setSelectedBooking(booking);
     setIsConfirmModalOpen(true);
   };
@@ -62,7 +63,7 @@ export const HomeParking = () => {
       )}
 
       {!isLoading &&
-        pendingBookings?.bookings.map((booking: any) => (
+        pendingBookings?.bookings.map((booking: IBooking) => (
           <ParkingReservatiosCard
             key={booking.id}
             showDate={false}
@@ -77,7 +78,7 @@ export const HomeParking = () => {
             marca={booking?.car.brand}
             userName={booking.car?.user.name}
             ranking={
-              booking.car?.user.rating ? booking.car?.user.rating : "0,0"
+              booking.car?.user.rating ? booking.car?.user.rating : undefined
             }
             garageName={booking.garage.name}
             linkTo={{

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { MdOutlineMessage, MdTurnedIn } from "react-icons/md";
+import { MdOutlineMessage } from "react-icons/md";
+import { MouseEventHandler } from "react";
 
 type ParkingReservationsCardProps = {
   showValorateButtons?: boolean;
@@ -23,7 +24,7 @@ type ParkingReservationsCardProps = {
   garageName?: string;
   linkTo?: {
     pathname: string;
-    state: any;
+    state: object;
   };
   setOpenModal? : MouseEventHandler<HTMLButtonElement>
 };
@@ -40,7 +41,6 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
   onAccept,
   onReject,
   isLink = false, // Por defecto, no es un enlace
-  id = "string",
   patente = "string",
   modelo = "string",
   marca = "string",

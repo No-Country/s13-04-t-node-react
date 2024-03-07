@@ -15,7 +15,7 @@ export const PendingParkingReservation = () => {
   const user = useCurrentUser();
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
-  const [selectedBooking, setSelectedBooking] = useState<IBooking | null>(null);
+  const [selectedBooking, setSelectedBooking] = useState<IBooking | undefined>(undefined);
   const [pendingBookings, setPendingBookings] = useState<
     IBooking[] | undefined
   >();
