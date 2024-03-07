@@ -8,11 +8,16 @@ import { LoadingIcon } from "../../components/shared/LoadingIcon";
 import { useState, useEffect } from "react";
 import { IBooking, IGarage } from "../../types/bookings";
 import { garageService } from "../../services/garage";
+import { ReviewModal } from '../../components/shared/reviewModal';
+import { reviewService } from "../../services/review";
+import { toast, Slide } from 'react-toastify';
 
 export const PastParkingReservation = () => {
   const [pastBookings, setPastBookings] = useState<IBooking[] | undefined>()
   const [loading, setLoading] = useState(false)
   const [gargageSelected, setGarageSelected] = useState<string>('')
+  const [openModal, setOpenModal] = useState(false)
+  const [currentUser , setCurrentUser] = useState<string>('')
 
   const user = useCurrentUser();
   
@@ -24,14 +29,14 @@ export const PastParkingReservation = () => {
     const fetchPendingBookings = async () => {
       setLoading(true)
       const data = await bookingsService.PastList(user.id);
-      setPastBookings(data);
+      setPastBookings(data.bookings);
       setLoading(false)
     };
 
     const fetchPendingBookingsByGarage = async (id: string) => {
       setLoading(true)
       const data = await bookingsService.PastListByGarage(id);
-      setPastBookings(data);
+      setPastBookings(data.bookings);
       setLoading(false)
     };
 
@@ -43,7 +48,42 @@ export const PastParkingReservation = () => {
     }
   }, [gargageSelected, user.id])
 
-  const handleSelect = (e) => {
+  const handlePostReview = (rating: number) => {
+    reviewService.createReview({
+      id_author: user.id,
+      id_receiver: currentUser,
+      type: 'User',
+      rating: rating,
+      comment: ''
+    })
+      .then(res => res.status === 200 ? 
+        toast.success('Tu reseña ha sido enviada', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+          transition: Slide,
+        })
+        :
+        toast.error('Algo salió mal', {
+          position: 'top-center',
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+          transition: Slide,
+        })
+      )
+  }
+
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.stopPropagation()
     setGarageSelected(e.target.value)
   }
@@ -62,7 +102,7 @@ export const PastParkingReservation = () => {
         <form>
           <select onChange={handleSelect} className="border border-black rounded-lg">
             <option key={1} value=''>Selecciona un establecimiento</option>
-            {garageList?.data.garages.map((garage: [IGarage]) => (
+            {garageList?.data.garages.map((garage: IGarage) => (
               <option key={garage.id} value={garage.id}>{garage.name}</option>
             ))}
           </select>
@@ -72,7 +112,7 @@ export const PastParkingReservation = () => {
           <LoadingIcon width={36} />
         :
           <div>
-            {pastBookings?.bookings.map((booking: any) => (
+            {pastBookings?.map((booking: IBooking) => (
               <ParkingReservatiosCard
                 key={booking.id}
                 showDate={false}
@@ -80,6 +120,7 @@ export const PastParkingReservation = () => {
                 showImgUser={false}
                 showModel={false}
                 showButtons={false}
+                showValorateButtons={true}
                 isLink={true}
                 carIconSrc="/images/car-white-icon.svg"
                 id={booking.id}
@@ -90,12 +131,16 @@ export const PastParkingReservation = () => {
                 marca={booking?.car.brand}
                 userName={booking.car?.user.name}
                 ranking={
-                  booking.car?.user.rating ? booking.car?.user.rating : null
+                  booking.car?.user.rating ? booking.car?.user.rating : undefined
                 }
                 garageName={booking.garage.name}
+                setOpenModal={() => {
+                  setCurrentUser(booking.car.user.id)
+                  setOpenModal(true)
+                }}
               />
             ))}
-            {pastBookings?.bookings.length === 0 && (
+            {pastBookings?.length === 0 && (
               <div className="flex flex-col items-center justify-center font-semibold gap-1 mt-4">
                 <img src="/images/noPastBookings.svg" alt="no past bookings" />
                 <span>No tienes ninguna reserva pasada</span>
@@ -104,6 +149,7 @@ export const PastParkingReservation = () => {
           </div>
         }
       </div>
+      {openModal && <ReviewModal setOpenModal={setOpenModal} handlePostReview={handlePostReview} />}
     </>
   );
 };

@@ -46,7 +46,7 @@ export const ActiveReservations = () => {
   }, [carSelected, user.id])
 
 
-  const handleSelect = (e) => {
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.stopPropagation()
     setCarSelected(e.target.value)
   }

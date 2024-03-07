@@ -2,7 +2,7 @@ type ModalConfirmProps = {
     title?: string,
     message?: string,
     onConfirm?: () => void,
-    onClose?: () => void,
+    onClose?: (value: string | undefined) => void,
 }
 export const ModalConfirm: React.FC<ModalConfirmProps>= ({
     title = '', message = '', onConfirm = () => {} , onClose = () => {},
@@ -17,7 +17,7 @@ export const ModalConfirm: React.FC<ModalConfirmProps>= ({
                     <button
                     className='border border-[red]  rounded-3xl p-2 font-bold text-center w-[40%] mr-1'
                     type='button'
-                    onClick={onClose}
+                    onClick={() => onClose(undefined)}
                     >
                     Cancelar
                     </button>

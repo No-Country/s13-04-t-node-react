@@ -7,9 +7,16 @@ export interface IVehicule {
     model: string;
     plate: string;
     color: string;
-    user: IUser;
+}
 
+export interface IVehiculeUser {
 
+  idUser: string;
+  brand: string;
+  model: string;
+  plate: string;
+  color: string;
+  user: IUser;
 }
 
 

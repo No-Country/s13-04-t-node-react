@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { MdOutlineMessage } from "react-icons/md";
+import { MouseEventHandler } from "react";
 
 type ParkingReservationsCardProps = {
+  showValorateButtons?: boolean;
   showButtons?: boolean;
   showModel?: boolean;
   showDate?: boolean;
@@ -20,9 +22,14 @@ type ParkingReservationsCardProps = {
   userName?: string;
   ranking?: number;
   garageName?: string;
+  linkTo?: {
+    pathname: string;
+    state: object;
+  };
+  setOpenModal? : MouseEventHandler<HTMLButtonElement>
 };
-
 export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
+  showValorateButtons = false,
   showButtons = true,
   showModel = true,
   showDate = true,
@@ -34,14 +41,16 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
   onAccept,
   onReject,
   isLink = false, // Por defecto, no es un enlace
-  id = "string",
   patente = "string",
   modelo = "string",
   marca = "string",
   userName = "string",
-  ranking = "number",
-  garageName = 'string'
+  ranking = undefined,
+  garageName = "string",
+  linkTo,
+  setOpenModal = () => {}
 }) => {
+
   const cardContent = (
     <div
       className={`py-1 border-2 rounded-md flex flex-col items-center ${bgColor} py-4`}
@@ -68,8 +77,10 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-1"></div>
-        {isLink ? ( // Verifica si el card debe ser un enlace
-          <Link to="/gestionarParking/reserva">{cardContent}</Link>
+        {isLink && linkTo ? ( // Verifica si el card debe ser un enlace y si hay una ruta proporcionada
+          <Link to={linkTo.pathname} state={linkTo.state}>
+            {cardContent}
+          </Link>
         ) : (
           cardContent
         )}
@@ -82,12 +93,12 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
             />
           )}
           <span className="ml-2">{userName}</span>
-          {ranking &&
+          {ranking && (
             <div className="flex items-center justify-between bg-[#5D2B2C] text-white rounded-md text-center px-1 py-1 ml-auto">
               <img src="/images/whiteStar.svg" alt="star" />
               <span className="ml-1">{ranking}</span>
             </div>
-          }
+          )}
           {showChat && (
             <button
               className="text-3xl flex-shrink-0 ml-2" /*onClick={redirectToChat}*/
@@ -95,13 +106,20 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
               <MdOutlineMessage />
             </button>
           )}
-          
         </div>
         <div className="ml-2">
           <span className="text-red-900 text-xl font-semibold">
             {garageName}
           </span>
         </div>
+        {showValorateButtons && (
+        <div className="flex flex-row justify-end space-x-1 font-semibold">
+          <img src="/images/valorateStar.svg" alt="valorate star" />
+          <button onClick={setOpenModal}>Valorar conductor</button>
+        </div>
+      )}
+    
+
         {showButtons && (
           <div className="flex flex-row justify-end space-x-4 font-semibold">
             {onAccept && <button onClick={onReject}>Rechazar</button>}
