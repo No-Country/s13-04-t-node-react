@@ -49,12 +49,12 @@ export const PendingReservations = () => {
   }, [carSelected, user.id])
 
 
-  const handleSelect = (e) => {
+  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.stopPropagation()
     setCarSelected(e.target.value)
   }
 
-  const onCancel = (e, id) => {
+  const onCancel = (id: string | undefined) => {
     if (id) {
       setCurrentBooking(id)
     }
@@ -102,7 +102,7 @@ export const PendingReservations = () => {
                 end={format(new Date(booking.date_end), 'MM/dd - HH:mm')}
                 plate={booking.car.plate}
                 pending={true}
-                onCancel={(e) => onCancel(e, booking.id)}
+                onAction={() => onCancel(booking.id)}
                 key={booking.id}
               />
             ))}
