@@ -45,7 +45,7 @@ export const ParkingReservatiosCard: React.FC<ParkingReservationsCardProps> = ({
   modelo = "string",
   marca = "string",
   userName = "string",
-  ranking = "number",
+  ranking = undefined,
   garageName = "string",
   linkTo,
   setOpenModal = () => {}
