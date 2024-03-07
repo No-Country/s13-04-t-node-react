@@ -80,6 +80,7 @@ export const PastParkingReservation = () => {
                 showImgUser={false}
                 showModel={false}
                 showButtons={false}
+                showValorateButtons={true}
                 isLink={true}
                 carIconSrc="/images/car-white-icon.svg"
                 id={booking.id}

@@ -16,47 +16,46 @@ export const PendingParkingReservation = () => {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
-  const [pendingBookings, setPendingBookings] = useState<IBooking[] | undefined>()
-  const [loading, setLoading] = useState(false)
-  const [gargageSelected, setGarageSelected] = useState<string>('')
+  const [pendingBookings, setPendingBookings] = useState<
+    IBooking[] | undefined
+  >();
+  const [loading, setLoading] = useState(false);
+  const [gargageSelected, setGarageSelected] = useState<string>("");
 
-  const {data: garageList} = useSWR(['garage-list'] , () => 
+  const { data: garageList } = useSWR(["garage-list"], () =>
     garageService.getByUserId(user.id)
-  )
+  );
 
-  
-  useEffect(() =>{
+  useEffect(() => {
     const fetchPendingBookings = async () => {
-      setLoading(true)
+      setLoading(true);
       const data = await bookingsService.PendingList(user.id);
       setPendingBookings(data);
-      setLoading(false)
+      setLoading(false);
     };
-    
+
     const fetchPendingBookingsByGarage = async (id: string) => {
-      setLoading(true)
+      setLoading(true);
       const data = await bookingsService.PendingListByGarage(id);
       setPendingBookings(data);
-      setLoading(false)
+      setLoading(false);
     };
-    
-    
-    if(gargageSelected !== ''){
-      fetchPendingBookingsByGarage(gargageSelected)
-    }else{
-      fetchPendingBookings()
+
+    if (gargageSelected !== "") {
+      fetchPendingBookingsByGarage(gargageSelected);
+    } else {
+      fetchPendingBookings();
     }
-  }, [gargageSelected, user.id])
-  
+  }, [gargageSelected, user.id]);
+
   const handleSelect = (e) => {
-    e.stopPropagation()
-    setGarageSelected(e.target.value)
-  }
+    e.stopPropagation();
+    setGarageSelected(e.target.value);
+  };
 
   const handleRejectReservation = (booking) => {
     setSelectedBooking(booking);
     setIsCancelModalOpen(true);
-    
   };
 
   const handleAcceptReservation = (booking) => {
@@ -85,17 +84,24 @@ export const PendingParkingReservation = () => {
         </div>
 
         <form>
-          <select onChange={handleSelect} className="border border-black rounded-lg">
-            <option key={1} value=''>Selecciona un establecimiento</option>
+          <select
+            onChange={handleSelect}
+            className="border border-black rounded-lg"
+          >
+            <option key={1} value="">
+              Selecciona un establecimiento
+            </option>
             {garageList?.data.garages.map((garage: [IGarage]) => (
-              <option key={garage.id} value={garage.id}>{garage.name}</option>
+              <option key={garage.id} value={garage.id}>
+                {garage.name}
+              </option>
             ))}
           </select>
         </form>
 
-        {loading ? 
+        {loading ? (
           <LoadingIcon width={36} />
-        :
+        ) : (
           <div>
             {pendingBookings?.bookings.map((booking: any) => (
               <ParkingReservatiosCard
@@ -103,6 +109,10 @@ export const PendingParkingReservation = () => {
                 showDate={false}
                 showChat={false}
                 showImgUser={false}
+                linkTo={{
+                  pathname: "/gestionarParking/reserva",
+                  state: { booking },
+                }}
                 onReject={() => handleRejectReservation(booking)}
                 isLink={true}
                 id={booking.id}
@@ -124,7 +134,7 @@ export const PendingParkingReservation = () => {
               </div>
             )}
           </div>
-        }
+        )}
       </div>
       <ModalConfirmReservation
         bookingData={selectedBooking}
