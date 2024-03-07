@@ -1,6 +1,6 @@
 import { HeaderUser } from '../../components/shared/HeaderUser';
 import { BackArrowIcon } from '../../components/shared/BackArrowIcon';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import { IBooking } from '../../types/bookings';
 import { ICar } from '../../types/vehicule';
 import { vehiculeService } from '../../services/vehicule';
@@ -12,30 +12,30 @@ import { CarReservationCard } from '../../components/carReservation/CarReservati
 import { LoadingIcon } from '../../components/shared/LoadingIcon';
 import { useNavigate } from 'react-router-dom';
 import { ReviewModal } from '../../components/shared/reviewModal';
+import { reviewService } from '../../services/review';
 
 export const PastReservations = () => {
   const [pastBookings, setPastBookings] = useState<IBooking[] | undefined>([])
   const [loading, setLoading] = useState(false)
   const [carSelected, setCarSelected] = useState<string>('')
   const [openModal, setOpenModal] = useState(false)
-  const [ratingReview, setRatingReview] = useState(0)
+  const [currentGarage, setCurrentGarage] = useState<string>('')
 
-  useEffect(() => {
-    //no se si la funcion deberia estar en un useEffect
-    //¿como vamos a validar que solo haga una review?
-    //hacer el post del review
-    console.log('Rating review', ratingReview)
-    /**
-  "id_author": "string",
-  "id_receiver": "string",
-  "type": "User",
-  "rating": 0,
-  "comment": "string"
-     */
-  }, [ratingReview])
 
   const navigate = useNavigate();
   const user = useCurrentUser();
+
+
+  const handlePostReview = (rating: number) => {
+    reviewService.createReview({
+      id_author: user.id,
+      id_receiver: currentGarage,
+      type: 'Garage',
+      rating: rating,
+      comment: ''
+    })
+      .then(res => res.status === 200 ? handleRedirect(currentGarage) : alert('Ups, algo fallo'))
+  }
 
   const { data: carList } = useSWR(['car-list'], () =>
     vehiculeService.getByUserId(user.id)
@@ -64,12 +64,12 @@ export const PastReservations = () => {
   }, [carSelected, user.id])
 
 
-  const handleSelect = (e) => {
+  const handleSelect = (e: { stopPropagation: () => void; target: { value: SetStateAction<string>; }; }) => {
     e.stopPropagation()
     setCarSelected(e.target.value)
   }
 
-  const handleRedirect = (e, id: string) => {
+  const handleRedirect = (id: string) => {
     navigate(`/reservar/${id}`)
   }
 
@@ -98,6 +98,9 @@ export const PastReservations = () => {
           <div>
             {pastBookings?.map((booking: IBooking) => (
               <CarReservationCard
+                handleRedirect={() => {
+                  handleRedirect(booking.garage.id)
+                }}
                 name={booking.garage.name}
                 address={booking.garage.address}
                 start={format(new Date(booking.date_start), 'MM/dd - HH:mm')}
@@ -105,7 +108,8 @@ export const PastReservations = () => {
                 plate={booking.car.plate}
                 past={true}
                 key={booking.id}
-                onCancel={(event) => {
+                onAction={() => {
+                  setCurrentGarage(booking.garage.id)
                   setOpenModal(true)
                 }}
               />
@@ -119,7 +123,7 @@ export const PastReservations = () => {
           </div>
         }
       </div>
-      {openModal && <ReviewModal setOpenModal={setOpenModal} setRatingReview={setRatingReview} />}
+      {openModal && <ReviewModal setOpenModal={setOpenModal} handlePostReview={handlePostReview} />}
     </>
   );
 };
