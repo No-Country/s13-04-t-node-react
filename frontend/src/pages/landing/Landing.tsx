@@ -5,30 +5,24 @@ export const Landing = () => {
   return (
     <>
       <HeaderLanding />
-      <div className='px-4 py-16'>
-        <div className='flex flex-row gap-x-6 items-center font-semibold text-xl'>
-          <div className='flex flex-col'>
-            <h1>
-              Encontra tu estacionamiento
-              <br /> Alquila tu cochera
-            </h1>
+      <div className='grid grid-cols-1 px-4 py-16'>
+        <div className='relative flex flex-col text-xl'>
+          <div className='absolute right-3'>
+            <img
+              src='/images/vehicleLogin.svg'
+              alt='Comienza a usar nuestros servicios'
+            />
+          </div>
+
+          <div className='flex flex-col relative w-40 text-2xl gap-4'>
+            <h1>Encontra tu estacionamiento Alquila tu cochera</h1>
             <h2>
-              <br />
-              Descubre una
-              <br /> nueva forma de estacionar
+              Descubre una nueva forma <br /> de estacionar
             </h2>
           </div>
-          <img
-            src='/images/vehicleLogin.svg'
-            alt='Comienza a usar nuestros servicios'
-            style={{
-              width: '218px',
-              height: '249px',
-            }}
-          />
         </div>
 
-        <div className='flex flex-col items-center gap-4 py-10'>
+        <div className='flex flex-col items-center gap-4 py-8'>
           <CustomButton
             to='/informacion'
             text='Mas informacion'
