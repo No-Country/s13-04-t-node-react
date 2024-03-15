@@ -12,7 +12,7 @@ import {
   Pin,
   Map,
 } from '@vis.gl/react-google-maps';
-import { KEY_MAPS } from '../../constants/key';
+import { KEY_MAPS, MAP_ID } from '../../constants/mapsApi';
 import { LoadingIcon } from '../shared/LoadingIcon';
 
 interface FormBookingProps {
@@ -94,11 +94,7 @@ export const FormBooking: React.FC<FormBookingProps> = ({
                   alt='icon-close'
                 />
               </div>
-              <Map
-                defaultZoom={18}
-                defaultCenter={coordinates}
-                mapId='961237163a24f96a'
-              >
+              <Map defaultZoom={18} defaultCenter={coordinates} mapId={MAP_ID}>
                 <AdvancedMarker position={coordinates} draggable={false}>
                   <Pin
                     background={'red'}

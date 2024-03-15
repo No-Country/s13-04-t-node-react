@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { KEY_MAPS } from '../../constants/key';
+import { KEY_MAPS } from '../../constants/mapsApi';
 import {
   APIProvider,
   AdvancedMarker,
@@ -7,6 +7,7 @@ import {
   Pin,
 } from '@vis.gl/react-google-maps';
 import { useFormContext } from 'react-hook-form';
+import { MAP_ID } from '../../constants/mapsApi';
 
 interface Props {
   coordinates: {
@@ -41,11 +42,7 @@ function ModalMapConfirm({ coordinates, setOpenModal, setStep }: Props) {
         <p className='text-base'>Confirma la ubicación en el mapa</p>
         <APIProvider apiKey={KEY_MAPS}>
           <div className='w-full aspect-square m-auto'>
-            <Map
-              defaultZoom={18}
-              defaultCenter={markerPosition}
-              mapId='961237163a24f96a'
-            >
+            <Map defaultZoom={18} defaultCenter={markerPosition} mapId={MAP_ID}>
               <AdvancedMarker
                 position={markerPosition}
                 draggable
